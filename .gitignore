@@ -2,3 +2,4 @@ vendor/
 .env
 *.log
 vendor/
+.env.local
