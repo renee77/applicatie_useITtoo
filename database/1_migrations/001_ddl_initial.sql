@@ -1,6 +1,3 @@
---  als een product verwijderd wordt moet voorraad ook verwijderd worden staat nu standaard op restrict 
--- ik heb al wat constraints toegevoegd, 
-
 -- voorkomt een foutmelding als de database al bestaat, en zorgt ervoor dat de database wordt geselecteerd voor gebruik
 CREATE DATABASE IF NOT EXISTS useITtooApplicatieDB 
 -- dit ondersteunt ook de juiste tekenset voor het opslaan van speciale tekens in de database, zoals emoji's, soms handig in de recepten of productomschrijvingen
@@ -65,6 +62,18 @@ FOR EACH ROW
 BEGIN
     INSERT INTO `voorraad` (`product_id`, `aantal`, `status`)
     VALUES (NEW.product_id, 0, 'uitverkocht');
+END//
+
+CREATE TRIGGER product_soft_delete_voorraad
+AFTER UPDATE ON `product`
+FOR EACH ROW
+BEGIN
+  IF OLD.deleted_at IS NULL AND NEW.deleted_at IS NOT NULL THEN
+    UPDATE `voorraad`
+    SET deleted_at = NEW.deleted_at
+    WHERE product_id = NEW.product_id
+      AND deleted_at IS NULL;
+  END IF;
 END//
 DELIMITER ;
 
@@ -262,7 +271,7 @@ CREATE TABLE `winkelwagen_regel` (
   -- voorkomt dat hetzelfde product twee keer als aparte rij wordt toegevoegd
   -- de applicatie moet bij een dubbel product de bestaande rij updaten (aantal + 1)
   UNIQUE (`winkelwagen_id`, `product_id`),
-  FOREIGN KEY (`winkelwagen_id`) REFERENCES `winkelwagen`(`winkelwagen_id`),
+  FOREIGN KEY (`winkelwagen_id`) REFERENCES `winkelwagen`(`winkelwagen_id`) ON DELETE CASCADE,
   FOREIGN KEY (`product_id`) REFERENCES `product`(`product_id`)
 );
 
