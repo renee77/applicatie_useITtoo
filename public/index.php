@@ -1,8 +1,8 @@
 <?php
-// Front Controller - alle requests lopen hier doorheen
-// require_once '../vendor/autoload.php';
+//Front Controller - alle requests lopen hier doorheen
+require_once '../vendor/autoload.php';
 
-// use App\Core\Router;
+use App\Core\Router;
 
-// $router = new Router();
-// $router->dispatch(); 
+$router = new Router();
+$router->dispatch();
