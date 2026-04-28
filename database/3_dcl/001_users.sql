@@ -29,7 +29,7 @@
 USE useITtooApplicatieDB;
 
 DROP USER IF EXISTS 'useittoo_app'@'localhost';
-CREATE USER 'useittoo_app'@'localhost' IDENTIFIED BY 'App2026!UseITtoo';
+CREATE USER 'useittoo_app'@'localhost' IDENTIFIED BY 'WACHTWOORD_HIER_INVULLEN';
 
 -- PRODUCTEN EN VOORRAAD
 -- INSERT op voorraad is niet nodig: de trigger product_insert_voorraad
