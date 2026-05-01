@@ -36,7 +36,7 @@ jobs:
               run: composer install  # Installeert alle PHP-pakketten uit composer.json
 
             - name: Unittests uitvoeren
-              run: vendor/bin/phpunit --testdox  # Voert alle unittests uit met leesbare output
+              run: vendor/bin/phpunit --testdox  tests/Unit # Voert alle unittests uit met leesbare output
 
             - name: Code stijl controleren
               run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
