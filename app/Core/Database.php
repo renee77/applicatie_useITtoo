@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Core;
+
+use PDO;
+
 // ============================================================
 // Database.php — databaseverbinding via het Singleton-patroon
 //
@@ -11,37 +15,11 @@
 // verbindingen naar de database.
 // ============================================================
 
-// Laadt de autoloader van Composer.
-// Composer heeft vlucas/phpdotenv geïnstalleerd in de vendor/ map.
-// De autoloader zorgt ervoor dat alle Composer-packages automatisch
-// beschikbaar zijn zonder dat je ze handmatig hoeft te importeren.
-require_once __DIR__ . '/../../vendor/autoload.php';
 
-// Maak een Dotenv-instantie aan die het .env.local bestand inleest.
-//
-// createImmutable():
-//   Laadt de variabelen als onveranderbaar — een al bestaande
-//   omgevingsvariabele wordt niet overschreven. Dit is de
-//   aanbevolen aanpak voor productieomgevingen.
-//
-// Eerste argument: het pad naar de map waar .env.local staat.
-//   __DIR__ is de map van dit bestand (app/Core/).
-//   ../../ gaat twee mappen omhoog naar de projectroot.
-//
-// Tweede argument: de bestandsnaam.
-//   Standaard zoekt Dotenv naar '.env'. Door '.env.local' mee
-//   te geven lezen we expliciet het lokale configuratiebestand.
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../', '.env.local');
-
-// Lees het .env.local bestand in en zet alle variabelen
-// beschikbaar via $_ENV en getenv().
-// Gooit een exception als het bestand niet gevonden wordt.
-$dotenv->load();
 
 
 class Database
 {
-
     // Bewaart de enige PDO-instantie voor de hele request.
     // static: de waarde blijft beschikbaar tussen aanroepen.
     // ?PDO:  begint als null, wordt gevuld bij de eerste aanroep.
@@ -50,7 +28,9 @@ class Database
     // De constructor is private zodat niemand buiten deze klasse
     // een nieuw Database-object kan aanmaken met 'new Database()'.
     // Toegang loopt uitsluitend via getConnection() hieronder.
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     // Geeft de PDO-verbinding terug.
     // static: aanroepbaar zonder object — Database::getConnection()
@@ -62,7 +42,6 @@ class Database
         // Zo ja: sla de rest over en geef de bestaande verbinding terug.
         // Zo nee: maak een nieuwe verbinding aan (zie hieronder).
         if (self::$instance === null) {
-
             // Bouw de DSN (Data Source Name): de verbindingsstring voor PDO.
             // De waarden komen uit $_ENV, gevuld door Dotenv vanuit .env.local.
             //
