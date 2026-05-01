@@ -1,0 +1,45 @@
+# een geldig workflow-bestand heeft altijd drie verplichte onderdelen:
+
+# name — de naam (heb je al)
+# on — wanneer start de pipeline
+# jobs — wat doet de pipeline
+
+# Dit is de naam die je terugziet in de GitHub Actions-tab als de pipeline draait. Puur een label, geen functionele instelling.
+name: CI/CD Pipeline useITtoo
+
+# Hier geef je aan wanneer de pipeline moet starten. 
+# In dit geval start de pipeline bij elke push naar de branch feature/cicd-pipeline en bij elke pull request naar main.
+on:
+    push:
+        branches: 
+            - feature/cicd-pipeline
+    pull_request:
+        branches: 
+            - main
+
+# Hier definieer je de jobs die de pipeline moet uitvoeren.
+# In dit voorbeeld is er één job genaamd build, die draait op een Ubuntu-latest machine.
+jobs:
+    build-test-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Code ophalen
+              uses: actions/checkout@v4 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
+
+            - name: PHP instellen
+              uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
+              with:
+                php-version: '8.3' # specificeert de versie van php die moet worden geïnstalleerd
+
+            - name: Dependencies installeren
+              run: composer install  # Installeert alle PHP-pakketten uit composer.json
+
+            - name: Unittests uitvoeren
+              run: vendor/bin/phpunit --testdox  # Voert alle unittests uit met leesbare output
+
+            - name: Code stijl controleren
+              run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
+            
+            - name: Deploy
+              run: echo "Deployen naar testserver gesimuleerd"  # Hier zou je de daadwerkelijke deploy-commando's plaatsen
