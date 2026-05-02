@@ -36,12 +36,20 @@ jobs:
               run: composer install  # Installeert alle PHP-pakketten uit composer.json
 
             - name: Unittests uitvoeren
+              # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
+              # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
+              run: |
+                set -o pipefail
+                vendor/bin/phpunit --testdox tests/Unit 2>&1 | tee build.log
               # Voert alle unittests uit met leesbare output en maakt een logbestand aan
               # 2>&1 stuurt foutmeldingen (stderr) samen met normale output (stdout) naar dezelfde stroom
               # tee schrijft de gecombineerde output tegelijk naar build.log én naar het scherm
               # zonder 2>&1 zouden fatale PHPUnit-fouten niet in build.log terechtkomen
-              run: vendor/bin/phpunit --testdox  tests/Unit 2>&1 | tee build.log 
-
+              ##############################
+              # set -o pipefail: zonder deze instelling gaat de exitcode van phpunit verloren
+              # door de pipe naar tee. De pipe maakt een subshell en geeft alleen de exitcode
+              # van het laatste commando (tee) terug — die is altijd 0 ook als phpunit faalt.
+              # pipefail zorgt dat de exitcode van phpunit wél wordt doorgegeven aan GitHub Actions.
             - name: Code stijl controleren
               run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
 
