@@ -16,7 +16,7 @@ class User
     }
     public function getName(): string
     {
-        return $this->email;
+        return $this->name;
     }
     public function getEmail(): string
     {
