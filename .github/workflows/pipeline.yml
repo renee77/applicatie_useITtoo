@@ -30,7 +30,7 @@ jobs:
             - name: PHP instellen
               uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
               with:
-                php-version: '8.3' # specificeert de versie van php die moet worden geïnstalleerd
+                php-version: '8.2' # specificeert de versie van php die moet worden geïnstalleerd
 
             - name: Dependencies installeren
               run: composer install  # Installeert alle PHP-pakketten uit composer.json
