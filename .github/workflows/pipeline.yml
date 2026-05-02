@@ -36,10 +36,17 @@ jobs:
               run: composer install  # Installeert alle PHP-pakketten uit composer.json
 
             - name: Unittests uitvoeren
-              run: vendor/bin/phpunit --testdox  tests/Unit # Voert alle unittests uit met leesbare output
+              # Voert alle unittests uit met leesbare output en maakt een logbestand aan
+              # 2>&1 stuurt foutmeldingen (stderr) samen met normale output (stdout) naar dezelfde stroom
+              # tee schrijft de gecombineerde output tegelijk naar build.log én naar het scherm
+              # zonder 2>&1 zouden fatale PHPUnit-fouten niet in build.log terechtkomen
+              run: vendor/bin/phpunit --testdox  tests/Unit 2>&1 | tee build.log 
 
             - name: Code stijl controleren
               run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
+
+            - name: AI log analyse
+              run: python3 ai_check.py  # Analyseert build.log op foutpatronen
 
             - name: SonarQube analyse
               uses: SonarSource/sonarqube-scan-action@v6
