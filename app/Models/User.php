@@ -8,8 +8,7 @@ class User
         private int $id,
         private string $name,
         private string $email
-    ) {
-    }
+    ) {}
 
     public function getId(): int
     {
@@ -17,7 +16,7 @@ class User
     }
     public function getName(): string
     {
-        return $this->name;
+        return $this->email;
     }
     public function getEmail(): string
     {
