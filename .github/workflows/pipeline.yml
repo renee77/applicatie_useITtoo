@@ -53,6 +53,10 @@ jobs:
             - name: Code stijl controleren
               run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
 
+            - name: Scenario 4 AI detectie test (uitgecomment)
+              run: python3 inject_errors.py
+              # run: echo "Scenario 4 uitgecomment"
+
             - name: AI log analyse
               run: python3 ai_check.py  # Analyseert build.log op foutpatronen
 
