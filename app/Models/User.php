@@ -26,3 +26,4 @@ class User
         return $this->email;
     }
 }
+<?php class BrokenStyle{function test(){return 1;}}
