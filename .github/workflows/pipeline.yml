@@ -25,7 +25,7 @@ jobs:
 
         steps:
             - name: Code ophalen
-              uses: actions/checkout@v4 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
+              uses: actions/checkout@v6 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
 
             - name: PHP instellen
               uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
