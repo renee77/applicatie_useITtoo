@@ -1,0 +1,56 @@
+version: 2
+# Versie 2 is de enige ondersteunde versie van het Dependabot-configuratieformaat.
+
+updates:
+
+  # --- Ecosysteem 1: Composer (PHP-packages) ---
+  - package-ecosystem: "composer"
+    # Bewaakt composer.json en composer.lock op bekende kwetsbaarheden.
+    # Alternatieven voor andere projecten: "npm" (JavaScript), "pip" (Python),
+    # "maven" of "gradle" (Java), "nuget" (.NET).
+
+    directory: "/"
+    # De map waar composer.json staat, gemeten vanaf de root van de repository.
+    # Bij een monorepo met meerdere packages kun je hier een submap opgeven,
+    # bijvoorbeeld "/backend" of "/packages/api".
+
+    schedule:
+      interval: "weekly"
+      # Hoe vaak Dependabot controleert op updates.
+      # Opties: "daily", "weekly", "monthly".
+      # "weekly" is voor de meeste projecten een goede balans tussen
+      # tijdigheid en het voorkomen van te veel pull requests.
+
+    open-pull-requests-limit: 5
+    # Het maximale aantal openstaande pull requests dat Dependabot tegelijk
+    # mag aanmaken voor dit ecosysteem. Standaard is 5.
+    # Bij een groot project met veel dependencies kun je dit verhogen.
+    # Zet dit op 0 om updates tijdelijk te pauzeren zonder de configuratie
+    # te verwijderen.
+
+  # --- Ecosysteem 2: GitHub Actions ---
+  - package-ecosystem: "github-actions"
+    # Bewaakt de versienummers van actions in .github/workflows/*.yml,
+    # zoals actions/checkout@v4 of actions/setup-php@v2.
+    # Actions zijn externe code met toegang tot je repository en secrets —
+    # het vastpinnen en bewaken van versies is daarom een beveiligingsmaatregel.
+
+    directory: "/"
+    # GitHub Actions configuraties staan altijd in .github/workflows/,
+    # maar de directory verwijst altijd naar de root "/".
+    # Dit is een vereiste van Dependabot, niet iets wat je kunt aanpassen.
+
+    schedule:
+      interval: "weekly"
+
+    open-pull-requests-limit: 5
+
+  # --- Ecosysteem 3: Docker (optioneel, niet actief geconfigureerd) ---
+  # Dependabot kan ook Docker images bewaken in een Dockerfile,
+  # bijvoorbeeld: FROM php:8.2-cli
+  # Dit vereist expliciete versietags in de Dockerfile (geen "latest").
+  # Voor dit project is dit bewust weggelaten omdat de pipeline gebruikmaakt
+  # van een officieel PHP-image waarvan de versie al vastgepind is en
+  # beveiligingsupdates via de Composer- en Actions-ecosystemen worden
+  # afgedekt. In een productieomgeving is het toevoegen van Docker-bewaking
+  # een aanbevolen extra stap.

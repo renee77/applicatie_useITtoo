@@ -1,0 +1,71 @@
+# een geldig workflow-bestand heeft altijd drie verplichte onderdelen:
+
+# name — de naam (heb je al)
+# on — wanneer start de pipeline
+# jobs — wat doet de pipeline
+
+# Dit is de naam die je terugziet in de GitHub Actions-tab als de pipeline draait. Puur een label, geen functionele instelling.
+name: CI/CD Pipeline useITtoo
+
+# Hier geef je aan wanneer de pipeline moet starten. 
+# In dit geval start de pipeline bij elke push naar de branch feature/cicd-pipeline en bij elke pull request naar main.
+on:
+    push:
+        branches: 
+            - feature/cicd-pipeline
+    pull_request:
+        branches: 
+            - main
+
+# Hier definieer je de jobs die de pipeline moet uitvoeren.
+# In dit voorbeeld is er één job genaamd build, die draait op een Ubuntu-latest machine.
+jobs:
+    build-test-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Code ophalen
+              uses: actions/checkout@v4 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
+
+            - name: PHP instellen
+              uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
+              with:
+                php-version: '8.2' # specificeert de versie van php die moet worden geïnstalleerd
+
+            - name: Dependencies installeren
+              run: composer install  # Installeert alle PHP-pakketten uit composer.json
+
+            - name: Unittests uitvoeren
+              # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
+              # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
+              run: |
+                set -o pipefail
+                vendor/bin/phpunit --testdox tests/Unit 2>&1 | tee build.log
+              # Voert alle unittests uit met leesbare output en maakt een logbestand aan
+              # 2>&1 stuurt foutmeldingen (stderr) samen met normale output (stdout) naar dezelfde stroom
+              # tee schrijft de gecombineerde output tegelijk naar build.log én naar het scherm
+              # zonder 2>&1 zouden fatale PHPUnit-fouten niet in build.log terechtkomen
+              ##############################
+              # set -o pipefail: zonder deze instelling gaat de exitcode van phpunit verloren
+              # door de pipe naar tee. De pipe maakt een subshell en geeft alleen de exitcode
+              # van het laatste commando (tee) terug — die is altijd 0 ook als phpunit faalt.
+              # pipefail zorgt dat de exitcode van phpunit wél wordt doorgegeven aan GitHub Actions.
+            - name: Code stijl controleren
+              run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
+
+            - name: Scenario 4 AI detectie test (uitgecomment)
+              # run: python3 inject_errors.py
+              run: echo "Scenario 4 uitgecomment"
+
+            - name: AI log analyse
+              run: python3 ai_check.py  # Analyseert build.log op foutpatronen
+
+            - name: SonarQube analyse
+              uses: SonarSource/sonarqube-scan-action@v6
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # dit genereert GitHub zelf automatisch voor elke pipeline-run. Het is een token dat de pipeline gebruikt om acties uit te voeren binnen de repository, zoals het aanmaken van opmerkingen of het bijwerken van de status van commits.
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # dit is een geheim dat je zelf moet aanmaken in de repository-instellingen. Het is een token dat je genereert in SonarCloud en dat de pipeline gebruikt om zich te authenticeren bij SonarCloud en de analyse te uploaden.
+                SONAR_HOST_URL: https://sonarcloud.io  
+            
+            - name: Deploy
+              run: echo "Deployen naar testserver gesimuleerd"  # Hier zou je de daadwerkelijke deploy-commando's plaatsen
