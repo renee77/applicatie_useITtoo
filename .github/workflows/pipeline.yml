@@ -11,8 +11,6 @@ name: CI/CD Pipeline useITtoo
 # In dit geval start de pipeline bij elke push naar de branch feature/cicd-pipeline en bij elke pull request naar main.
 on:
     push:
-        branches: 
-            - feature/cicd-pipeline
     pull_request:
         branches: 
             - main
