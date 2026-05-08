@@ -1,0 +1,42 @@
+header {
+    width: 100%;
+    background-color: var(--dark-green);
+    padding: 2rem;
+
+    .header {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 0.5fr 2fr 0.5fr;
+        gap: 10px;
+        align-items: center;
+
+
+        div#search {
+            input[type="text"] {
+                width: 100%;
+                height: 2rem;
+                padding: 6px;
+                border-radius: 5px;
+                border: none;
+            }
+        }
+
+        div#login {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            button {
+                height: 2rem;
+            }
+
+            img {
+                margin: 0.5rem;
+                width: 3rem;
+            }
+
+        }
+
+
+    }
+}

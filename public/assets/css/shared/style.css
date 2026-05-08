@@ -1,0 +1,176 @@
+/* Creating a root folder with basic styles, for easy reusability */
+:root {
+  --font: Verdana, sans-serif;
+
+  --white: #fff;
+  --light-green: #d5ecd4;
+  --dark-green: #2f5233;
+  --light-brown: #f5f1e3;
+  --onyx: #3e3e3e;
+  --orange: #ed8938;
+  --dark-orange: #b36c2b;
+
+}
+
+* {
+  /* reset of some predefined values */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font);
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+/* content containers */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/*Setting the font-sizes and colors for the headings and APA.*/
+h1 {
+  font-size: 3.75rem;
+  color: var(--dark-green);
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--dark-green);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--dark-green);
+}
+
+h5 {
+  color: var(--dark-green);
+}
+
+h6 {
+  color: var(--dark-green);
+}
+
+.apa {
+  font-size: 0.5rem;
+}
+
+/* defining our buttons */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+
+  /* size recommended wcag 2.2 */
+  &.close {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    margin: 0.5rem;
+
+  }
+
+  /* dark button for light backgrounds */
+  &.dark-button {
+    color: var(--light-green);
+    background-color: var(--dark-green);
+
+    &:hover {
+      background-color: var(--light-brown);
+      color: var(--dark-green);
+    }
+  }
+
+  /* light button for dark backgrounds */
+  &.light-button {
+    color: var(--dark-green);
+    background-color: var(--light-green);
+
+    &:hover {
+      color: var(--dark-green);
+      background-color: var(--light-brown);
+      border: var(--light-green) 1px solid;
+    }
+  }
+
+  &.orange-button {
+    background-color: var(--orange);
+    color: var(--dark-green);
+
+    &:hover {
+      color: var(--dark-green);
+      background-color: var(--light-brown);
+      border: var(--dark-green) 1px solid;
+
+    }
+
+
+
+
+  }
+
+  a {
+    display: block;
+    width: fit-content;
+
+    &:hover {
+      background-color: rgba(47, 82, 51, 0.1);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+/* every section is below the other */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* to make sure if a page is not completely filled header and footer are corectly placed */
+html {
+  height: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+/* logo has same size everywhere */
+.logo {
+
+  width: 8rem;
+  height: auto;
+  margin: 0.5rem;
+
+}
+
+/*make current page less visible */
+.popup-overlay {
+  position: fixed;
+  /* stay on top of page*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* dark transperent background */
+  display: flex;
+  /* make sure it always shows above other items but not above popup */
+  z-index: 999;
+
+}

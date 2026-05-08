@@ -1,0 +1,93 @@
+footer {
+    width: 100%;
+    background-color: var(--dark-green);
+    color: var(--light-green);
+
+    a {
+        color: var(--light-green);
+        padding: 4px 0;
+        display: inline-block;
+        border-radius: 3px;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: rgba(213, 236, 212, 0.15);
+            text-decoration: underline;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &#subscribeLink {
+            text-decoration: underline;
+        }
+    }
+
+
+
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+
+        div {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+
+            h3 {
+                color: var(--light-green) !important;
+                padding-bottom: 1rem;
+
+            }
+
+            input[type="email"] {
+                width: 100%;
+                height: 2rem;
+                padding: 6px;
+                border-radius: 5px;
+                border: none;
+                margin: 0.5rem 0;
+
+            }
+
+            &#sitemap ul {
+                columns: 2;
+            }
+
+            &.adress {
+                justify-self: end;
+            }
+
+            .contact {
+                width: auto;
+                align-self: flex-start;
+            }
+        }
+    }
+
+    div.footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid var(--orange);
+        font-size: 0.5rem;
+        padding: 0.5rem;
+
+        img {
+            width: 4rem;
+            height: auto;
+        }
+
+        p {
+            padding-top: 5px;
+        }
+
+    }
+}
+
+/* class to make elements visible or invisible */
+.invisible {
+    display: none !important;
+}
