@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-    <header><h1>Keuze Portal webshop of beheer </h1></header>
+    <header><h1>Mijn PHP App</h1></header>
     <main>
         <?= $content ?? '' ?>
     </main>
