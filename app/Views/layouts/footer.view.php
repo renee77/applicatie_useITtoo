@@ -4,7 +4,9 @@
         <div id="sitemap">
             <h3>Sitemap</h3>
             <ul>
-                <li><a href="/index.php">Home</a></li>
+                <li><a href="<?= BASE_URL ?>/">Home</a></li>
+                <li><a href="<?= BASE_URL ?>/beheerdersportaal">Beheerdersportaal</a></li>
+                <li><a href="<?= BASE_URL ?>/webwinkel">Webwinkel</a></li>
             </ul>
         </div>
 
