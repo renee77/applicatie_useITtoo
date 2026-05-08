@@ -1,8 +1,11 @@
 <?php
-//Front Controller - alle requests lopen hier doorheen
+
 require_once __DIR__ . '/../bootstrap.php';
 
-use App\Core\Router;
+$title = 'Welkom';
+ob_start();
+include __DIR__ . '/../app/Views/start/home.view.php';
+$content = ob_get_clean();
+// ob_start() en ob_get_clean() vangen de output van de view op en stoppen die in $content, zodat main.php het op de juiste plek kan plaatsen.
 
-// $router = new Router();
-// $router->dispatch();
+include __DIR__ . '/../app/Views/layouts/main.php';

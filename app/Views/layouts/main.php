@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <title><?= $title ?? 'Mijn App' ?></title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
-    <header><h1>Keuze Portal webshop of beheer </h1></header>
-    <main>
-        <?= $content ?? '' ?>
-    </main>
-    <footer><p>&copy; 2025</p></footer>
-    <script src="/assets/js/app.js"></script>
-</body>
-</html>
+<?php include __DIR__ . '/header.view.php'; ?>
+<main>
+    <?= $content ?? '' ?>
+</main>
+<?php include __DIR__ . '/footer.view.php'; ?>
+

@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="footer-bottom container">
-        <img src="<?= BASE_URL ?>/images/licht-logo.png" alt="">
+        <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" alt="">
         <p> © 2025, useITall. Alle rechten voorbehouden.</p>
     </div>
 </footer>
@@ -42,6 +42,6 @@
 
 <div id="popUp-container"></div>
 
-<script src="<?= BASE_URL ?>/script/script.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/script.js"></script>
 
 </body>
