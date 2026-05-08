@@ -1,4 +1,6 @@
-<?php $title = 'Welkom'; ?>
+<?php
+
+$title = 'Welkom'; ?>
 
 <section class="start-keuze">
     <h1>Welkom bij useITtoo</h1>
