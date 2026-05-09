@@ -1,0 +1,62 @@
+.start-keuze {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 3rem 1rem;
+    background-color: var(--light-green);
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.start-keuze h1 {
+    font-size: clamp(2rem, 6vw, 3.75rem);
+    color: var(--dark-green);
+    letter-spacing: -0.02em;
+}
+
+.start-keuze h2 {
+    font-size: 1rem;
+    color: var(--orange);
+    font-weight: normal;
+    letter-spacing: 0.03em;
+}
+
+.start-keuze>p {
+    font-size: 1.125rem;
+    color: var(--onyx);
+    opacity: 0.8;
+}
+
+.keuze-knoppen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.keuze-knoppen .knop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font);
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    min-width: 180px;
+}
+
+.keuze-knoppen .knop {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
+}
+
+.keuze-knoppen .knop:hover {
+    background-color: var(--light-brown);
+    transform: translateY(-2px);
+}

@@ -4,7 +4,9 @@
         <div id="sitemap">
             <h3>Sitemap</h3>
             <ul>
-                <li><a href="/index.php">Home</a></li>
+                <li><a href="<?= BASE_URL ?>/">Home</a></li>
+                <li><a href="<?= BASE_URL ?>/beheerdersportaal">Beheerdersportaal</a></li>
+                <li><a href="<?= BASE_URL ?>/webwinkel">Webwinkel</a></li>
             </ul>
         </div>
 
@@ -33,7 +35,7 @@
         </div>
     </div>
     <div class="footer-bottom container">
-        <img src="<?= BASE_URL ?>/images/licht-logo.png" alt="">
+        <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" alt="">
         <p> © 2025, useITall. Alle rechten voorbehouden.</p>
     </div>
 </footer>
@@ -42,6 +44,6 @@
 
 <div id="popUp-container"></div>
 
-<script src="<?= BASE_URL ?>/script/script.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/script.js"></script>
 
 </body>
