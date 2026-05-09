@@ -1,0 +1,33 @@
+# Het is een configuratiebestand voor Apache (jouw webserver). 
+# Apache leest het automatisch elke keer als er een request binnenkomt in die map. Je hoeft Apache niet te herstarten — het werkt meteen.
+
+# Zet de "directory listing" uit.
+# Waarom: Als je naar een map navigeert zonder index.php erin, zou Apache normaal alle bestanden tonen als een soort bestandenlijst. 
+# Dat is een beveiligingsrisico — je wil niet dat bezoekers al jouw bestanden kunnen zien. De - betekent "zet dit uit".
+Options -Indexes
+
+# Zet de "herschrijfmotor" aan.
+# Waarom: De regels die hierna komen (RewriteCond en RewriteRule) werken alleen als deze motor aan staat. 
+# Zonder deze regel doet Apache niets met de rest.
+RewriteEngine On
+
+# Bestanden en mappen die echt bestaan, gewoon serveren (css, afbeeldingen, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Al het andere → index.php
+# De eigenlijke herschrijfregel:
+# - ^ → "elk pad" (een reguliere expressie die alles matcht)
+# - index.php → stuur het hierheen
+# - [QSA] → Query String Append — plak de oorspronkelijke querystring er ook bij. Dus /webshop?pagina=2 blijft /webshop?pagina=2 en gaat niet verloren
+# - [L] → Last — stop na deze regel, voer geen andere regels meer uit
+RewriteRule ^ index.php [QSA,L]
+
+# Voorbeeld 1: Browser vraagt /webshop
+#   → Apache: bestaat er een bestand of map "webshop"? Nee
+#   → Apache: stuur door naar index.php
+#   → PHP in index.php: URL is "/webshop" → laad de webshop
+
+# Voorbeeld 2: Browser vraagt /assets/css/style.css
+#   → Apache: bestaat er een bestand "style.css"? Ja
+#   → Apache: serveer het direct, index.php wordt niet gebruikt
