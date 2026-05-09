@@ -117,7 +117,6 @@ class Router
 
         // Kijk of dit pad bekend is in de routelijst
         if (array_key_exists($path, $this->routes)) {
-
             // Haal view én layout op uit de route-array
             $view   = $this->routes[$path]['view'];
             $layout = $this->routes[$path]['layout'];
@@ -130,7 +129,6 @@ class Router
 
             // Laad het juiste layout-bestand (main.php of main.beheer.php)
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
-
         } else {
             // Pad staat niet in de routelijst → 404
             http_response_code(404);
