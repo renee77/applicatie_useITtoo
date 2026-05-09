@@ -49,3 +49,10 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
 // beschikbaar via $_ENV en getenv().
 // Gooit een exception als het bestand niet gevonden wordt.
 $dotenv->load();
+
+// Bepaal de basis-URL dynamisch op basis van de locatie van het entry point.
+// dirname() haalt de map op van het huidige script (index.php in public/).
+// rtrim() verwijdert een eventuele trailing slash voor consistente URL-opbouw.
+// Gebruik BASE_URL als prefix voor alle links en assets in views, bijvoorbeeld:
+// // Gebruik BASE_URL als prefix voor alle links en assets in views.
+define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
