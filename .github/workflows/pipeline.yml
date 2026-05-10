@@ -7,67 +7,103 @@
 # Dit is de naam die je terugziet in de GitHub Actions-tab als de pipeline draait. Puur een label, geen functionele instelling.
 name: CI/CD Pipeline useITtoo
 
-# Hier geef je aan wanneer de pipeline moet starten. 
+# Hier geef je aan wanneer de pipeline moet starten.
 # In dit geval start de pipeline bij elke push naar de branch feature/cicd-pipeline en bij elke pull request naar main.
 on:
-    push:
-    pull_request:
-        branches: 
-            - main
+  push:
+  pull_request:
+    branches:
+      - main
 
 # Hier definieer je de jobs die de pipeline moet uitvoeren.
 # In dit voorbeeld is er één job genaamd build, die draait op een Ubuntu-latest machine.
 jobs:
-    build-test-deploy:
-        runs-on: ubuntu-latest
+  build-test-deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Code ophalen
-              uses: actions/checkout@v6 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v6 # haalt de code op uit de repository en plaatst deze in een werkmap in de container
 
-            - name: PHP instellen
-              uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
-              with:
-                php-version: '8.2' # specificeert de versie van php die moet worden geïnstalleerd
+      - name: PHP instellen
+        uses: shivammathur/setup-php@v2 # installeert php en composer in de virtuele omgeving
+        with:
+          php-version: "8.2" # specificeert de versie van php die moet worden geïnstalleerd
+          coverage: xdebug
 
-            - name: Dependencies installeren
-              run: composer install  # Installeert alle PHP-pakketten uit composer.json
+      - name: Dependencies installeren
+        run: composer install # Installeert alle PHP-pakketten uit composer.json
 
-            - name: Unittests uitvoeren
-              # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
-              # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
-              run: |
-                set -o pipefail
-                vendor/bin/phpunit --testdox tests/Unit 2>&1 | tee build.log
-              # Voert alle unittests uit met leesbare output en maakt een logbestand aan
-              # 2>&1 stuurt foutmeldingen (stderr) samen met normale output (stdout) naar dezelfde stroom
-              # tee schrijft de gecombineerde output tegelijk naar build.log én naar het scherm
-              # zonder 2>&1 zouden fatale PHPUnit-fouten niet in build.log terechtkomen
-              ##############################
-              # set -o pipefail: zonder deze instelling gaat de exitcode van phpunit verloren
-              # door de pipe naar tee. De pipe maakt een subshell en geeft alleen de exitcode
-              # van het laatste commando (tee) terug — die is altijd 0 ook als phpunit faalt.
-              # pipefail zorgt dat de exitcode van phpunit wél wordt doorgegeven aan GitHub Actions.
-            - name: Code stijl controleren
-              run: vendor/bin/phpcs --standard=PSR12 app/  # Controleert de code stijl volgens PSR-12 standaard
+      - name: Unittests uitvoeren
+        # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
+        # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
+        run: |
+          set -o pipefail
 
-            - name: Scenario 4 AI detectie test (uitgecomment)
-              # run: python3 inject_errors.py
-              run: echo "Scenario 4 uitgecomment"
+          # PHPUnit één keer draaien met zowel testdox- als coverage-output.
+          # 2>&1 zorgt dat stderr (bijv. fatale PHP-fouten) ook wordt meegenomen.
+          # --colors=never voorkomt dat ANSI-codes de grep-expressies hieronder verstoren.
+          OUTPUT=$(vendor/bin/phpunit --testdox --coverage-text --colors=never tests/Unit 2>&1)
+          PHPUNIT_EXIT=$?
 
-            - name: AI log analyse
-              run: python3 ai_check.py  # Analyseert build.log op foutpatronen
+          # Output naar het scherm printen zodat je het ziet in de Actions-tab.
+          echo "$OUTPUT"
 
-            - name: SonarQube analyse
-              if: github.actor != 'dependabot[bot]'
-              # Dependabot-branches hebben geen toegang tot repository secrets zoals SONAR_TOKEN.
-              # Dit is een GitHub-beveiligingsmaatregel: externe bots krijgen geen toegang tot gevoelige tokens.
-              # Deze conditie zorgt dat de SonarQube-stap wordt overgeslagen bij Dependabot-runs.
-              uses: SonarSource/sonarqube-scan-action@v8
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # dit genereert GitHub zelf automatisch voor elke pipeline-run. Het is een token dat de pipeline gebruikt om acties uit te voeren binnen de repository, zoals het aanmaken van opmerkingen of het bijwerken van de status van commits.
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # dit is een geheim dat je zelf moet aanmaken in de repository-instellingen. Het is een token dat je genereert in SonarCloud en dat de pipeline gebruikt om zich te authenticeren bij SonarCloud en de analyse te uploaden.
-                SONAR_HOST_URL: https://sonarcloud.io  
-            
-            - name: Deploy
-              run: echo "Deployen naar testserver gesimuleerd"  # Hier zou je de daadwerkelijke deploy-commando's plaatsen
+          # Dezelfde output wegschrijven naar build.log voor ai_check.py verderop in de pipeline.
+          echo "$OUTPUT" > build.log
+
+          # Eerst controleren of de tests zelf geslaagd zijn.
+          # Als phpunit een foutcode teruggaf, heeft parsen van coverage geen zin.
+          if [ $PHPUNIT_EXIT -ne 0 ]; then
+            echo "❌ Tests mislukt — pipeline gestopt"
+            exit $PHPUNIT_EXIT
+          fi
+
+          # Coverage-percentages uit de output filteren.
+          # grep -A2 / -A3 pakt de regels ná de klassenaam; grep -oP haalt alleen het getal op.
+          METHOD_COV=$(echo "$OUTPUT" | grep -A2 "App\\\\Models\\\\Product" \
+            | grep "Methods:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
+          LINE_COV=$(echo "$OUTPUT" | grep -A3 "App\\\\Models\\\\Product" \
+            | grep "Lines:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
+
+          echo "Method coverage : $METHOD_COV%"
+          echo "Line coverage   : $LINE_COV%"
+
+          THRESHOLD=80
+
+          if awk "BEGIN {exit !($METHOD_COV < $THRESHOLD)}"; then
+            echo "❌ Method coverage $METHOD_COV% is onder de drempelwaarde van $THRESHOLD%"
+            exit 1
+          fi
+          if awk "BEGIN {exit !($LINE_COV < $THRESHOLD)}"; then
+            echo "❌ Line coverage $LINE_COV% is onder de drempelwaarde van $THRESHOLD%"
+            exit 1
+          fi
+
+          echo "✅ Code coverage voldoet aan de drempelwaarden (methods: $METHOD_COV%, lines: $LINE_COV%)"
+      # PHPUnit draait één keer; output wordt hergebruikt voor zowel build.log als coverage-parsing.
+      # Drempelwaarde: minimaal 80% voor methods én lines.
+
+      - name: Code stijl controleren
+        run: vendor/bin/phpcs --standard=PSR12 app/ # Controleert de code stijl volgens PSR-12 standaard
+
+      - name: Scenario 4 AI detectie test (uitgecomment)
+        # run: python3 inject_errors.py
+        run: echo "Scenario 4 uitgecomment"
+
+      - name: AI log analyse
+        run: python3 ai_check.py # Analyseert build.log op foutpatronen
+
+      - name: SonarQube analyse
+        if: github.actor != 'dependabot[bot]'
+        # Dependabot-branches hebben geen toegang tot repository secrets zoals SONAR_TOKEN.
+        # Dit is een GitHub-beveiligingsmaatregel: externe bots krijgen geen toegang tot gevoelige tokens.
+        # Deze conditie zorgt dat de SonarQube-stap wordt overgeslagen bij Dependabot-runs.
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # dit genereert GitHub zelf automatisch voor elke pipeline-run. Het is een token dat de pipeline gebruikt om acties uit te voeren binnen de repository, zoals het aanmaken van opmerkingen of het bijwerken van de status van commits.
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # dit is een geheim dat je zelf moet aanmaken in de repository-instellingen. Het is een token dat je genereert in SonarCloud en dat de pipeline gebruikt om zich te authenticeren bij SonarCloud en de analyse te uploaden.
+          SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: Deploy
+        run: echo "Deployen naar testserver gesimuleerd" # Hier zou je de daadwerkelijke deploy-commando's plaatsen
