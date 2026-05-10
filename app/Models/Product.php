@@ -105,6 +105,4 @@ class Product
     {
         $this->foto_url = $foto_url;
     }
-
-
 }
