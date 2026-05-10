@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>useITtoo</title>
+    <title><?= $title ?? 'useITtoo' ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/footer.css">
@@ -16,7 +16,7 @@
     <header>
         <div class="header container">
             <nav>
-                <a href="<?= BASE_URL ?>/webshop.page.php" class="logo-link"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" class="logo"
+                <a href="<?= BASE_URL ?>/" class="logo-link"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" class="logo"
                         alt="logo van useITtoo"></a>
             </nav>
 
