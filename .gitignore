@@ -3,3 +3,4 @@ vendor/
 *.log
 vendor/
 .env.local
+.phpunit.cache/
