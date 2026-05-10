@@ -27,6 +27,17 @@ class Product
         ?string $foto_url = null,
         ?DateTime $deleted_at = null
     ) {
+        if ($prijs <= 0) {
+            throw new \InvalidArgumentException("Prijs mag niet 0 of negatief zijn");
+        }
+        if (strlen($naam) < 2) {
+            throw new \InvalidArgumentException("Naam moet minimaal 2 karakters hebben");
+        }
+        if ($verkoop_gewicht <= 0) {
+            throw new \InvalidArgumentException("Gewicht moet groter dan 0 zijn");
+        }
+
+
         $this->naam = $naam;
         $this->prijs = $prijs;
         $this->verkoop_gewicht = $verkoop_gewicht;
@@ -79,14 +90,24 @@ class Product
     // Setters (alleen wat echt wijzigbaar moet zijn)
     public function setNaam(string $naam): void
     {
+        if (strlen($naam) < 2) {
+            throw new \InvalidArgumentException("Naam moet minimaal 2 karakters hebben");
+        }
         $this->naam = $naam;
     }
     public function setPrijs(float $prijs): void
     {
+        if ($prijs <= 0) {
+            throw new \InvalidArgumentException("Prijs mag niet 0 of negatief zijn");
+        }
+
         $this->prijs = $prijs;
     }
     public function setVerkoopGewicht(float $verkoop_gewicht): void
     {
+        if ($verkoop_gewicht <= 0) {
+            throw new \InvalidArgumentException("Gewicht moet groter dan 0 zijn");
+        }
         $this->verkoop_gewicht = $verkoop_gewicht;
     }
     public function setEenheid(Eenheid $eenheid): void
