@@ -36,7 +36,7 @@ jobs:
 
       - name: Unittests uitvoeren
         run: |
-          vendor/bin/phpunit --coverage-text --colors=never tests/Unit 2>&1
+          vendor/bin/phpunit --coverage-text --colors=never --coverage-filter app/ tests/Unit 2>&1
 
       # - name: Unittests uitvoeren
       #   # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
