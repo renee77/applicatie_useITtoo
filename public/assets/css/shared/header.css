@@ -1,7 +1,6 @@
 header {
     width: 100%;
     background-color: var(--dark-green);
-    padding: 2rem;
 
     .header {
         height: 100%;

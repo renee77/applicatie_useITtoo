@@ -28,12 +28,21 @@
   }
 }
 
+/* every section is below the other */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* content containers */
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+
 }
+
+
 
 /*Setting the font-sizes and colors for the headings and APA.*/
 h1 {
@@ -86,9 +95,19 @@ button {
     color: var(--light-green);
     background-color: var(--dark-green);
 
+    a {
+      color: var(--light-green);
+    }
+
     &:hover {
       background-color: var(--light-brown);
       color: var(--dark-green);
+      border: var(--dark-green) 1px solid;
+
+      a {
+        color: var(--dark-green);
+
+      }
     }
   }
 
@@ -96,6 +115,10 @@ button {
   &.light-button {
     color: var(--dark-green);
     background-color: var(--light-green);
+
+    a {
+      color: var(--dark-green);
+    }
 
     &:hover {
       color: var(--dark-green);
@@ -134,21 +157,8 @@ button {
   }
 }
 
-/* every section is below the other */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
-/* to make sure if a page is not completely filled header and footer are corectly placed */
-html {
-  height: 100%;
-}
 
-main {
-  flex: 1;
-}
 
 /* logo has same size everywhere */
 .logo {

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/footer.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/start.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/home.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/webshop/webshop.css">
 </head>
 
