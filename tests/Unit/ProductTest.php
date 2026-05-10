@@ -15,6 +15,9 @@ class ProductTest extends TestCase
         $this->product = new Product("Wortel", 1.95, 2, Eenheid::Kilogram, "lekkere oranje wortels", "Pietje");
     }
 
+    // getId() wordt niet getest omdat product_id door de database
+    // wordt aangemaakt via AUTO_INCREMENT (integratietest vereist)
+
     public function testConstructorSetsNaam(): void
     {
         // arange is al gebeurd door setup()

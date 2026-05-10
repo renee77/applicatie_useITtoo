@@ -14,5 +14,12 @@
         <include>
             <directory>app</directory>
         </include>
+        <exclude>
+            <!-- Eenheid is een enum zonder logica, PHP valideert waarden automatisch -->
+            <file>app/Models/Eenheid.php</file>
+            <!-- Core klassen worden niet unit getest, dit zijn infrastructuur klassen -->
+            <file>app/Core/Router.php</file>
+            <file>app/Core/Database.php</file>
+        </exclude>
     </source>
 </phpunit>
