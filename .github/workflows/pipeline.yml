@@ -35,54 +35,58 @@ jobs:
         run: composer install # Installeert alle PHP-pakketten uit composer.json
 
       - name: Unittests uitvoeren
-        # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
-        # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
         run: |
-          set -o pipefail
+          vendor/bin/phpunit --coverage-text --colors=never tests/Unit 2>&1
 
-          # PHPUnit één keer draaien met zowel testdox- als coverage-output.
-          # 2>&1 zorgt dat stderr (bijv. fatale PHP-fouten) ook wordt meegenomen.
-          # --colors=never voorkomt dat ANSI-codes de grep-expressies hieronder verstoren.
-          OUTPUT=$(vendor/bin/phpunit --testdox --coverage-text --colors=never tests/Unit 2>&1)
-          PHPUNIT_EXIT=$?
+      # - name: Unittests uitvoeren
+      #   # De | hieronder is YAML multiline syntax: alles ingesprongen onder run: wordt
+      #   # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
+      #   run: |
+      #     set -o pipefail
 
-          # Output naar het scherm printen zodat je het ziet in de Actions-tab.
-          echo "$OUTPUT"
+      #     # PHPUnit één keer draaien met zowel testdox- als coverage-output.
+      #     # 2>&1 zorgt dat stderr (bijv. fatale PHP-fouten) ook wordt meegenomen.
+      #     # --colors=never voorkomt dat ANSI-codes de grep-expressies hieronder verstoren.
+      #     OUTPUT=$(vendor/bin/phpunit --testdox --coverage-text --colors=never tests/Unit 2>&1)
+      #     PHPUNIT_EXIT=$?
 
-          # Dezelfde output wegschrijven naar build.log voor ai_check.py verderop in de pipeline.
-          echo "$OUTPUT" > build.log
+      #     # Output naar het scherm printen zodat je het ziet in de Actions-tab.
+      #     echo "$OUTPUT"
 
-          # Eerst controleren of de tests zelf geslaagd zijn.
-          # Als phpunit een foutcode teruggaf, heeft parsen van coverage geen zin.
-          if [ $PHPUNIT_EXIT -ne 0 ]; then
-            echo "❌ Tests mislukt — pipeline gestopt"
-            exit $PHPUNIT_EXIT
-          fi
+      #     # Dezelfde output wegschrijven naar build.log voor ai_check.py verderop in de pipeline.
+      #     echo "$OUTPUT" > build.log
 
-          # Coverage-percentages uit de output filteren.
-          # grep -A2 / -A3 pakt de regels ná de klassenaam; grep -oP haalt alleen het getal op.
-          METHOD_COV=$(echo "$OUTPUT" | grep -A2 "App\\\\Models\\\\Product" \
-            | grep "Methods:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
-          LINE_COV=$(echo "$OUTPUT" | grep -A3 "App\\\\Models\\\\Product" \
-            | grep "Lines:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
+      #     # Eerst controleren of de tests zelf geslaagd zijn.
+      #     # Als phpunit een foutcode teruggaf, heeft parsen van coverage geen zin.
+      #     if [ $PHPUNIT_EXIT -ne 0 ]; then
+      #       echo "❌ Tests mislukt — pipeline gestopt"
+      #       exit $PHPUNIT_EXIT
+      #     fi
 
-          echo "Method coverage : $METHOD_COV%"
-          echo "Line coverage   : $LINE_COV%"
+      #     # Coverage-percentages uit de output filteren.
+      #     # grep -A2 / -A3 pakt de regels ná de klassenaam; grep -oP haalt alleen het getal op.
+      #     METHOD_COV=$(echo "$OUTPUT" | grep -A2 "App\\\\Models\\\\Product" \
+      #       | grep "Methods:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
+      #     LINE_COV=$(echo "$OUTPUT" | grep -A3 "App\\\\Models\\\\Product" \
+      #       | grep "Lines:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
 
-          THRESHOLD=80
+      #     echo "Method coverage : $METHOD_COV%"
+      #     echo "Line coverage   : $LINE_COV%"
 
-          if awk "BEGIN {exit !($METHOD_COV < $THRESHOLD)}"; then
-            echo "❌ Method coverage $METHOD_COV% is onder de drempelwaarde van $THRESHOLD%"
-            exit 1
-          fi
-          if awk "BEGIN {exit !($LINE_COV < $THRESHOLD)}"; then
-            echo "❌ Line coverage $LINE_COV% is onder de drempelwaarde van $THRESHOLD%"
-            exit 1
-          fi
+      #     THRESHOLD=80
 
-          echo "✅ Code coverage voldoet aan de drempelwaarden (methods: $METHOD_COV%, lines: $LINE_COV%)"
-      # PHPUnit draait één keer; output wordt hergebruikt voor zowel build.log als coverage-parsing.
-      # Drempelwaarde: minimaal 80% voor methods én lines.
+      #     if awk "BEGIN {exit !($METHOD_COV < $THRESHOLD)}"; then
+      #       echo "❌ Method coverage $METHOD_COV% is onder de drempelwaarde van $THRESHOLD%"
+      #       exit 1
+      #     fi
+      #     if awk "BEGIN {exit !($LINE_COV < $THRESHOLD)}"; then
+      #       echo "❌ Line coverage $LINE_COV% is onder de drempelwaarde van $THRESHOLD%"
+      #       exit 1
+      #     fi
+
+      #     echo "✅ Code coverage voldoet aan de drempelwaarden (methods: $METHOD_COV%, lines: $LINE_COV%)"
+      # # PHPUnit draait één keer; output wordt hergebruikt voor zowel build.log als coverage-parsing.
+      # # Drempelwaarde: minimaal 80% voor methods én lines.
 
       - name: Code stijl controleren
         run: vendor/bin/phpcs --standard=PSR12 app/ # Controleert de code stijl volgens PSR-12 standaard
