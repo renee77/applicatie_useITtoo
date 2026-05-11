@@ -1,0 +1,153 @@
+/* ─── Aanbiedingen ───────────────────────────────────────────────────────── */
+section#salesBackground {
+    width: 100%;
+    background-color: var(--white);
+    padding: 1.5rem 0;
+}
+
+#sales {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+
+    div.sale-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        height: 200px;
+        background-color: var(--light-green);
+        border: 0.05rem solid var(--dark-green);
+        border-radius: 5px;
+        box-shadow: 0 2px 6px var(--dark-green);
+
+        span.sale-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            background-color: var(--dark-green);
+            padding: 0.2rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+    }
+}
+
+/* ─── Productenoverzicht ─────────────────────────────────────────────────── */
+section#shopBackground {
+    width: 100%;
+}
+
+#shop {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+
+    h1 {
+        margin-bottom: 1.5rem;
+    }
+
+    div.shop {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2rem;
+
+        div.product {
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            border: 0.05rem solid var(--dark-green);
+            border-radius: 5px;
+            box-shadow: 0 2px 6px var(--dark-green);
+
+            h5 {
+                max-width: fit-content;
+                margin: 1rem auto;
+                color: var(--dark-green);
+            }
+
+            img {
+                display: block;
+                width: 14rem;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+
+            p.price {
+                background-color: var(--light-green);
+                max-width: fit-content;
+                margin: 1rem auto;
+                padding: 0.5rem;
+                border-radius: 5px;
+            }
+
+            a.btn {
+                margin: 0.5rem auto;
+                padding: 5px 15px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+/* ─── Winkelwagen popup ──────────────────────────────────────────────────── */
+div#cart-popup {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-green);
+    min-height: 100vh;
+    width: 25%;
+    z-index: 1000;
+    margin-left: auto;
+    padding: 0 1rem;
+
+    div.miniHeader {
+        border-bottom: 2px solid var(--dark-green);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h3 {
+        margin-top: 0.5rem;
+    }
+
+    p {
+        margin-top: 0.5rem;
+        color: var(--dark-green);
+        font-size: 1.2rem;
+    }
+
+    div.orderrow {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            display: block;
+            width: 4rem;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        button.delete {
+            width: 15px;
+            height: 20px;
+            font-size: 1rem;
+            padding: 0;
+            padding-bottom: 2px;
+        }
+    }
+}
