@@ -169,8 +169,20 @@ class ProductDAO
 
     public function deleteProduct(int $product_id): void
     {
+        $sql = "UPDATE product SET deleted_at = NOW() WHERE product_id = :product_id";
 
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // rowCount() geeft het aantal rijen terug dat daadwerkelijk gewijzigd is.
+        // Als het product niet bestaat of al soft-deleted is, worden er 0 rijen gewijzigd.
+        // In dat geval gooien we een RuntimeException zodat de aanroeper weet dat er niets is gebeurd.
+        if ($stmt->rowCount() === 0) {
+            throw new \RuntimeException("Product met id $product_id niet gevonden of al verwijderd");
+        }
     }
+
     /** @return Product[] */
     public function getDeletedProductByNaam(string $naam): array
     {

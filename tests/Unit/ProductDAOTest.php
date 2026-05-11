@@ -132,6 +132,20 @@ class ProductDAOTest extends TestCase
 
     }
 
+    public function testDeleteProduct(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->expects($this->once())->method('execute')->willReturn(true);
+        $mockStmt->method('rowCount')->willReturn(1);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        $productDao->deleteProduct(1);
+    }
+
     // sad path getProductById
     public function testGetProductByIdReturnsException(): void
     {
@@ -170,5 +184,20 @@ class ProductDAOTest extends TestCase
         $productDao->updateProduct($product);
     }
 
+    public function testDeleteProductReturnsException(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->expects($this->once())->method('execute')->willReturn(true);
+        $mockStmt->method('rowCount')->willReturn(0);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        $this->expectException(\RuntimeException::class);
+
+        $productDao->deleteProduct(5);
+    }
 
 }
