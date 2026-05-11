@@ -17,6 +17,11 @@ class ProductDAO
     // zodat alle methoden er gebruik van kunnen maken
     private PDO $db;
 
+    // Constanten voor named placeholders — voorkomt gedupliceerde strings
+    // en maakt refactoring makkelijker als de kolomnaam ooit wijzigt.
+    private const PARAM_PRODUCT_ID = ':product_id';
+    private const PARAM_NAAM = ':naam';
+
     // Dependency Injection — de database verbinding wordt
     // van buitenaf meegegeven in plaats van dat de DAO
     // hem zelf ophaalt via Database::getConnection()
@@ -62,7 +67,7 @@ class ProductDAO
         // $stmt->execute()    // query uitvoeren
         // $stmt->fetch()      // één rij ophalen
         // $stmt->fetchAll()   // alle rijen ophalen
-        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(self::PARAM_PRODUCT_ID, $product_id, PDO::PARAM_INT);
 
         // Voer de query uit
         $stmt->execute();
@@ -139,7 +144,7 @@ class ProductDAO
                 VALUES (:naam, :prijs, :verkoop_gewicht, :eenheid, :omschrijving, :leverancier, :foto_url)";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':naam', $product->getNaam(), PDO::PARAM_STR);
+        $stmt->bindValue(self::PARAM_NAAM, $product->getNaam(), PDO::PARAM_STR);
         $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
         $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
         $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
@@ -177,7 +182,7 @@ class ProductDAO
             foto_url = :foto_url WHERE product_id = :product_id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':naam', $product->getNaam(), PDO::PARAM_STR);
+        $stmt->bindValue(self::PARAM_NAAM, $product->getNaam(), PDO::PARAM_STR);
         $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
         $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
         $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
@@ -196,7 +201,7 @@ class ProductDAO
             $product->getFotoUrl(),
             $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
         );
-        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(self::PARAM_PRODUCT_ID, $product_id, PDO::PARAM_INT);
 
         $stmt->execute();
     }
@@ -206,7 +211,7 @@ class ProductDAO
         $sql = "UPDATE product SET deleted_at = NOW() WHERE product_id = :product_id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(self::PARAM_PRODUCT_ID, $product_id, PDO::PARAM_INT);
         $stmt->execute();
 
         // rowCount() geeft het aantal rijen terug dat daadwerkelijk gewijzigd is.
@@ -225,7 +230,7 @@ class ProductDAO
 
         $stmt = $this->db->prepare($sql);
         // De % tekens betekenen "alles ervoor en erna" — dus %citroen% vindt ook "Verse citroenen".
-        $stmt->bindValue(':naam', '%' . $naam . '%', PDO::PARAM_STR);
+        $stmt->bindValue(self::PARAM_NAAM, '%' . $naam . '%', PDO::PARAM_STR);
         $stmt->execute();
 
         $rows = $stmt->fetchAll();
@@ -253,7 +258,7 @@ class ProductDAO
         $sql = "UPDATE product SET deleted_at = NULL WHERE product_id = :product_id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(self::PARAM_PRODUCT_ID, $product_id, PDO::PARAM_INT);
         $stmt->execute();
 
         if ($stmt->rowCount() === 0) {
