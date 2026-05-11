@@ -102,6 +102,7 @@ jobs:
         with:
           args: >
             -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.qualitygate.wait=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # dit genereert GitHub zelf automatisch voor elke pipeline-run. Het is een token dat de pipeline gebruikt om acties uit te voeren binnen de repository, zoals het aanmaken van opmerkingen of het bijwerken van de status van commits.
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # dit is een geheim dat je zelf moet aanmaken in de repository-instellingen. Het is een token dat je genereert in SonarCloud en dat de pipeline gebruikt om zich te authenticeren bij SonarCloud en de analyse te uploaden.
