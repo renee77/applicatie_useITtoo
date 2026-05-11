@@ -122,7 +122,19 @@ class ProductDAO
 
     public function addProduct(Product $product): void
     {
+        $sql = "INSERT INTO product(naam, prijs, verkoop_gewicht, eenheid, omschrijving, leverancier, foto_url) 
+                VALUES (:naam, :prijs, :verkoop_gewicht, :eenheid, :omschrijving, :leverancier, :foto_url)";
 
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':naam', $product->getNaam(), PDO::PARAM_STR);
+        $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
+        $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
+        $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
+        $stmt->bindValue(':omschrijving', $product->getOmschrijving(), $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':leverancier', $product->getLeverancier(), $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':foto_url', $product->getFotoUrl(), $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+
+        $stmt->execute();
     }
 
     public function updateProduct(Product $product): void

@@ -8,6 +8,7 @@ use Override;
 use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
+use App\Models\Eenheid;
 
 class ProductDAOTest extends TestCase
 {
@@ -86,6 +87,29 @@ class ProductDAOTest extends TestCase
         $this->assertIsArray($products);
         $this->assertCount(2, $products);
         $this->assertContainsOnlyInstancesOf(Product::class, $products);
+    }
+
+    public function testAddProduct(): void
+    {
+        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null);
+
+        $mockStmt = $this->createMock(PDOStatement::class);
+        // Dit zegt: "ik verwacht dat execute() precies één keer aangeroepen wordt". Als dat niet gebeurt faalt de test!
+        $mockStmt->expects($this->once())
+         ->method('execute')
+         ->willReturn(true);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        // act
+        $productDao->addProduct($product);
+
+        // geen assert nodig expects() is de assert
+
+
     }
 
     // sad path getProductById
