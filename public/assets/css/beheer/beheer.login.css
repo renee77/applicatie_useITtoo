@@ -1,0 +1,51 @@
+body {
+  background-color: var(--dark-green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 60vw;
+    max-width: 750px;
+    height: auto;
+    padding-bottom: 2rem;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+    border-radius: 3rem;
+  }
+
+  .logInInput {
+    width: 17.5rem;
+    border: 2px solid var(--orange);
+  }
+
+  .logInBtn {
+    width: 5rem;
+    margin: auto;
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    font-weight: bold;
+    transition: background-color 0.3s, border 0.3s;
+  }
+}
+
+/*HOVERS AND FOCUSES*/
+.logInBtn:hover {
+  background-color: var(--dark-orange);
+  border: 1px solid var(--dark-orange);
+  cursor: pointer;
+}
+
+.logInInput:focus {
+  outline: none;
+  border: 2px solid var(--light-green);
+  background-color: #f1f1f1;
+}
