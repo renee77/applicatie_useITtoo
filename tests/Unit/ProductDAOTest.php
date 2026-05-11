@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\DAO\ProductDAO;
 use App\Models\Product;
-use Override;
 use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +29,8 @@ class ProductDAOTest extends TestCase
             'eenheid' => 'kg',
             'omschrijving' => 'lekkere wortels',
             'leverancier' => 'Pietje',
-            'foto_url' => null
+            'foto_url' => null,
+            'product_id' => 1
         ]);
 
         // stap 2: maak nep PDO aan en vertel dat prepare() de nep statement teruggeeft
@@ -60,7 +60,8 @@ class ProductDAOTest extends TestCase
                 'eenheid' => 'kg',
                 'omschrijving' => 'lekkere wortels',
                 'leverancier' => 'Pietje',
-                'foto_url' => null
+                'foto_url' => null,
+                'product_id' => 1
             ],
             [
                 'naam' => 'Appel',
@@ -69,7 +70,8 @@ class ProductDAOTest extends TestCase
                 'eenheid' => 'kg',
                 'omschrijving' => 'rode appels',
                 'leverancier' => 'Boer Piet',
-                'foto_url' => null
+                'foto_url' => null,
+                'product_id' => 2
             ]
         ]);
 
@@ -146,6 +148,60 @@ class ProductDAOTest extends TestCase
         $productDao->deleteProduct(1);
     }
 
+    public function testGetDeletedProductsByName(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->method('fetchAll')->willReturn([
+            [
+                'naam' => 'Rode Appels',
+                'prijs' => 1.95,
+                'verkoop_gewicht' => 2.0,
+                'eenheid' => 'kg',
+                'omschrijving' => 'lekkere wortels',
+                'leverancier' => 'Pietje',
+                'foto_url' => null,
+                'product_id' => 1
+            ],
+            [
+                'naam' => 'Appel',
+                'prijs' => 2.50,
+                'verkoop_gewicht' => 1.0,
+                'eenheid' => 'kg',
+                'omschrijving' => 'rode appels',
+                'leverancier' => 'Boer Piet',
+                'foto_url' => null,
+                'product_id' => 2
+            ]
+        ]);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        // act
+        $products = $productDao->getDeletedProductsByNaam("Appel");
+
+        // assert
+        $this->assertIsArray($products);
+        $this->assertCount(2, $products);
+        $this->assertContainsOnlyInstancesOf(Product::class, $products);
+    }
+
+    public function testRestoreProduct(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->expects($this->once())->method('execute')->willReturn(true);
+        $mockStmt->method('rowCount')->willReturn(1);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        $productDao->restoreProduct(1);
+    }
+
     // sad path getProductById
     public function testGetProductByIdReturnsException(): void
     {
@@ -198,6 +254,22 @@ class ProductDAOTest extends TestCase
         $this->expectException(\RuntimeException::class);
 
         $productDao->deleteProduct(5);
+    }
+
+    public function testRestoreProductReturnsException(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->expects($this->once())->method('execute')->willReturn(true);
+        $mockStmt->method('rowCount')->willReturn(0);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        $this->expectException(\RuntimeException::class);
+
+        $productDao->restoreProduct(1);
     }
 
 }

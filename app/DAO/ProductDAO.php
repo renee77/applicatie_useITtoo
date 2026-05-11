@@ -4,8 +4,10 @@ namespace App\DAO;
 
 use App\Models\Product;
 use App\Models\Eenheid;
+use Exception;
 use PDO;
 use PDOStatement;
+use PhpParser\Node\Stmt;
 
 use function PHPUnit\Framework\throwException;
 
@@ -85,7 +87,9 @@ class ProductDAO
             Eenheid::from($row['eenheid']),
             $row['omschrijving'],
             $row['leverancier'],
-            $row['foto_url']
+            $row['foto_url'],
+            null, // deleted_at
+            $row['product_id']
         );
     }
 
@@ -114,7 +118,9 @@ class ProductDAO
                 Eenheid::from($row['eenheid']),
                 $row['omschrijving'],
                 $row['leverancier'],
-                $row['foto_url']
+                $row['foto_url'],
+                null, // deleted_at
+                $row['product_id']
             );
         }
 
@@ -184,13 +190,46 @@ class ProductDAO
     }
 
     /** @return Product[] */
-    public function getDeletedProductByNaam(string $naam): array
+    public function getDeletedProductsByNaam(string $naam): array
     {
+        // LIKE gebruik je zodat je ook op een gedeelte van de naam kunt zoeken
+        $sql = "Select * FROM product WHERE deleted_at IS NOT NULL AND naam LIKE :naam";
 
+        $stmt = $this->db->prepare($sql);
+        // De % tekens betekenen "alles ervoor en erna" — dus %citroen% vindt ook "Verse citroenen".
+        $stmt->bindValue(':naam', '%' . $naam . '%', PDO::PARAM_STR);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll();
+        $products = [];
+
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                $row['naam'],
+                $row['prijs'],
+                $row['verkoop_gewicht'],
+                Eenheid::from($row['eenheid']),
+                $row['omschrijving'],
+                $row['leverancier'],
+                $row['foto_url'],
+                null, //deleted-at
+                $row['product_id']
+            );
+        }
+
+        return $products;
     }
 
     public function restoreProduct(int $product_id): void
     {
+        $sql = "UPDATE product SET deleted_at = NULL WHERE product_id = :product_id";
 
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            throw new \RuntimeException("Geen product gevonden met dit id of product is niet verwijderd");
+        }
     }
 }
