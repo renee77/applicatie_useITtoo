@@ -7,7 +7,6 @@ use App\Models\Eenheid;
 
 class Product
 {
-    private int $product_id;
     private string $naam;
     private float $prijs;
     private float $verkoop_gewicht;
@@ -16,6 +15,7 @@ class Product
     private ?string $leverancier;
     private ?string $foto_url;
     private ?DateTime $deleted_at;
+    private ?int $product_id;
 
     public function __construct(
         string $naam,
@@ -25,7 +25,10 @@ class Product
         ?string $omschrijving,
         ?string $leverancier,
         ?string $foto_url = null,
-        ?DateTime $deleted_at = null
+        ?DateTime $deleted_at = null,
+        // product_id is null bij een nieuw product — de database kent het id toe via AUTO_INCREMENT
+        // bij een opgehaald product vult de DAO het id in via deze parameter
+        ?int $product_id = null
     ) {
         if ($prijs <= 0) {
             throw new \InvalidArgumentException("Prijs mag niet 0 of negatief zijn");
@@ -46,10 +49,11 @@ class Product
         $this->leverancier = $leverancier;
         $this->foto_url = $foto_url;
         $this->deleted_at = $deleted_at;
+        $this->product_id = $product_id;
     }
 
     // Getters
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->product_id;
     }

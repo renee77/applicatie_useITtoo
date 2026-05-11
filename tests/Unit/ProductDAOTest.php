@@ -101,19 +101,39 @@ class ProductDAOTest extends TestCase
 
         $mockPdo = $this->createMock(PDO::class);
         $mockPdo->method('prepare')->willReturn($mockStmt);
+        $mockPdo->method('lastInsertId')->willReturn('5'); // string want PDO geeft altijd een string terug
 
         $productDao = new ProductDAO($mockPdo);
 
         // act
-        $productDao->addProduct($product);
+        $product_id = $productDao->addProduct($product);
 
-        // geen assert nodig expects() is de assert
+        // assert
+        $this->assertIsInt($product_id);
 
+    }
+
+    public function testUpdateProduct(): void
+    {
+        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null, null, 1);
+
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->expects($this->once())
+        ->method('execute')
+        ->willReturn(true);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        // act
+        $productDao->updateProduct($product);
 
     }
 
     // sad path getProductById
-    public function testGetProductByIdReturnsExeption(): void
+    public function testGetProductByIdReturnsException(): void
     {
         // arrange
         // stap 1: maak nep PDOStatement aan en vertel wat fetch() teruggeeft
@@ -132,6 +152,22 @@ class ProductDAOTest extends TestCase
 
         // act
         $productDao->getProductById(999);
+    }
+
+    public function testUpdateProductReturnsException(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->method('execute')->willReturn(false);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+
+        $this->expectException(\RuntimeException::class);
+
+        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null);
+        $productDao->updateProduct($product);
     }
 
 

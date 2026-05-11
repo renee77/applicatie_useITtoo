@@ -5,6 +5,7 @@ namespace App\DAO;
 use App\Models\Product;
 use App\Models\Eenheid;
 use PDO;
+use PDOStatement;
 
 use function PHPUnit\Framework\throwException;
 
@@ -120,7 +121,11 @@ class ProductDAO
         return $products;
     }
 
-    public function addProduct(Product $product): void
+    // Voegt een nieuw product toe aan de database en geeft het toegekende id terug.
+    // Het id wordt door de database bepaald via AUTO_INCREMENT — niet door de applicatie.
+    // De DAO vraagt het id op via lastInsertId() zodat de Product klasse
+    // zelf geen databaselogica hoeft te bevatten.
+    public function addProduct(Product $product): int
     {
         $sql = "INSERT INTO product(naam, prijs, verkoop_gewicht, eenheid, omschrijving, leverancier, foto_url) 
                 VALUES (:naam, :prijs, :verkoop_gewicht, :eenheid, :omschrijving, :leverancier, :foto_url)";
@@ -135,11 +140,31 @@ class ProductDAO
         $stmt->bindValue(':foto_url', $product->getFotoUrl(), $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
         $stmt->execute();
+
+        // Geeft het door de database toegekende AUTO_INCREMENT id terug als integer
+        return (int) $this->db->lastInsertId();
     }
 
     public function updateProduct(Product $product): void
     {
+        $product_id = $product->getId();
+        // id kan null zijn als het nog niet in de database bestaat
+        if ($product_id === null) {
+            throw new \RuntimeException("Kan product niet updaten zonder id");
+        }
+        $sql = "UPDATE product SET naam = :naam, prijs = :prijs, verkoop_gewicht = :verkoop_gewicht, eenheid = :eenheid, omschrijving = :omschrijving, leverancier = :leverancier, foto_url = :foto_url WHERE product_id = :product_id";
 
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':naam', $product->getNaam(), PDO::PARAM_STR);
+        $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
+        $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
+        $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
+        $stmt->bindValue(':omschrijving', $product->getOmschrijving(), $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':leverancier', $product->getLeverancier(), $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':foto_url', $product->getFotoUrl(), $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     public function deleteProduct(int $product_id): void
