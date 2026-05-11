@@ -41,7 +41,8 @@ class ProductDAO
 
         // Schrijf de SQL query
         // De :product_id is een named placeholder. De koppeling naar de PHP variabele maak je daarna via bindValue
-        // Dit is ook veiliger dan de variabele direct in de SQL te zetten, want PDO zorgt dat de waarde niet als SQL geïnterpreteerd wordt — dit voorkomt SQL injection.
+        // Dit is ook veiliger dan de variabele direct in de SQL te zetten,
+        // want PDO zorgt dat de waarde niet als SQL geïnterpreteerd wordt — dit voorkomt SQL injection.
         $sql = "SELECT * FROM product WHERE product_id = :product_id AND deleted_at IS NULL";
 
         // query voorbereiden en parameter binden
@@ -50,7 +51,8 @@ class ProductDAO
         // $db->query()     // directe query uitvoeren
         // $db->quote()     // waarde escapen
         $stmt = $this->db->prepare($sql);
-        // prepare() geeft een PDOStatement object terug — dat is $stmt. Ook dat is een ingebouwde PHP klasse met eigen methoden:
+        // prepare() geeft een PDOStatement object terug — dat is $stmt.
+        // Ook dat is een ingebouwde PHP klasse met eigen methoden:
         // $stmt->bindValue()  // waarde koppelen aan placeholder
         //      De beschikbare type constanten zijn:
         //      PDO::PARAM_INT → geheel getal
@@ -141,9 +143,21 @@ class ProductDAO
         $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
         $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
         $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
-        $stmt->bindValue(':omschrijving', $product->getOmschrijving(), $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindValue(':leverancier', $product->getLeverancier(), $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindValue(':foto_url', $product->getFotoUrl(), $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(
+            ':omschrijving',
+            $product->getOmschrijving(),
+            $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
+        $stmt->bindValue(
+            ':leverancier',
+            $product->getLeverancier(),
+            $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
+        $stmt->bindValue(
+            ':foto_url',
+            $product->getFotoUrl(),
+            $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
 
         $stmt->execute();
 
@@ -158,16 +172,30 @@ class ProductDAO
         if ($product_id === null) {
             throw new \RuntimeException("Kan product niet updaten zonder id");
         }
-        $sql = "UPDATE product SET naam = :naam, prijs = :prijs, verkoop_gewicht = :verkoop_gewicht, eenheid = :eenheid, omschrijving = :omschrijving, leverancier = :leverancier, foto_url = :foto_url WHERE product_id = :product_id";
+        $sql = "UPDATE product SET naam = :naam, prijs = :prijs, verkoop_gewicht = :verkoop_gewicht, 
+            eenheid = :eenheid, omschrijving = :omschrijving, leverancier = :leverancier, 
+            foto_url = :foto_url WHERE product_id = :product_id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':naam', $product->getNaam(), PDO::PARAM_STR);
         $stmt->bindValue(':prijs', $product->getPrijs(), PDO::PARAM_STR);
         $stmt->bindValue(':verkoop_gewicht', $product->getVerkoopGewicht(), PDO::PARAM_STR);
         $stmt->bindValue(':eenheid', $product->getEenheid()->value, PDO::PARAM_STR);
-        $stmt->bindValue(':omschrijving', $product->getOmschrijving(), $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindValue(':leverancier', $product->getLeverancier(), $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt->bindValue(':foto_url', $product->getFotoUrl(), $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(
+            ':omschrijving',
+            $product->getOmschrijving(),
+            $product->getOmschrijving() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
+        $stmt->bindValue(
+            ':leverancier',
+            $product->getLeverancier(),
+            $product->getLeverancier() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
+        $stmt->bindValue(
+            ':foto_url',
+            $product->getFotoUrl(),
+            $product->getFotoUrl() === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+        );
         $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
 
         $stmt->execute();
