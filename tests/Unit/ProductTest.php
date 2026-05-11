@@ -172,10 +172,10 @@ class ProductTest extends TestCase
     // Naam goed ingevuld
     public function testNaamMagNietLeegZijn(): void
     {
-        // vertel PHPUnit EERST dat je een exception verwacht
+        // vertel PHPUnit EERST dat je een exception verwacht ASSERT
         $this->expectException(\InvalidArgumentException::class);
 
-        // daarna de actie die de exception moet gooien
+        // daarna de actie die de exception moet gooien ACT
         new Product("", 3, 2, Eenheid::Kilogram, null, null);
     }
 

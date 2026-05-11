@@ -43,7 +43,7 @@ jobs:
           # PHPUnit één keer draaien met zowel testdox- als coverage-output.
           # 2>&1 zorgt dat stderr (bijv. fatale PHP-fouten) ook wordt meegenomen.
           # --colors=never voorkomt dat ANSI-codes de grep-expressies hieronder verstoren.
-          OUTPUT=$(vendor/bin/phpunit --coverage-text --colors=never --coverage-filter app/ tests/Unit 2>&1)
+          OUTPUT=$(vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml --colors=never --coverage-filter app/ tests/Unit 2>&1)
           PHPUNIT_EXIT=$?
 
           # Output naar het scherm printen zodat je het ziet in de Actions-tab.
@@ -99,6 +99,10 @@ jobs:
         # Dit is een GitHub-beveiligingsmaatregel: externe bots krijgen geen toegang tot gevoelige tokens.
         # Deze conditie zorgt dat de SonarQube-stap wordt overgeslagen bij Dependabot-runs.
         uses: SonarSource/sonarqube-scan-action@v8
+        with:
+          args: >
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.qualitygate.wait=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # dit genereert GitHub zelf automatisch voor elke pipeline-run. Het is een token dat de pipeline gebruikt om acties uit te voeren binnen de repository, zoals het aanmaken van opmerkingen of het bijwerken van de status van commits.
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # dit is een geheim dat je zelf moet aanmaken in de repository-instellingen. Het is een token dat je genereert in SonarCloud en dat de pipeline gebruikt om zich te authenticeren bij SonarCloud en de analyse te uploaden.
