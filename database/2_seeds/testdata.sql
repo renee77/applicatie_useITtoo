@@ -97,7 +97,7 @@ INSERT INTO `categorie` (`categorie`, `omschrijving`)
 VALUES
 ('Groenten', 'Verse biologische groenten rechtstreeks van lokale boeren uit Noord-Brabant.'),
 ('Fruit', 'Biologisch fruit uit Brabantse boomgaarden en kassen.'),
-('Langer Houdbare producten', 'De langer houdbare producten, gemaakt van het groente en fruit wat overblijft bij onze biologische boeren!');
+('Langer Houdbare Producten', 'De langer houdbare producten, gemaakt van het groente en fruit wat overblijft bij onze biologische boeren!');
 
 
 -- ============================================================
