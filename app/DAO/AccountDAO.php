@@ -20,11 +20,12 @@ class AccountDAO
         $stmt = $this->db->query("SELECT * FROM account");
         return array_map(
             fn($row) => new Account(
-                $row['account_id'], 
-                $row['voornaam'], 
-                $row['email'], 
-                $row['gebruikersnaam'], 
-                $row['wachtwoord']),
+                $row['account_id'],
+                $row['voornaam'],
+                $row['email'],
+                $row['gebruikersnaam'],
+                $row['wachtwoord']
+            ),
             $stmt->fetchAll(\PDO::FETCH_ASSOC)
         );
     }
@@ -35,34 +36,37 @@ class AccountDAO
         $stmt->execute([$id]);
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $row ? new Account(
-                $row['account_id'], 
-                $row['voornaam'], 
-                $row['email'], 
-                $row['gebruikersnaam'], 
-                $row['wachtwoord']) : null;
+            $row['account_id'],
+            $row['voornaam'],
+            $row['email'],
+            $row['gebruikersnaam'],
+            $row['wachtwoord']
+        ) : null;
     }
 
-    // Haal de user op op basis van de gebruikersnaam (voor de validatie van het inloggen)
+    // Haal de user op op basis van de gebruikersnaam 
+    //(voor de validatie van het inloggen)
     public function getByUsername(string $gebruikersnaam): ?Account
     {
-        // De informatie uit de database opvragen via een SQL query (SQL-Injectie voorkomen via bindValue)
+        // De informatie uit de database opvragen via een SQL query 
+        // (SQL-Injectie voorkomen via bindValue)
         $stmt = $this->db->prepare("SELECT * FROM users 
         WHERE gebruikersnaam = :gebruikersnaam");
         $stmt->bindValue(':gebruikersnaam', $gebruikersnaam);
         $stmt->execute();
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         // Als er niets bestaat, een null-value terugsturen
-        if (!$row) 
-        {
+        if (!$row) {
             return null;
         }
-        // Als er wel iets bestaat, wordt er een nieuwe userklasse 
+        // Als er wel iets bestaat, wordt er een nieuwe userklasse
         // aangemaakt met de opgehaalde informatie uit de database
         return new Account(
-                $row['account_id'], 
-                $row['voornaam'], 
-                $row['email'], 
-                $row['gebruikersnaam'], 
-                $row['wachtwoord']);
+            $row['account_id'],
+            $row['voornaam'],
+            $row['email'],
+            $row['gebruikersnaam'],
+            $row['wachtwoord']
+        );
     }
 }
