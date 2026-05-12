@@ -62,7 +62,6 @@ class Router
         'view'   => $view,
         'layout' => $layout,
         ];
-
     }
 
     /**
