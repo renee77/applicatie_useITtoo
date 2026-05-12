@@ -55,4 +55,9 @@ $dotenv->load();
 // rtrim() verwijdert een eventuele trailing slash voor consistente URL-opbouw.
 // Gebruik BASE_URL als prefix voor alle links en assets in views, bijvoorbeeld:
 // // Gebruik BASE_URL als prefix voor alle links en assets in views.
-define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
+
+// dirname() met 2 als argument gaat twee niveaus omhoog:
+// /eindopdracht_jaar1/public/index.php
+//   → stap 1: /eindopdracht_jaar1/public
+//   → stap 2: /eindopdracht_jaar1 dit is de base URL die we willen
+define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME'], 2), '/'));

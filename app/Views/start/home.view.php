@@ -7,7 +7,7 @@ $title = 'Welkom'; ?>
     <h2>Eerste jaars project van Lonneke van Oers en Eva Bouwman</h2>
     <p>Kies waar je naartoe wilt:</p>
     <div class="keuze-knoppen">
-        <a href="<?= BASE_URL ?>/webshop" class="knop">Webwinkel</a>
-        <a href="<?= BASE_URL ?>/beheer" class="knop">Beheerportaal</a>
+        <button class="dark-button"><a href="<?= BASE_URL ?>/webshop" class="knop">Webwinkel</a></button>
+        <button class="dark-button"><a href="<?= BASE_URL ?>/beheer" class="knop">Beheerportaal</a></button>
     </div>
 </section>

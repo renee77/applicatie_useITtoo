@@ -53,13 +53,14 @@ class Router
      * @param string $view      Het bestandspad naar de bijbehorende view
      * @param string $layout    Het te gebruiken layout-bestand (standaard main.php)
      */
-    public function register(string $path, string $view, string $layout = 'main.php'): void
+    public function register(string $path, string $view, string $layout = 'main.php', ?string $controller = null): void
     {
         // Sla de route op met pad, view én layout
         // Bijvoorbeeld: $routes['/beheer'] = ['view' => 'beheer.view.php', 'layout' => 'main.beheer.php']
         $this->routes[$path] = [
-            'view'   => $view,
-            'layout' => $layout,
+        'controller' => $controller,
+        'view'   => $view,
+        'layout' => $layout,
         ];
     }
 
@@ -117,13 +118,18 @@ class Router
 
         // Kijk of dit pad bekend is in de routelijst
         if (array_key_exists($path, $this->routes)) {
-            // Haal view én layout op uit de route-array
+            // Haal controller view én layout op uit de route-array
             $view   = $this->routes[$path]['view'];
             $layout = $this->routes[$path]['layout'];
+            $controller = $this->routes[$path]['controller'];
+
 
             // Vang de output van de view op in een variabele
             // zodat het layout-bestand hem op de juiste plek kan plaatsen
             ob_start();
+            if ($controller) {
+                include $controller;
+            }
             include $view;
             $content = ob_get_clean();
 

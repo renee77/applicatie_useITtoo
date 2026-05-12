@@ -1,13 +1,16 @@
 -- voorkomt een foutmelding als de database al bestaat, en zorgt ervoor dat de database wordt geselecteerd voor gebruik
-CREATE DATABASE IF NOT EXISTS useITtooApplicatieDB 
--- dit ondersteunt ook de juiste tekenset voor het opslaan van speciale tekens in de database, zoals emoji's, soms handig in de recepten of productomschrijvingen
+DROP DATABASE IF EXISTS useITtooApplicatieDB;
+
+CREATE DATABASE useITtooApplicatieDB
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 USE useITtooApplicatieDB;
+
 
 -- ============================================================
 -- SOFT DELETE: in plaats van rijen fysiek verwijderen, markeer je ze als verwijderd met een timestamp.
 -- soft delete: NULL = actief, timestamp = verwijderd
-    -- `deleted_at` TIMESTAMP NULL DEFAULT NULL
+-- `deleted_at` TIMESTAMP NULL DEFAULT NULL
 -- In je applicatie filter je dan altijd op WHERE deleted_at IS NULL om alleen actieve rijen op te halen.
 -- ============================================================
 

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
-$router = new \App\Core\Router('/applicatie_useITtoo');
+$router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '');
 
 // Registreer alle bekende routes
 // Patroon: $router->register(URL-pad, view-bestand, layout-bestand);
