@@ -51,55 +51,27 @@ section#shopBackground {
     min-height: 40vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 2rem;
+    padding: 2rem 0;
 
     h1 {
         margin-bottom: 1.5rem;
+        text-align: center;
     }
 
-    div.shop {
+    div.product_categorie {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 2rem;
+        flex-direction: column;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        background-color: var(--white);
 
-        div.product {
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-            border: 0.05rem solid var(--dark-green);
-            border-radius: 5px;
-            box-shadow: 0 2px 6px var(--dark-green);
-
-            h5 {
-                max-width: fit-content;
-                margin: 1rem auto;
-                color: var(--dark-green);
-            }
-
-            img {
-                display: block;
-                width: 14rem;
-                aspect-ratio: 1 / 1;
-                object-fit: cover;
-                border-radius: 5px;
-            }
-
-            p.price {
-                background-color: var(--light-green);
-                max-width: fit-content;
-                margin: 1rem auto;
-                padding: 0.5rem;
-                border-radius: 5px;
-            }
-
-            a.btn {
-                margin: 0.5rem auto;
-                padding: 5px 15px;
-                border-radius: 5px;
-            }
+        h2 {
+            text-align: center;
         }
+
+        border: 0.05rem solid var(--dark-green);
+        border-radius: 5px;
+        box-shadow: 0 2px 6px var(--dark-green);
     }
 }
 

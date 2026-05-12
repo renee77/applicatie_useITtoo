@@ -19,21 +19,9 @@
     <div class="container" id="shop">
         <h1>Onze Producten</h1>
 
-        <?php if (empty($products)) : ?>
-            <p>Er zijn momenteel geen producten beschikbaar.</p>
-        <?php else : ?>
-            <div class="shop">
-                <?php foreach ($products as $product) : ?>
-                    <div class="product">
-                        <h5><?= htmlspecialchars($product['naam']) ?></h5>
-                        <img src="<?= htmlspecialchars($product['foto_url'] ?? '/img/placeholder.jpg') ?>"
-                             alt="<?= htmlspecialchars($product['naam']) ?>">
-                        <p class="price">€<?= number_format($product['prijs'], 2, ',', '.') ?></p>
-                        <a href="/webshop/product/<?= $product['id'] ?>" class="btn dark-button">Bekijk product</a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        <div class="product_categorie"><h2>Groente</h2></div>
+        <div class="product_categorie"><h2>Fruit</h2></div>
+        <div class="product_categorie"><h2>Langerhoudbaar</h2></div>
 
     </div>
 </section>
