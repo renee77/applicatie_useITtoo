@@ -8,6 +8,7 @@ use Exception;
 use PDO;
 use PDOStatement;
 use PhpParser\Node\Stmt;
+use App\Models\Categorie;
 
 use function PHPUnit\Framework\throwException;
 
@@ -264,5 +265,39 @@ class ProductDAO
         if ($stmt->rowCount() === 0) {
             throw new \RuntimeException("Geen product gevonden met dit id of product is niet verwijderd");
         }
+    }
+
+    /** @return Product[] */
+    public function getProductsByCategorie(Categorie $categorie): array
+    {
+        $sql = "SELECT naam, omschrijving, prijs, verkoop_gewicht, eenheid, product.product_id, leverancier, foto_url 
+                FROM product
+                INNER JOIN product_categorie ON product.product_id = product_categorie.product_id
+                WHERE product.deleted_at IS NULL AND product_categorie.deleted_at IS NULL 
+                    AND product_categorie.categorie = :categorie";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':categorie', $categorie->value, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll();
+
+        $products = [];
+
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                $row['naam'],
+                $row['prijs'],
+                $row['verkoop_gewicht'],
+                Eenheid::from($row['eenheid']),
+                $row['omschrijving'],
+                $row['leverancier'],
+                $row['foto_url'],
+                null, //deleted-at
+                $row['product_id']
+            );
+        }
+
+        return $products;
     }
 }

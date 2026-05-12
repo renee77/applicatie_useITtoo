@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\DAO\ProductDAO;
+use App\Models\Categorie;
 use App\Models\Product;
 use PDO;
 use PDOStatement;
@@ -201,6 +202,45 @@ class ProductDAOTest extends TestCase
 
         $productDao->restoreProduct(1);
     }
+
+    public function testGetProductsByCategorie(): void
+    {
+        $mockStmt = $this->createMock(PDOStatement::class);
+        $mockStmt->method('fetchAll')->willReturn([
+            [
+                'naam' => 'Wortel',
+                'prijs' => 1.95,
+                'verkoop_gewicht' => 2.0,
+                'eenheid' => 'kg',
+                'omschrijving' => 'lekkere wortels',
+                'leverancier' => 'Pietje',
+                'foto_url' => null,
+                'product_id' => 1
+            ],
+            [
+                'naam' => 'Knolselderij',
+                'prijs' => 2.50,
+                'verkoop_gewicht' => 1.0,
+                'eenheid' => 'kg',
+                'omschrijving' => 'rode appels',
+                'leverancier' => 'Boer Piet',
+                'foto_url' => null,
+                'product_id' => 2
+            ]
+        ]);
+
+        $mockPdo = $this->createMock(PDO::class);
+        $mockPdo->method('prepare')->willReturn($mockStmt);
+
+        $productDao = new ProductDAO($mockPdo);
+        $products = $productDao->getProductsByCategorie(Categorie::Groente);
+
+        $this->assertIsArray($products);
+        $this->assertCount(2, $products);
+        $this->assertContainsOnlyInstancesOf(Product::class, $products);
+    }
+
+
 
     // sad path getProductById
     public function testGetProductByIdReturnsException(): void

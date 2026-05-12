@@ -10,7 +10,7 @@ USE useITtooApplicatieDB;
 -- ============================================================
 -- SOFT DELETE: in plaats van rijen fysiek verwijderen, markeer je ze als verwijderd met een timestamp.
 -- soft delete: NULL = actief, timestamp = verwijderd
-    -- `deleted_at` TIMESTAMP NULL DEFAULT NULL
+-- `deleted_at` TIMESTAMP NULL DEFAULT NULL
 -- In je applicatie filter je dan altijd op WHERE deleted_at IS NULL om alleen actieve rijen op te halen.
 -- ============================================================
 
