@@ -1,4 +1,6 @@
-<?php $title = 'Webwinkel'; ?>
+<?php
+
+$title = 'Webwinkel'; ?>
 
 <link rel="stylesheet" href="/css/webshop.css">
 
