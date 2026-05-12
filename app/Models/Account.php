@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class User
+class Account
 {
     public function __construct(
         private int $id,

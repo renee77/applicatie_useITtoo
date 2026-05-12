@@ -2,35 +2,37 @@
 
 namespace App\Core;
 
-use App\DAO\UserDAO;
+use App\Core\Database;
+use App\DAO\AccountDAO;
+use PDO;
 
 class Authenticator
 {
-    private UserDAO $userDAO;
+    private AccountDAO $accountDAO;
 
     // Maak de userDAO aan om door de Authenticator klasse te halen.
-    public function __construct() 
+    public function __construct()
     {
-      $this->userDAO = new UserDAO();
+        $this->accountDAO = new AccountDAO(Database::getConnection());
     }
 
-    // Een functie waarbij de user wordt gecheckt (bestaat de username?) en het wachtwoord uit de user wordt gehaald.
-    public function login(string $username, string $password): bool
+    // Een functie waarbij de user wordt gecheckt (bestaat de username?) 
+    // en het wachtwoord uit de user wordt gehaald.
+    public function login(string $gebruikersnaam, string $wachtwoord): bool
     {
-        $user = $this->userDAO->getByUsername($username);
+        $account = $this->accountDAO->getByUsername($gebruikersnaam);
 
-        if (!$user) {
+        if (!$gebruikersnaam) {
             return false;
         }
 
-        if (!password_verify($password, $user->getPassword())) {
+        if (!password_verify($wachtwoord, $account->getPassword())) {
             return false;
         }
 
-        $_SESSION['user_id'] = $user->getId();
-        $_SESSION['username'] = $user->getUsername();
+        $_SESSION['account_id'] = $account->getId();
+        $_SESSION['gebruikersnaam'] = $account->getUsername();
 
         return true;
     }
-
 }
