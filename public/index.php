@@ -4,7 +4,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
-$router = new \App\Core\Router('/eindopdracht_jaar1');
+$router = new \App\Core\Router('/applicatie_useITtoo');
 
 // Registreer alle bekende routes
 // Patroon: $router->register(URL-pad, view-bestand, layout-bestand);
@@ -12,6 +12,7 @@ $router = new \App\Core\Router('/eindopdracht_jaar1');
 $router->register('/', __DIR__ . '/../app/Views/start/home.view.php');
 $router->register('/webshop', __DIR__ . '/../app/Views/webshop/webshop.view.php');
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
+$router->register('/beheerlogin', __DIR__ . '/../app/Views/user/beheer.login.view.php', 'login.beheer.php');
 
 // Voer de router uit — hij bepaalt welke view geladen wordt
 $router->run();
