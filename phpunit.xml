@@ -7,8 +7,17 @@
     </testsuites>
     <coverage>
         <report>
-            <text outputFile="php://stdout"/>
+            <clover outputFile="coverage.xml"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
         </report>
+        <minCoverage>
+            <method percent="80"/>
+            <line percent="80"/>
+        </minCoverage>
+        <includeUncoveredFiles/>
+        <directories>
+            <directory>app/</directory>
+        </directories>
     </coverage>
     <source>
         <include>
