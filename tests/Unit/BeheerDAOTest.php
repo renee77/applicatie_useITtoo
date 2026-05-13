@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\DAO\BeheerDAO;
 use App\Models\Beheer;
+use App\Models\Beheerdersrol;
 use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +16,7 @@ class BeheerDAOTest extends TestCase
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
     $stmt->method('fetch')->willReturn([
-      'rol' => 'klantenservice',
+      'rol' => Beheerdersrol::klantenservice,
       'datum_in_dienst' => '2023-01-10',
       'email' => 'jeroendijkstra@example.com',
       'gebruikersnaam' => 'JDijkstra',
@@ -45,7 +46,7 @@ class BeheerDAOTest extends TestCase
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
     $stmt->method('fetch')->willReturn([
-      'rol' => 'klantenservice',
+      'rol' => Beheerdersrol::klantenservice,
       'datum_in_dienst' => '2023-01-10',
       'email' => 'jeroendijkstra@example.com',
       'gebruikersnaam' => 'JDijkstra',

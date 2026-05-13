@@ -6,6 +6,7 @@ use App\DAO\AccountDAO;
 use App\Models\Account;
 use PDO;
 use PDOStatement;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class AccountDAOTest extends TestCase
@@ -18,8 +19,8 @@ class AccountDAOTest extends TestCase
       'email' => 'jan.vermeer@example.com',
       'gebruikersnaam' => 'JVermeer',
       'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001',
-      'created_at' => '2026-05-13',
-      'geboortedatum' => '1985-03-21',
+      'created_at' => new DateTime('2026-05-13'),
+      'geboortedatum' => new DateTime('1985-03-21'),
       'type' => 'klant',
       'voornaam' => 'Jan',
       'achternaam' => 'Vermeer',
@@ -48,8 +49,8 @@ class AccountDAOTest extends TestCase
       'email' => 'jan.vermeer@example.com',
       'gebruikersnaam' => 'JVermeer',
       'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001',
-      'created_at' => '2026-05-13',
-      'geboortedatum' => '1985-03-21',
+      'created_at' => new DateTime('2026-05-13'),
+      'geboortedatum' => new DateTime('1985-03-21'),
       'type' => 'klant',
       'voornaam' => 'Jan',
       'achternaam' => 'Vermeer',
