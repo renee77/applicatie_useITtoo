@@ -83,8 +83,12 @@ class Router
      *     );
      */
 
-    public function register(string $path, string $view, string $layout = 'main.php', ?callable $controller = null): void
-    {
+    public function register(
+        string $path,
+        string $view,
+        string $layout = 'main.php',
+        ?callable $controller = null
+    ): void {
         // Sla de route op met pad, view én layout
         // Bijvoorbeeld: $routes['/beheer'] = ['view' => 'beheer.view.php', 'layout' => 'main.beheer.php']
         $this->routes[$path] = [
