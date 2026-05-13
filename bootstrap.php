@@ -1,5 +1,9 @@
 <?php
 
+// toont welke php errors er zijn
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // ============================================================
 // bootstrap.php — centraal opstartbestand van de applicatie
 //
