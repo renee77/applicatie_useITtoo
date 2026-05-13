@@ -16,7 +16,7 @@ class Authenticator
         $this->accountDAO = new AccountDAO(Database::getConnection());
     }
 
-    // Een functie waarbij de user wordt gecheckt (bestaat de username?) 
+    // Een functie waarbij de user wordt gecheckt (bestaat de username?)
     // en het wachtwoord uit de user wordt gehaald.
     public function login(string $gebruikersnaam, string $wachtwoord): bool
     {

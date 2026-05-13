@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-enum AccountType: string 
+enum AccountType: string
 {
-  case klant = "klant";
-  case beheerder = "beheer";
+    case klant = "klant";
+    case beheerder = "beheer";
 }

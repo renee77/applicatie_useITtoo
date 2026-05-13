@@ -30,7 +30,7 @@ class Account
         ?string $achternaam = null,
         ?string $telefoon = null,
         ?DateTime $deleted_at = null,
-        // Het account_id wordt automatisch toegekend bij een nieuw product via database. 
+        // Het account_id wordt automatisch toegekend bij een nieuw product via database.
         ?int $account_id = null
     ) {
         if (strlen($gebruikersnaam) <= 2) {
@@ -56,7 +56,7 @@ class Account
         $this->telefoon = $telefoon;
         $this->type = $type;
         $this->deleted_at = $deleted_at;
-    } 
+    }
 
 
     // GETTERS
@@ -73,7 +73,7 @@ class Account
     public function getGebruikersnaam(): string
     {
         return $this->gebruikersnaam;
-    }  
+    }
 
     public function getWachtwoord(): string
     {

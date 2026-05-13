@@ -44,11 +44,11 @@ class AccountDAO
         ) : null;
     }
 
-    // Haal de user op op basis van de gebruikersnaam 
+    // Haal de user op op basis van de gebruikersnaam
     //(voor de validatie van het inloggen)
     public function getByUsername(string $gebruikersnaam): ?Account
     {
-        // De informatie uit de database opvragen via een SQL query 
+        // De informatie uit de database opvragen via een SQL query
         // (SQL-Injectie voorkomen via bindValue)
         $stmt = $this->db->prepare("SELECT * FROM users 
         WHERE gebruikersnaam = :gebruikersnaam");

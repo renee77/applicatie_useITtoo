@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 enum Beheerdersrol: string
 {
-  case voorraadbeheerder = "vooraadbeheerder"; 
-  case klantenservice = "klantenservice";
+    case voorraadbeheerder = "vooraadbeheerder";
+    case klantenservice = "klantenservice";
 }
