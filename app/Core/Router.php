@@ -12,6 +12,13 @@ namespace App\Core;
  * Herbruikbaar: deze klasse werkt in elk PHP-project, ongeacht het onderwerp.
  * Daarom hoort hij in Core en niet in Models.
  */
+
+// De verantwoordelijkheden zijn:
+
+// Controller → bepaalt welke data de view nodig heeft en geeft die terug
+// Router → zorgt dat die data beschikbaar is in de scope waar de view draait
+// View → gebruikt de data, weet niet waar hij vandaan komt
+
 class Router
 {
     /**
@@ -49,11 +56,34 @@ class Router
      *   $router->register('/', 'home.view.php');
      *   $router->register('/beheer', 'beheer.view.php', 'main.beheer.php');
      *
-     * @param string $path      Het URL-pad, bijv. '/' of '/webshop'
-     * @param string $view      Het bestandspad naar de bijbehorende view
-     * @param string $layout    Het te gebruiken layout-bestand (standaard main.php)
+     * @param string $path              Het URL-pad, bijv. '/' of '/webshop'
+     * @param string $view              Het bestandspad naar de bijbehorende view
+     * @param string $layout            Het te gebruiken layout-bestand (standaard main.php)
+     * @param callable|null $controller Een optionele closure die de controller aanmaakt en aanroept.
+     *
+     *   Een closure is een anonieme functie die je als waarde mee kunt geven,
+     *   bijvoorbeeld: function() { ... }
+     *
+     *   We gebruiken een closure hier omdat de router niets weet van ProductDAO,
+     *   Database of welke dependency dan ook. In plaats van dat de router de
+     *   controller zelf aanmaakt, geef jij als aanroeper een functie mee die
+     *   dat doet — inclusief alle benodigde dependencies.
+     *
+     *   In PHP is een closure een callable: iets wat aangeroepen kan worden
+     *   via ($controller)(). Dat is ook waarom het type callable|null is
+     *   en niet string of object — het gaat om de aanroepbaarheid, niet de vorm.
+     *
+     *   Voorbeeld in index.php:
+     *     $router->register('/webshop', 'webshop.view.php', 'main.php',
+     *         function() use ($db) {
+     *             $dao = new ProductDAO($db);
+     *             $controller = new WebshopController($dao);
+     *             $controller->index();
+     *         }
+     *     );
      */
-    public function register(string $path, string $view, string $layout = 'main.php', ?string $controller = null): void
+
+    public function register(string $path, string $view, string $layout = 'main.php', ?callable $controller = null): void
     {
         // Sla de route op met pad, view én layout
         // Bijvoorbeeld: $routes['/beheer'] = ['view' => 'beheer.view.php', 'layout' => 'main.beheer.php']
@@ -127,8 +157,11 @@ class Router
             // Vang de output van de view op in een variabele
             // zodat het layout-bestand hem op de juiste plek kan plaatsen
             ob_start();
-            if ($controller) {
-                include $controller;
+            if ($controller !== null) {
+                $viewData = ($controller)();
+                if (is_array($viewData)) {
+                    extract($viewData); // maakt $groenten, $fruit, $houdbaar beschikbaar
+                }
             }
             include $view;
             $content = ob_get_clean();
@@ -142,3 +175,15 @@ class Router
         }
     }
 }
+
+// gebruik in index.php bij het registreren:
+// $router->register(
+//     '/webshop',
+//     __DIR__ . '/app/Views/webshop.view.php',
+//     'main.php',
+//     function() use ($db) {
+//         $dao = new ProductDAO($db);
+//         $controller = new WebshopController($dao);
+//         $controller->index();
+//     }
+// );
