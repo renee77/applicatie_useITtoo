@@ -20,8 +20,9 @@
             <file>app/Models/Eenheid.php</file>
             <file>app/Models/Categorie.php</file>
             <!-- Core klassen worden niet unit getest, dit zijn infrastructuur klassen -->
-            <file>app/Core/Router.php</file>
-            <file>app/Core/Database.php</file>
+            <directory>app/Views</directory>
+            <directory>app/Core</directory>
+            <directory>app/Controllers</directory>
         </exclude>
     </source>
 </phpunit>
