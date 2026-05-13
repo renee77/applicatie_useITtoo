@@ -4,7 +4,6 @@ namespace App\DAO;
 
 use App\Core\Database;
 use App\Models\Account;
-use App\Models\AccountType;
 use PDO;
 
 class AccountDAO

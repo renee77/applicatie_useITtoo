@@ -15,7 +15,6 @@ class AccountDAOTest extends TestCase
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
     $stmt->method('fetch')->willReturn([
-      'account_id' => 1,
       'email' => 'jan.vermeer@example.com',
       'gebruikersnaam' => 'JVermeer',
       'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001',
@@ -25,7 +24,8 @@ class AccountDAOTest extends TestCase
       'voornaam' => 'Jan',
       'achternaam' => 'Vermeer',
       'telefoon' => '+31610000001',
-      'deleted_at' => null
+      'deleted_at' => null,
+      'account_id' => 1,
     ]);
 
     $mockPdo = $this->createMock(PDO::class);

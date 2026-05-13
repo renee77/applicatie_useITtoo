@@ -20,7 +20,7 @@ class BeheerDAO
         $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
     FROM `beheer` 
     INNER JOIN `beheer` ON `beheer.account_id` = `account.id`; 
-    WHERE `account.gebruikrsnaam` = :gebruikersnaam";
+    WHERE `account.gebruikersnaam` = :gebruikersnaam";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":gebruikersnaam", $gebruikersnaam, \PDO::PARAM_STR);
         $stmt->execute();
@@ -29,7 +29,8 @@ class BeheerDAO
 
         if ($beheer) {
             return new Beheer(
-                $beheer['account_id'],
+                $beheer['rol'],
+                $beheer['datum_in_dienst'],
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
                 $beheer['wachtwoord'],
@@ -40,8 +41,7 @@ class BeheerDAO
                 $beheer['achternaam'],
                 $beheer['telefoon'],
                 $beheer['deleted_at'],
-                $beheer['rol'],
-                $beheer['datum_in_dienst']
+                $beheer['account_id']
             );
         } else {
             return null;
@@ -63,7 +63,8 @@ class BeheerDAO
 
         if ($beheer) {
             return new Beheer(
-                $beheer['account_id'],
+                $beheer['rol'],
+                $beheer['datum_in_dienst'],
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
                 $beheer['wachtwoord'],
@@ -74,8 +75,7 @@ class BeheerDAO
                 $beheer['achternaam'],
                 $beheer['telefoon'],
                 $beheer['deleted_at'],
-                $beheer['rol'],
-                $beheer['datum_in_dienst']
+                $beheer['account_id']
             );
         } else {
             return null;
