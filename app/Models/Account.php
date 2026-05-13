@@ -7,28 +7,28 @@ use DateTime;
 
 class Account
 {
-    private ?int $account_id;
     private string $email;
     private string $gebruikersnaam;
     private string $wachtwoord;
-    private ?string $voornaam;
-    private ?string $achternaam;
     private DateTime $created_at;
     private DateTime $geboortedatum;
-    private ?string $telefoon;
     private AccountType $type;
+    private ?string $voornaam;
+    private ?string $achternaam;
+    private ?string $telefoon;
     private ?DateTime $deleted_at;
+    private ?int $account_id;
 
     public function __construct(
         string $email,
         string $gebruikersnaam,
         string $wachtwoord,
-        ?string $voornaam = null,
-        ?string $achternaam = null,
         DateTime $created_at,
         DateTime $geboortedatum,
-        ?string $telefoon = null,
         AccountType $type,
+        ?string $voornaam = null,
+        ?string $achternaam = null,
+        ?string $telefoon = null,
         ?DateTime $deleted_at = null,
         // Het account_id wordt automatisch toegekend bij een nieuw product via database. 
         ?int $account_id = null
@@ -60,7 +60,7 @@ class Account
 
 
     // GETTERS
-    public function getAccountId(): int
+    public function getAccountId(): ?int
     {
         return $this->account_id;
     }
@@ -80,12 +80,12 @@ class Account
         return $this->wachtwoord;
     }
 
-    public function getVoornaam(): string
+    public function getVoornaam(): ?string
     {
         return $this->voornaam;
     }
 
-    public function getAchternaam(): string
+    public function getAchternaam(): ?string
     {
         return $this->achternaam;
     }
@@ -100,7 +100,7 @@ class Account
         return $this->geboortedatum;
     }
 
-    public function getTelefoon(): string
+    public function getTelefoon(): ?string
     {
         return $this->telefoon;
     }
@@ -110,7 +110,7 @@ class Account
         return $this->type;
     }
 
-    public function getDeletedAt(): DateTime
+    public function getDeletedAt(): ?DateTime
     {
         return $this->deleted_at;
     }
@@ -129,5 +129,5 @@ class Account
     public function setTelefoon(string $telefoon): void
     {
         $this->telefoon = $telefoon;
-    }   
+    }
 }
