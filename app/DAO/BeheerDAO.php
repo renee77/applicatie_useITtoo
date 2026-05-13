@@ -4,7 +4,11 @@ namespace App\DAO;
 
 use App\Core\Database;
 use App\Models\Beheer;
+use App\Models\Beheerdersrol;
+use App\Models\Account;
+use App\Models\AccountType;
 use PDO;
+use DateTime;
 
 class BeheerDAO
 {
@@ -19,7 +23,7 @@ class BeheerDAO
     {
         $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
     FROM `account` 
-    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`; 
+    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`
     WHERE `account.gebruikersnaam` = :gebruikersnaam";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":gebruikersnaam", $gebruikersnaam, \PDO::PARAM_STR);
@@ -29,18 +33,19 @@ class BeheerDAO
 
         if ($beheer) {
             return new Beheer(
-                $beheer['rol'],
-                $beheer['datum_in_dienst'],
+                Beheerdersrol::from($beheer['rol']),
+                new DateTime($beheer['datum_in_dienst']),
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
                 $beheer['wachtwoord'],
-                $beheer['created_at'],
-                $beheer['geboortedatum'],
-                $beheer['type'],
+                new DateTime($beheer['created_at']),
+                new DateTime($beheer['geboortedatum']),
+                AccountType::from($beheer['type']),
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],
-                $beheer['deleted_at'],
+                $beheer['deleted_at'] ? 
+                new DateTime($beheer['deleted_at']) : null,
                 $beheer['account_id']
             );
         } else {
@@ -53,7 +58,7 @@ class BeheerDAO
     {
         $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
     FROM `account` 
-    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`;
+    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`
     WHERE `account.id` = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
@@ -63,18 +68,19 @@ class BeheerDAO
 
         if ($beheer) {
             return new Beheer(
-                $beheer['rol'],
-                $beheer['datum_in_dienst'],
+                Beheerdersrol::from($beheer['rol']),
+                new DateTime($beheer['datum_in_dienst']),
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
                 $beheer['wachtwoord'],
-                $beheer['created_at'],
-                $beheer['geboortedatum'],
-                $beheer['type'],
+                new DateTime($beheer['created_at']),
+                new DateTime($beheer['geboortedatum']),
+                AccountType::from($beheer['type']),
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],
-                $beheer['deleted_at'],
+                $beheer['deleted_at'] ? 
+                new DateTime($beheer['deleted_at']) : null,
                 $beheer['account_id']
             );
         } else {

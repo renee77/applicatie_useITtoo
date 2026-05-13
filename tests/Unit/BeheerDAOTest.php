@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Tests\Unit;
 
 use App\DAO\BeheerDAO;
 use App\Models\Beheer;
-use App\Models\Beheerdersrol;
 use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
@@ -16,12 +15,12 @@ class BeheerDAOTest extends TestCase
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
     $stmt->method('fetch')->willReturn([
-      'rol' => Beheerdersrol::klantenservice,
+      'rol' => 'klantenservice',
       'datum_in_dienst' => '2023-01-10',
       'email' => 'jeroendijkstra@example.com',
       'gebruikersnaam' => 'JDijkstra',
       'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA015',
-      'created_at' => null,
+      'created_at' => '2026-05-13',
       'geboortedatum' => '1980-01-30',
       'type' => 'beheer',
       'voornaam' => 'Jeroen',
@@ -46,12 +45,12 @@ class BeheerDAOTest extends TestCase
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
     $stmt->method('fetch')->willReturn([
-      'rol' => Beheerdersrol::klantenservice,
+      'rol' => 'klantenservice',
       'datum_in_dienst' => '2023-01-10',
       'email' => 'jeroendijkstra@example.com',
       'gebruikersnaam' => 'JDijkstra',
       'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA015',
-      'created_at' => null,
+      'created_at' => '2026-05-13',
       'geboortedatum' => '1980-01-30',
       'type' => 'beheer',
       'voornaam' => 'Jeroen',

@@ -4,7 +4,9 @@ namespace App\DAO;
 
 use App\Core\Database;
 use App\Models\Account;
+use App\Models\AccountType;
 use PDO;
+use DateTime;
 
 class AccountDAO
 {
@@ -29,13 +31,14 @@ class AccountDAO
                 $user['email'],
                 $user['gebruikersnaam'],
                 $user['wachtwoord'],
-                $user['created_at'],
-                $user['geboortedatum'],
-                $user['type'],
+                new DateTime($user['created_at']),
+                new DateTime($user['geboortedatum']),
+                AccountType::from($user['type']),
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
-                $user['deleted_at'],
+                $user['deleted_at'] ? 
+                new DateTime($user['deleted_at']) : null,
                 $user['account_id']
             );
         } else {
@@ -60,17 +63,18 @@ class AccountDAO
         // aangemaakt met de opgehaalde informatie uit de database
         if ($user) {
             return new Account(
-                $user['account_id'],
                 $user['email'],
                 $user['gebruikersnaam'],
                 $user['wachtwoord'],
-                $user['created_at'],
-                $user['geboortedatum'],
-                $user['type'],
+                new DateTime($user['created_at']),
+                new DateTime($user['geboortedatum']),
+                AccountType::from($user['type']),
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
-                $user['deleted_at']
+                $user['deleted_at'] ? 
+                new DateTime($user['deleted_at']) : null,
+                $user['account_id']
             );
         // Als er niets bestaat, een null-value terugsturen
         } else {
