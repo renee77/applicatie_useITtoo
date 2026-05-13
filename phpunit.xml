@@ -10,10 +10,6 @@
             <clover outputFile="coverage.xml"/>
             <text outputFile="php://stdout" showUncoveredFiles="false"/>
         </report>
-        <includeUncoveredFiles/>
-        <directories>
-            <directory>app/</directory>
-        </directories>
     </coverage>
     <source>
         <include>
