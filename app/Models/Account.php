@@ -57,4 +57,77 @@ class Account
         $this->type = $type;
         $this->deleted_at = $deleted_at;
     } 
+
+
+    // GETTERS
+    public function getAccountId(): int
+    {
+        return $this->account_id;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getGebruikersnaam(): string
+    {
+        return $this->gebruikersnaam;
+    }  
+
+    public function getWachtwoord(): string
+    {
+        return $this->wachtwoord;
+    }
+
+    public function getVoornaam(): string
+    {
+        return $this->voornaam;
+    }
+
+    public function getAchternaam(): string
+    {
+        return $this->achternaam;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
+    }
+
+    public function getGeboortedatum(): DateTime
+    {
+        return $this->geboortedatum;
+    }
+
+    public function getTelefoon(): string
+    {
+        return $this->telefoon;
+    }
+
+    public function getType(): AccountType
+    {
+        return $this->type;
+    }
+
+    public function getDeletedAt(): DateTime
+    {
+        return $this->deleted_at;
+    }
+
+    // SETTERS - Wijzigbaar
+    public function setVoornaam(string $voornaam): void
+    {
+        $this->voornaam = $voornaam;
+    }
+
+    public function setAchternaam(string $achternaam): void
+    {
+        $this->achternaam = $achternaam;
+    }
+
+    public function setTelefoon(string $telefoon): void
+    {
+        $this->telefoon = $telefoon;
+    }   
 }
