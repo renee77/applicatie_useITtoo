@@ -16,17 +16,17 @@ class AccountDAO
         $this->db = $db;
     }
 
-    public function getById (int $id): ?Account 
+    public function getById(int $id): ?Account
     {
         $sql = "SELECT * FROM `account` WHERE `id` = :id";
-        $stmt= $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id);
         $stmt->execute();
 
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($user) {
-            return new Account (
+            return new Account(
                 $user['account_id'],
                 $user['email'],
                 $user['gebruikersnaam'],
@@ -60,7 +60,7 @@ class AccountDAO
         // Als er wel iets bestaat, wordt er een nieuwe userklasse
         // aangemaakt met de opgehaalde informatie uit de database
         if ($user) {
-            return new Account (
+            return new Account(
                 $user['account_id'],
                 $user['email'],
                 $user['gebruikersnaam'],
