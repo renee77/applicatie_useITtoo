@@ -20,7 +20,7 @@ class BeheerTest extends TestCase
       "beheerder@beheer.com",
       "BeheerKlantenservice",
       "Hashwachtwoord",
-      new \DateTime('2026-05-2013'),
+      new \DateTime('2026-05-13'),
       new \DateTime('2000-11-18'),
       AccountType::beheerder);
   }
