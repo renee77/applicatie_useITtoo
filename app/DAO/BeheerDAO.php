@@ -44,7 +44,7 @@ class BeheerDAO
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],
-                $beheer['deleted_at'] ? 
+                $beheer['deleted_at'] ?
                 new DateTime($beheer['deleted_at']) : null,
                 $beheer['account_id']
             );
@@ -79,7 +79,7 @@ class BeheerDAO
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],
-                $beheer['deleted_at'] ? 
+                $beheer['deleted_at'] ?
                 new DateTime($beheer['deleted_at']) : null,
                 $beheer['account_id']
             );

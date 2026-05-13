@@ -37,7 +37,7 @@ class AccountDAO
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
-                $user['deleted_at'] ? 
+                $user['deleted_at'] ?
                 new DateTime($user['deleted_at']) : null,
                 $user['account_id']
             );
@@ -72,7 +72,7 @@ class AccountDAO
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
-                $user['deleted_at'] ? 
+                $user['deleted_at'] ?
                 new DateTime($user['deleted_at']) : null,
                 $user['account_id']
             );
