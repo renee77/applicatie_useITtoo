@@ -18,8 +18,8 @@ class BeheerDAO
     public function getByUsername(string $gebruikersnaam): ?Beheer
     {
         $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
-    FROM `beheer` 
-    INNER JOIN `beheer` ON `beheer.account_id` = `account.id`; 
+    FROM `account` 
+    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`; 
     WHERE `account.gebruikersnaam` = :gebruikersnaam";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":gebruikersnaam", $gebruikersnaam, \PDO::PARAM_STR);
@@ -52,8 +52,8 @@ class BeheerDAO
     public function getById(int $id): ?Beheer
     {
         $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
-    FROM `beheer` 
-    INNER JOIN `beheer` ON `beheer.account_id` = `account.id`; 
+    FROM `account` 
+    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`;
     WHERE `account.id` = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id, \PDO::PARAM_INT);

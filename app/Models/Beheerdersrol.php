@@ -4,6 +4,6 @@ namespace App\Models;
 
 enum Beheerdersrol: string
 {
-    case voorraadbeheerder = "vooraadbeheerder";
+    case voorraadbeheerder = "voorraadbeheerder";
     case klantenservice = "klantenservice";
 }

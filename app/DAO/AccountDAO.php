@@ -26,7 +26,6 @@ class AccountDAO
 
         if ($user) {
             return new Account(
-                $user['account_id'],
                 $user['email'],
                 $user['gebruikersnaam'],
                 $user['wachtwoord'],
@@ -36,7 +35,8 @@ class AccountDAO
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
-                $user['deleted_at']
+                $user['deleted_at'],
+                $user['account_id']
             );
         } else {
             return null;
