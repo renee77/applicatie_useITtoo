@@ -63,7 +63,7 @@ section#shopBackground {
         flex-direction: column;
         padding: 1rem;
         margin-bottom: 1.5rem;
-        background-color: var(--white);
+        background-color: var(--light-green);
         border: 0.05rem solid var(--dark-green);
         border-radius: 5px;
         box-shadow: 0 2px 6px var(--dark-green);
@@ -78,12 +78,14 @@ section#shopBackground {
             grid-template-columns: repeat(6, 1fr);
             gap: 1rem;
 
+
             div.product-tile {
                 display: flex;
                 flex-direction: column;
                 aspect-ratio: 2 / 3;
-                background-color: var(--light-green);
+                background-color: white;
                 border: 0.05rem solid var(--dark-green);
+                box-shadow: 0 2px 6px var(--dark-green);
                 border-radius: 5px;
                 overflow: hidden;
                 cursor: pointer;
@@ -91,11 +93,12 @@ section#shopBackground {
                 img {
                     width: 100%;
                     flex: 1;
+                    min-height: 0;
                     object-fit: cover;
                 }
 
                 h3 {
-                    font-size: 0.85rem;
+                    font-size: 1rem;
                     padding: 0.4rem 0.5rem 0.1rem;
                     white-space: nowrap;
                     overflow: hidden;
@@ -105,7 +108,7 @@ section#shopBackground {
 
                 p.prijs {
                     font-size: 0.9rem;
-                    font-weight: bold;
+                    /* font-weight: bold; */
                     color: var(--dark-green);
                     padding: 0 0.5rem;
                     text-align: center;

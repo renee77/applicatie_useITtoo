@@ -3,8 +3,9 @@
 /** @var \App\Models\Product[] $fruit */
 /** @var \App\Models\Product[] $houdbaar */
 
-
 $title = 'Webwinkel'; ?>
+
+<p><?= BASE_URL . '/public/assets/images/products/placeholder.jpg' ?></p>
 
 <link rel="stylesheet" href="/css/webshop.css">
 
@@ -47,7 +48,7 @@ $title = 'Webwinkel'; ?>
                 <?php foreach ($fruit as $product) : ?>
                     <div class="product-tile">
                         <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                        '/assets/images/products/placeholder.jpg') ?>"
+                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
                              alt="<?= htmlspecialchars($product->getNaam()) ?>">
                         <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                         <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
@@ -63,7 +64,7 @@ $title = 'Webwinkel'; ?>
                 <?php foreach ($houdbaar as $product) : ?>
                     <div class="product-tile">
                         <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                        '/assets/images/products/placeholder.jpg') ?>"
+                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
                              alt="<?= htmlspecialchars($product->getNaam()) ?>">
                         <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                         <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
