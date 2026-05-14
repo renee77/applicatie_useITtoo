@@ -1,4 +1,6 @@
-<?php include __DIR__ . "/header.beheer.view.php"; ?>
+<?php
+
+include __DIR__ . "/header.beheer.view.php"; ?>
 <main>
     <?= $content ?? '' ?>
 </main>

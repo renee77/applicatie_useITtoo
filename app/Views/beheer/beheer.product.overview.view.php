@@ -17,25 +17,20 @@
       <th class="tableLink">Wijzigen</th>
     </thead>
     <tbody>
+    <?php foreach ($products as $product) : ?>
       <tr>
-        <td>Naam hier</td>
-        <td>Prijs hier</td>
-        <td>Leverancier hier</td>
-        <td>Gewicht</td>
-        <td>Omschrijving hier</td>
-        <td><button href="#" class="orangeBtn changesBtn">Edit</button>
-        <button href="#" class="deleteBtn changesBtn">Delete</button></td>
+        <td><?= htmlspecialchars($product->getNaam()) ?></td>
+        <td>€ <?= number_format($product->getPrijs(), 2, ',', '.') ?></td>
+        <td><?= htmlspecialchars($product->getLeverancier() ?? '—') ?></td>
+        <td><?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?></td>
+        <td><?= htmlspecialchars($product->getOmschrijving() ?? '—') ?></td>
+        <td>
+          <button class="orangeBtn changesBtn">Edit</button>
+          <button class="deleteBtn changesBtn">Delete</button>
+        </td>
       </tr>
-      <tr>
-        <td>Naam hier</td>
-        <td>Prijs hier</td>
-        <td>Leverancier hier</td>
-        <td>Gewicht</td>
-        <td>Omschrijving hier</td>
-        <td><button href="#" class="orangeBtn changesBtn">Edit</button>
-        <button href="#" class="deleteBtn changesBtn">Delete</button></td>
-      </tr>
-    </tbody>
+    <?php endforeach; ?>
+  </tbody>
   </table>
 </main>
 </body>
