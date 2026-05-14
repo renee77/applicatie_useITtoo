@@ -10,6 +10,13 @@ body {
     height: auto;
     padding-bottom: 2rem;
   }
+
+  .error {
+    color: red;
+    padding-bottom: 1.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
 }
 
 form {

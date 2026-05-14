@@ -1,0 +1,1 @@
+<h1>Welkom, <?= htmlspecialchars($_SESSION['voornaam']) ?>!</h1>

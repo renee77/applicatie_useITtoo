@@ -1,3 +1,16 @@
+<?php
+// Dit kan op dit moment nergens anders.
+// Er moet een POST mogelijkheid worden toegevoegd aan de router zodat dit
+// naar de index kan, om daar al deze informatie in te laten laden.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $db = \App\Core\Database::getConnection();
+    $beheerDAO = new \App\DAO\BeheerDAO($db);
+    $authService = new \App\Core\AuthService($beheerDAO);
+    $controller = new \App\Controllers\LoginController($authService);
+    $controller->handleLogin();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -10,12 +23,18 @@
 </head>
 <body>
   <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/>
-<!--The form for logging in, with the post method, as to make sure information will not be directly available to the users through for example the link-->
+<!--The form for logging in, with the post method, as to make sure information 
+will not be directly available to the users through for example the link-->
   <form method="POST" action="<?= BASE_URL ?>/beheerlogin">
-    <label for="username"></label>
-    <input type="text" placeholder="Gebruikersnaam" name="username" class="logInInput" required />
-    <label for="password"></label>
-    <input type="password" placeholder="Wachtwoord" name="password" class="logInInput" required />
+    <!--An error message if something doesn't go right -->
+    <?php if (!empty($_SESSION['error'])) : ?>
+      <p class="error"><?= htmlspecialchars($_SESSION['error']) ?></p>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+    <label for="gebruikersnaam"></label>
+    <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" class="logInInput" required />
+    <label for="wachtwoord"></label>
+    <input type="password" placeholder="Wachtwoord" name="wachtwoord" class="logInInput" required />
     <input type="submit" value="Log in" class="logInBtn"/>
   </form>
 </body>
