@@ -8,8 +8,16 @@ body {
 main {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  .quickButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
 }
 
 header {
@@ -30,7 +38,6 @@ header {
     color: white;
     padding: 0.4rem 0;
     white-space: normal;
-    transition: background-color 0.5s, color 0.5s;
   }
 
   .navLinks {
@@ -64,6 +71,10 @@ header {
   cursor: pointer;
 }
 
+.navLinks:hover {
+  color: var(--orange);
+}
+
 .logOut:hover {
   color: var(--orange);
   cursor: pointer;
@@ -81,7 +92,6 @@ header {
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    overflow-x: auto;
 
     img {
       display: none;
@@ -99,7 +109,7 @@ header {
     }
 
     .navList {
-      padding: 0.4rem 0.6rem;
+      padding: 0rem 0.6rem;
       white-space: nowrap;
     }
 
