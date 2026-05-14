@@ -28,9 +28,10 @@ $title = 'Webwinkel'; ?>
         <div class="product_categorie">
             <h2>Groente</h2>
             <div class="product-grid">
-                <?php foreach ($groenten as $product): ?>
+                <?php foreach ($groenten as $product) : ?>
                     <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ?? BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
                              alt="<?= htmlspecialchars($product->getNaam()) ?>">
                         <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                         <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
@@ -43,9 +44,10 @@ $title = 'Webwinkel'; ?>
         <div class="product_categorie">
             <h2>Fruit</h2>
             <div class="product-grid">
-                <?php foreach ($fruit as $product): ?>
+                <?php foreach ($fruit as $product) : ?>
                     <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ?? '/assets/images/products/placeholder.jpg') ?>"
+                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        '/assets/images/products/placeholder.jpg') ?>"
                              alt="<?= htmlspecialchars($product->getNaam()) ?>">
                         <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                         <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
@@ -58,9 +60,10 @@ $title = 'Webwinkel'; ?>
         <div class="product_categorie">
             <h2>Langerhoudbaar</h2>
             <div class="product-grid">
-                <?php foreach ($houdbaar as $product): ?>
+                <?php foreach ($houdbaar as $product) : ?>
                     <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ?? '/assets/images/products/placeholder.jpg') ?>"
+                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        '/assets/images/products/placeholder.jpg') ?>"
                              alt="<?= htmlspecialchars($product->getNaam()) ?>">
                         <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                         <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
