@@ -9,7 +9,7 @@ class Account
 {
     private string $email;
     private string $gebruikersnaam;
-    private string $wachtwoord;
+    private string $wachtwoord_hash;
     private DateTime $created_at;
     private DateTime $geboortedatum;
     private AccountType $type;
@@ -22,7 +22,7 @@ class Account
     public function __construct(
         string $email,
         string $gebruikersnaam,
-        string $wachtwoord,
+        string $wachtwoord_hash,
         DateTime $created_at,
         DateTime $geboortedatum,
         AccountType $type,
@@ -48,7 +48,7 @@ class Account
         $this->account_id = $account_id;
         $this->email = $email;
         $this->gebruikersnaam = $gebruikersnaam;
-        $this->wachtwoord = $wachtwoord;
+        $this->wachtwoord_hash = $wachtwoord_hash;
         $this->voornaam = $voornaam;
         $this->achternaam = $achternaam;
         $this->created_at = $created_at;
@@ -75,9 +75,9 @@ class Account
         return $this->gebruikersnaam;
     }
 
-    public function getWachtwoord(): string
+    public function getWachtwoordHash(): string
     {
-        return $this->wachtwoord;
+        return $this->wachtwoord_hash;
     }
 
     public function getVoornaam(): ?string

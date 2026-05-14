@@ -16,7 +16,7 @@ class Beheer extends Account
         DateTime $datum_in_dienst,
         string $email,
         string $gebruikersnaam,
-        string $wachtwoord,
+        string $wachtwoord_hash,
         DateTime $created_at,
         DateTime $geboortedatum,
         AccountType $type,
@@ -32,7 +32,7 @@ class Beheer extends Account
         parent::__construct(
             $email,
             $gebruikersnaam,
-            $wachtwoord,
+            $wachtwoord_hash,
             $created_at,
             $geboortedatum,
             $type,

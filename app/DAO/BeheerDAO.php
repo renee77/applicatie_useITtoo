@@ -21,10 +21,25 @@ class BeheerDAO
 
     public function getByUsername(string $gebruikersnaam): ?Beheer
     {
-        $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
-    FROM `account` 
-    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`
-    WHERE `account.gebruikersnaam` = :gebruikersnaam";
+        $sql = "SELECT 
+            account.account_id,
+            account.email,
+            account.gebruikersnaam,
+            account.wachtwoord_hash,
+            account.created_at,
+            account.geboortedatum,
+            account.type,
+            account.voornaam,
+            account.achternaam,
+            account.telefoon,
+            account.deleted_at,
+            beheer.rol,
+            beheer.datum_in_dienst
+        FROM account
+        INNER JOIN beheer 
+            ON beheer.account_id = account.account_id
+        WHERE account.gebruikersnaam = :gebruikersnaam
+        LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":gebruikersnaam", $gebruikersnaam, \PDO::PARAM_STR);
         $stmt->execute();
@@ -37,7 +52,7 @@ class BeheerDAO
                 new DateTime($beheer['datum_in_dienst']),
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
-                $beheer['wachtwoord'],
+                $beheer['wachtwoord_hash'],
                 new DateTime($beheer['created_at']),
                 new DateTime($beheer['geboortedatum']),
                 AccountType::from($beheer['type']),
@@ -56,10 +71,25 @@ class BeheerDAO
 
     public function getById(int $id): ?Beheer
     {
-        $sql = "SELECT `account.*`, `beheer.rol`, `beheer.datum_in_dienst` 
-    FROM `account` 
-    INNER JOIN `beheer` ON `beheer`.`account_id` = `account`.`id`
-    WHERE `account.id` = :id";
+        $sql = "SELECT 
+            account.account_id,
+            account.email,
+            account.gebruikersnaam,
+            account.wachtwoord_hash,
+            account.created_at,
+            account.geboortedatum,
+            account.type,
+            account.voornaam,
+            account.achternaam,
+            account.telefoon,
+            account.deleted_at,
+            beheer.rol,
+            beheer.datum_in_dienst
+        FROM account
+        INNER JOIN beheer 
+            ON beheer.account_id = account.account_id
+        WHERE account.account_id = :id
+        LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
         $stmt->execute();
@@ -72,7 +102,7 @@ class BeheerDAO
                 new DateTime($beheer['datum_in_dienst']),
                 $beheer['email'],
                 $beheer['gebruikersnaam'],
-                $beheer['wachtwoord'],
+                $beheer['wachtwoord_hash'],
                 new DateTime($beheer['created_at']),
                 new DateTime($beheer['geboortedatum']),
                 AccountType::from($beheer['type']),
