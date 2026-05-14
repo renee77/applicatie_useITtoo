@@ -1,0 +1,14 @@
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .quickButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
+}

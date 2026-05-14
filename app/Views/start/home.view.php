@@ -8,6 +8,6 @@ $title = 'Welkom'; ?>
     <p>Kies waar je naartoe wilt:</p>
     <div class="keuze-knoppen">
         <button class="dark-button"><a href="<?= BASE_URL ?>/webshop" class="knop">Webwinkel</a></button>
-        <button class="dark-button"><a href="<?= BASE_URL ?>/beheer" class="knop">Beheerportaal</a></button>
+        <button class="dark-button"><a href="<?= BASE_URL ?>/beheerlogin" class="knop">Beheerportaal</a></button>
     </div>
 </section>
