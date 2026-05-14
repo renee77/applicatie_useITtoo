@@ -1,5 +1,5 @@
 USE useITtooApplicatieDB;
 
 ALTER TABLE `account`
-  ADD COLUMN `type` ENUM('klant', 'beheerder') NOT NULL
+  ADD COLUMN `type` ENUM('klant', 'beheer') NOT NULL
     AFTER `telefoon`;

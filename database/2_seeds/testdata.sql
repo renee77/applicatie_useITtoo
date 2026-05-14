@@ -223,23 +223,29 @@ VALUES
 -- ACCOUNT
 -- Accounts 1-12: klanten | Accounts 13-15: beheermedewerkers
 -- ============================================================
-INSERT INTO `account` (`email`, `gebruikersnaam`, `wachtwoord_hash`, `voornaam`, `achternaam`, `geboortedatum`, `telefoon`)
+-- BELANGRIJKE WAARSCHUWING!! De B-Crypt hash werkt NIET op de oude manier.
+-- Ik heb de correct gehashte wachtwoorden toegevoegd. 
+-- Het wachtwoord voor alle klanten is: wachtwoord123
+-- Het wachtwoord voor alle admins is: admin123
+-- Zoals ze nu staan, worden ze correct gehasht, zodat het inlogsysteem werkt.
+-- Oude wachtwoord: $2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001 t/m 015
+INSERT INTO `account` (`email`, `gebruikersnaam`, `wachtwoord_hash`, `voornaam`, `achternaam`, `geboortedatum`, `telefoon`, `type`)
 VALUES
-('jan.vermeer@example.com',      'JVermeer',        '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001', 'Jan',    'Vermeer',     '1985-03-21', '+31610000001'),
-('sara.jansen@example.com',      'Saraatje1992',    '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA002', 'Sara',   'Jansen',      '1992-07-14', '+31610000002'),
-('mark.devries@example.com',     'MVriezz',         '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA003', 'Mark',   'De Vries',    '1978-11-30', '+31610000003'),
-('lisa.bakker@example.com',      'BakkerLiesje',    '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA004', 'Lisa',   'Bakker',      '1995-01-08', '+31610000004'),
-('tom.smit@example.com',         'TommieTomaatje',  '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA005', 'Tom',    'Smit',        '1989-05-19', '+31610000005'),
-('emma.meijer@example.com',      'EmmieMe',         '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA006', 'Emma',   'Meijer',      '1998-04-12', '+31610000006'),
-('noah.mulder@example.com',      'CoolVeggies1991', '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA007', 'Noah',   'Mulder',      '1991-09-27', '+31610000007'),
-('olivia.dejong@example.com',    'Oliviaa',         '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA008', 'Olivia', 'De Jong',     '1994-02-10', '+31610000008'),
-('lucas.vandenberg@example.com', 'Lucass',          '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA009', 'Lucas',  'Van den Berg','1987-06-03', '+31610000009'),
-('mia.prins@example.com',        'PrinsesMia',      '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA010', 'Mia',    'Prins',       '1996-12-18', '+31610000010'),
-('daan.kok@example.com',         'Daantje',         '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA011', 'Daan',   'Kok',         '1983-08-07', '+31610000011'),
-('zoe.bos@example.com',          'BoskabouterZoe',  '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA012', 'Zoë',   'Bos',         '2000-03-02', '+31610000012'),
-('pieterwillems@example.com',    'PWillems',        '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA013', 'Peter',  'Willems',     '1975-10-11', '+31610000013'),
-('mariekehendriks@example.com',  'MHendriks',       '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA014', 'Marieke','Hendriks',    '1982-07-22', '+31610000014'),
-('jeroendijkstra@example.com',   'JDijkstra',       '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA015', 'Jeroen', 'Dijkstra',    '1980-01-30', '+31610000015');
+('jan.vermeer@example.com',      'JVermeer',        '$2y$12$K0c.y/s6lue.cfNKj2E/qu.33q7srds1tII2FI0SKM8MWIoZ424OO', 'Jan',    'Vermeer',     '1985-03-21', '+31610000001', 'klant'),
+('sara.jansen@example.com',      'Saraatje1992',    '$2y$12$EAnOBmO2aXbm6Du6fclCv.vSO6HS.5AiN9a9EySAr8jo0yNwTaaIe ', 'Sara',   'Jansen',      '1992-07-14', '+31610000002', 'klant'),
+('mark.devries@example.com',     'MVriezz',         '$2y$12$F3bf7yiI7Zvzn/8IF9YkWOyRBsy83VFrGbQGL6pcx4raKGs2weR92', 'Mark',   'De Vries',    '1978-11-30', '+31610000003', 'klant'),
+('lisa.bakker@example.com',      'BakkerLiesje',    '$2y$12$v4BlECCx1DJcUjVsNOsdD.BdaK4Lyy7TSwF/DjKbcEVC3SftpLntS', 'Lisa',   'Bakker',      '1995-01-08', '+31610000004', 'klant'),
+('tom.smit@example.com',         'TommieTomaatje',  '$2y$12$xZnJLhL65rpb0luBaGAXsO/E.ILIA4wTuLndrmMgZyYZ7Cc2hE0vW', 'Tom',    'Smit',        '1989-05-19', '+31610000005', 'klant'),
+('emma.meijer@example.com',      'EmmieMe',         '$2y$12$vdik7tKpCTAh1FfFGWsB2.YkAEDMeliJkgeZK3aNNkOvVRMDNOhgu', 'Emma',   'Meijer',      '1998-04-12', '+31610000006', 'klant'),
+('noah.mulder@example.com',      'CoolVeggies1991', '$2y$12$ADEBjVDzRJk8IwHLTGw6w.irhVOMfeYtCjbaIgQQ92ytawAkNmDBW', 'Noah',   'Mulder',      '1991-09-27', '+31610000007', 'klant'),
+('olivia.dejong@example.com',    'Oliviaa',         '$2y$12$fb4mUF97nbpj6yUMpzsbVeMfrSkdr1swR.UAaT1SJBlJpcJkGTDX2', 'Olivia', 'De Jong',     '1994-02-10', '+31610000008', 'klant'),
+('lucas.vandenberg@example.com', 'Lucass',          '$2y$12$isVRq0HrpE4tQlEpclMqEOk8.bZ6OsVNlaUcF8inHaLwR9m6TViam', 'Lucas',  'Van den Berg','1987-06-03', '+31610000009', 'klant'),
+('mia.prins@example.com',        'PrinsesMia',      '$2y$12$t3znyTTWbHkkeQL1LN9ne.D6D5j.fjRw0PPTW2epGoUjSXvTrZGnC', 'Mia',    'Prins',       '1996-12-18', '+31610000010', 'klant'),
+('daan.kok@example.com',         'Daantje',         '$2y$12$eagyNmRkmluQz4LMnnh37OI0bhOQVnnNYnd9/aCSebyTGGTP7NuYq', 'Daan',   'Kok',         '1983-08-07', '+31610000011', 'klant'),
+('zoe.bos@example.com',          'BoskabouterZoe',  '$2y$12$lKTOTppSgCxuCX0l4W.FpOZKdPvTbIKqOc5wgKetornaNkykE3jqO', 'Zoë',   'Bos',         '2000-03-02', '+31610000012', 'klant'),
+('pieterwillems@example.com',    'PWillems',        '$2y$12$IkFlOlErLJNAV7HjMUjbb.BJt/6KhSp7vatKnCFKMkoDixb1RWboq', 'Peter',  'Willems',     '1975-10-11', '+31610000013', 'beheer'),
+('mariekehendriks@example.com',  'MHendriks',       '$2y$12$/s7A76k.aGF6CM6pygEzIuBVcFgHxRO4yRVCKEsPjOLplciqtRV8a', 'Marieke','Hendriks',    '1982-07-22', '+31610000014', 'beheer'),
+('jeroendijkstra@example.com',   'JDijkstra',       '$2y$12$qEiiSq6304LVLoa0wp3hw.jMe575sZ9QrePfFOObrpgV0DjnGgG9q', 'Jeroen', 'Dijkstra',    '1980-01-30', '+31610000015', 'beheer');
 
 
 -- ============================================================
