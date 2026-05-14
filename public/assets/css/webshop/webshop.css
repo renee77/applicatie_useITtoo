@@ -120,6 +120,17 @@ section#shopBackground {
     }
 }
 
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    #sales {
+        grid-template-columns: 1fr;
+    }
+
+    #shop div.product_categorie div.product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* ─── Winkelwagen popup ──────────────────────────────────────────────────── */
 div#cart-popup {
     display: flex;

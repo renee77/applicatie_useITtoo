@@ -5,7 +5,6 @@
 
 $title = 'Webwinkel'; ?>
 
-<p><?= BASE_URL . '/public/assets/images/products/placeholder.jpg' ?></p>
 
 <link rel="stylesheet" href="/css/webshop.css">
 
