@@ -28,7 +28,7 @@ $router->register(
     'main.beheer.php',
     function() {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        return $controller->index(); // ← return! zodat de view data krijgt
+        return ['products' => $dao->getAllProducts()];
     }
 );
 // $router->register(
@@ -36,14 +36,5 @@ $router->register(
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php', 
 //   'main.beheer.php',
 //    __DIR__ . '/../app/Controllers/ProductController.php');
-$router->register(
-    '/beheer/product',
-    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
-    'main.beheer.php',
-    function() {
-        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        return $dao->getAllProducts();
-    }
-);
 // Voer de router uit — hij bepaalt welke view geladen wordt
 $router->run();
