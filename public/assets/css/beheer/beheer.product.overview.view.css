@@ -1,0 +1,85 @@
+main {
+  margin: 2rem 0 0 2rem;
+  padding-right: 2rem;
+}
+
+h1 {
+  padding-bottom: 1rem;
+}
+
+.newBtn {
+  min-width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.searchbar {
+  display: inline-block;
+  width: 80%;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--orange);
+  margin-bottom: 2rem;
+}
+
+.orangeBtn {
+  background-color: var(--orange);
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.4s;
+}
+
+table {
+  width: 100%;
+
+  td, th {
+    border: 3px solid white;
+    padding: 0.5rem 0 0.5rem 0.2rem;
+  }
+
+  th {
+    background-color: var(--light-green);
+  }
+
+  tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+
+  .tableSupplier {
+    width: 10%;
+  }
+
+  .tableWeight,
+  .tablePrice {
+    width: 10%;
+  }
+
+  .tableLink {
+    width: 12%;
+  }
+
+  .changesBtn {
+    display: inline;
+    border: none;
+    font-size: 0.8rem;
+    transition: background-color 0.4s, color 0.4s;
+  }
+
+  .deleteBtn{
+    background-color: var(--dark-orange);
+  }
+
+}
+
+.orangeBtn:hover,
+.toProductBtn:hover {
+  cursor: pointer;
+  background-color: var(--light-green);
+}
+
+.deleteBtn:hover {
+  cursor: pointer;
+  background-color: var(--dark-green);
+  color: var(--white);
+}
