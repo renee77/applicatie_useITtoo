@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // toont welke php errors er zijn
 ini_set('display_errors', 1);
