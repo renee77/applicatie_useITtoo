@@ -46,7 +46,7 @@ class LoginController
             header("Location: " . BASE_URL . "/beheerlogin");
             exit;
         };
-        
+
        // Als alle stappen doorlopen, geslaagd.
       /// Sla de gegvens van de beheerder op in sessie, zodat bekend is
       // wie er is ingelogd en welke rol deze persoon heeft.

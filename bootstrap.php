@@ -1,5 +1,6 @@
 <?php
-
+ob_start();
+session_start();
 // ============================================================
 // bootstrap.php — centraal opstartbestand van de applicatie
 //
