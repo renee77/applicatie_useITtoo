@@ -17,7 +17,7 @@ class AccountDAOTest extends TestCase
     $stmt->method('fetch')->willReturn([
       'email' => 'jan.vermeer@example.com',
       'gebruikersnaam' => 'JVermeer',
-      'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001',
+      'wachtwoord_hash' => '$2y$12$K0c.y/s6lue.cfNKj2E/qu.33q7srds1tII2FI0SKM8MWIoZ424OO',
       'created_at' => '2026-05-13',
       'geboortedatum' => '1985-03-21',
       'type' => 'klant',
@@ -47,7 +47,7 @@ class AccountDAOTest extends TestCase
       'account_id' => 1,
       'email' => 'jan.vermeer@example.com',
       'gebruikersnaam' => 'JVermeer',
-      'wachtwoord' => '$2b$12$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA001',
+      'wachtwoord_hash' => '$2y$12$K0c.y/s6lue.cfNKj2E/qu.33q7srds1tII2FI0SKM8MWIoZ424OO',
       'created_at' => '2026-05-13',
       'geboortedatum' => '1985-03-21',
       'type' => 'klant',
