@@ -15,11 +15,12 @@ class WebshopController
     }
 
     // De "standaard actie" van een controller heet traditioneel index
-    public function index(): void
+    public function index(): array
     {
-        // Data ophalen per categorie
-        $groenten  = $this->productDAO->getProductsByCategorie(Categorie::Groente);
-        $fruit     = $this->productDAO->getProductsByCategorie(Categorie::Fruit);
-        $houdbaar  = $this->productDAO->getProductsByCategorie(Categorie::LangerHoudbaar);
+        return [
+            'groenten' => $this->productDAO->getProductsByCategorie(Categorie::Groente),
+            'fruit'    => $this->productDAO->getProductsByCategorie(Categorie::Fruit),
+            'houdbaar' => $this->productDAO->getProductsByCategorie(Categorie::LangerHoudbaar),
+        ];
     }
 }
