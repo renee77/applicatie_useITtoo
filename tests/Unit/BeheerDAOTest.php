@@ -8,7 +8,7 @@ use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
 
-class BeheerDAOTest extends TestCase
+/*class BeheerDAOTest extends TestCase
 {
   /*public function testGetBeheerByIdReturnsBeheer(): void
   {
@@ -68,5 +68,5 @@ class BeheerDAOTest extends TestCase
     $beheer = $beheerdao->getByUsername('JDijkstra');
 
     $this->assertInstanceOf(Beheer::class, $beheer);
-  }*/
-}
+  }
+}*/
