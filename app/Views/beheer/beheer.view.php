@@ -1,4 +1,4 @@
-<div class="main-container>
+<div class="main-container">
   <h1>Welkom, <?= htmlspecialchars($_SESSION['voornaam']) ?>!</h1>
 
   <div class="quickButtons">
