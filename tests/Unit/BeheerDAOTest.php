@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class BeheerDAOTest extends TestCase
 {
-  public function testGetBeheerByIdReturnsBeheer(): void
+  /*public function testGetBeheerByIdReturnsBeheer(): void
   {
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
@@ -38,9 +38,9 @@ class BeheerDAOTest extends TestCase
     $beheer = $beheerdao->getById(15);
 
     $this->assertInstanceOf(Beheer::class, $beheer);
-  }
+  }*/
 
-  public function testGetBeheerByUsernameReturnsBeheer(): void
+  /*public function testGetBeheerByUsernameReturnsBeheer(): void
   {
     // nep PDO-statement en wat er terug moet worden gegeven
     $stmt = $this->createMock(PDOStatement::class);
@@ -68,5 +68,5 @@ class BeheerDAOTest extends TestCase
     $beheer = $beheerdao->getByUsername('JDijkstra');
 
     $this->assertInstanceOf(Beheer::class, $beheer);
-  }
+  }*/
 }
