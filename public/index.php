@@ -22,5 +22,14 @@ $router->register(
 );
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
 
+$router->register(
+    '/beheer/product',
+    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
+    'main.beheer.php',
+    function() {
+        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        return $dao->getAllProducts();
+    }
+);
 // Voer de router uit — hij bepaalt welke view geladen wordt
 $router->run();
