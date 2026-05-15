@@ -30,7 +30,7 @@ class AccountDAO
             return new Account(
                 $user['email'],
                 $user['gebruikersnaam'],
-                $user['wachtwoord'],
+                $user['wachtwoord_hash'],
                 new DateTime($user['created_at']),
                 new DateTime($user['geboortedatum']),
                 AccountType::from($user['type']),
@@ -65,7 +65,7 @@ class AccountDAO
             return new Account(
                 $user['email'],
                 $user['gebruikersnaam'],
-                $user['wachtwoord'],
+                $user['wachtwoord_hash'],
                 new DateTime($user['created_at']),
                 new DateTime($user['geboortedatum']),
                 AccountType::from($user['type']),
