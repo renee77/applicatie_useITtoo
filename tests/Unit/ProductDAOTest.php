@@ -54,7 +54,7 @@ class ProductDAOTest extends TestCase
     {
         // maak nep PDOStatement aan en vertel wat fetch() teruggeeft
         $mockStmt = $this->createMock(PDOStatement::class);
-        $mockStmt->method('fetch')->willReturn([
+        $mockStmt->method('fetchAll')->willReturn([
             'naam' => 'Wortel',
             'prijs' => 1.95,
             'verkoop_gewicht' => 2.0,
@@ -72,10 +72,11 @@ class ProductDAOTest extends TestCase
 
 
         // Vraag het op via de functie
-        $product = $productDao->getProductByName("wortel");
+        $products = $productDao->getProductByName("wortel");
 
-        // controleert of $product een instantie is van de Product klasse
-        $this->assertInstanceOf(Product::class, $product);
+        // getProductByName geeft een array terug, dus assert op het eerste element
+        $this->assertNotEmpty($products);
+        $this->assertInstanceOf(Product::class, $products[0]); // ← eerste element
     }
 
     public function testGetAllProducts(): void
