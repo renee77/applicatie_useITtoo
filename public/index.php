@@ -22,13 +22,56 @@ $router->register(
 );
 $router->register('/beheerlogin', __DIR__ . '/../app/Views/beheer/beheer.login.view.php', 'login.beheer.php');
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
-$router->register(
-    '/beheer/product',
+$router->register('/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
     function() {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        return ['products' => $dao->getAllProducts()];
+        
+        // Voor nu een hard gecodeerde zoekterm zodat kan worden gecheckt dat het werkt, 
+        // Alles staat klaar zodat het straks kan de get-request.
+        $zoekterm = 'aardbei';
+        //$zoekterm = trim($_GET['zoek'] ?? '');
+        if ($zoekterm !== '') {
+            $products = $dao->getProductByName($zoekterm);
+        } else {
+            $products = $dao->getAllProducts();
+        }
+        return [
+            'products' => $products,
+            'zoekterm' => $zoekterm
+        ];
+            
+    }
+);
+$router->register('/beheer/product/nieuw', 
+__DIR__ . '/../app/Views/beheer/beheer.product.nieuw.view.php', 'main.beheer.php',
+function() {
+        // POST request = formulier verstuurd
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+
+            $product = new \App\Models\Product(
+                trim($_POST['naam']),
+                (float) $_POST['prijs'],
+                (float) $_POST['verkoop_gewicht'],
+                \App\Models\Eenheid::from($_POST['eenheid']),
+                trim($_POST['omschrijving']) ?: null,
+                trim($_POST['leverancier']) ?: null,
+                trim($_POST['foto_url']) ?: null,
+            );
+
+            $dao->addProduct($product);
+            // Sessiemelding aanmaken zodat er een melding kan worden getoond.
+            $_SESSION['melding'] = "Het product $product is succesvol aangemaakt!";
+            header('Location: ' . BASE_URL . '/beheer/product');
+            exit;
+        }
+
+        // GET request = toon het lege formulier
+        return [
+            'eenheden' => \App\Models\Eenheid::cases()
+        ];
     }
 );
 // $router->register(

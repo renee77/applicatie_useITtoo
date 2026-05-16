@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.homepage.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.product.overview.view.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.product.nieuw.view.css">
 </head>
 <body>
   <header>

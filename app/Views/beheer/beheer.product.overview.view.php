@@ -1,11 +1,18 @@
+  <?php if (isset($_SESSION['melding'])) : ?>
+    <div class="melding">
+      <?= htmlspecialchars($_SESSION['melding']) ?>
+    </div>
+      <?php unset($_SESSION['melding']); ?>
+  <?php endif; ?>
   <h1>Alle Producten</h1>
-  <button href="#" class="light-button newBtn">
+  <a href="<?= BASE_URL ?>/beheer/product/nieuw" class="orangeBtn toNewLink">
     Nieuw Product aanmaken
-  </button>
-  <div id="search">
-    <input type="text" placeholder="Typ de productnaam in." class="searchbar">
+  </a>
+  <form id="search" method="GET" action="/beheer/product">
+    <input type="text" value="<?= htmlspecialchars($zoekterm ?? '') ?>" 
+    placeholder="Typ de productnaam in." class="searchbar">
     <input type="Submit" value="Zoeken" class="orangeBtn btn" />
-  </div>
+  </form>
 
   <table>
     <thead>

@@ -7,10 +7,13 @@ h1 {
   padding-bottom: 1rem;
 }
 
+.toNewLink, .toNewLink:visited, .toNewLink:hover, .toNewLink:active {
+    color: black;
+}
+
 .newBtn {
-  min-width: 100%;
-  margin: auto;
-  margin-bottom: 1rem;
+  min-width: 50%;
+  margin: auto auto 1rem 3rem;
 }
 
 .searchbar {
@@ -82,4 +85,14 @@ table {
   cursor: pointer;
   background-color: var(--dark-green);
   color: var(--white);
+}
+
+.melding {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border: 1px solid var(--dark-green);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
 }
