@@ -104,6 +104,23 @@ $router->register(
         ];
     }
 );
+
+$router->register(
+    '/beheer/product/delete',
+    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
+    'main.beheer.php',
+    function() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+            $product_id = (int) ($_POST['id'] ?? 0);
+
+            $dao->deleteProduct($product_id);
+            $_SESSION['melding'] = "Product succesvol verwijderd!";
+            header('Location: ' . BASE_URL . '/beheer/product');
+            exit;
+        }
+    }
+);
 // $router->register(
 //  '/beheer/product',
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php', 

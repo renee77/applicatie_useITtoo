@@ -34,7 +34,15 @@
         <td>
           <a class="orangeBtn changesBtn" 
           href="<?= BASE_URL ?>/beheer/product/edit?id=<?= $product->getId() ?>">Edit</a>
-          <button class="deleteBtn changesBtn">Delete</button>
+          <form method="POST" action="<?= BASE_URL ?>/beheer/product/delete"
+          class="deleteBtn changesBtn">
+            <input type="hidden" name="id" value="<?= $product->getId() ?>">
+            <button type="submit" class="deleteBtn changesBtn" 
+                    onclick="return confirm(
+                    'Weet je zeker dat je <?= htmlspecialchars($product->getNaam()) ?> wilt verwijderen?')">
+                Delete
+            </button>
+        </form>
         </td>
       </tr>
     <?php endforeach; ?>
