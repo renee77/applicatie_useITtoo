@@ -113,9 +113,6 @@ class ProductDAO
         // De uitkomst in een variabele stoppen
         $rows = $stmt->fetchAll();
 
-        if (!$rows) {
-            throw new \RuntimeException("Product niet gevonden");
-        }
         $products = [];
 
         foreach ($rows as $row) {
