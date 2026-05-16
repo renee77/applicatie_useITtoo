@@ -67,9 +67,39 @@ function() {
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
+    }
+);
+$router->register(
+    '/beheer/product/edit',
+    __DIR__ . '/../app/Views/beheer/beheer.product.edit.view.php',
+    'main.beheer.php',
+    function() {
+        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        $product_id = (int) ($_GET['id'] ?? 0);
 
-        // GET request = toon het lege formulier
+        // POST = formulier verstuurd, update uitvoeren
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product = new \App\Models\Product(
+                trim($_POST['naam']),
+                (float) $_POST['prijs'],
+                (float) $_POST['gewicht'],
+                \App\Models\Eenheid::from($_POST['eenheid']),
+                trim($_POST['omschrijving']) ?: null,
+                trim($_POST['leverancier']) ?: null,
+                trim($_POST['foto_url']) ?: null,
+                null,
+                // Hier wordt het id meegegeven, zodat updateProduct weet welk
+                // product moet worden geupdate.
+                $product_id
+            );
+
+            $dao->updateProduct($product);
+            $_SESSION['melding'] = "Product succesvol bijgewerkt!";
+            header('Location: ' . BASE_URL . '/beheer/product');
+            exit;
+        }
         return [
+            'product'  => $dao->getProductById($product_id),
             'eenheden' => \App\Models\Eenheid::cases()
         ];
     }

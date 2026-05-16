@@ -32,7 +32,8 @@
         <td><?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?></td>
         <td><?= htmlspecialchars($product->getOmschrijving() ?? '—') ?></td>
         <td>
-          <button class="orangeBtn changesBtn">Edit</button>
+          <a class="orangeBtn changesBtn" 
+          href="<?= BASE_URL ?>/beheer/product/edit?id=<?= $product->getId() ?>">Edit</a>
           <button class="deleteBtn changesBtn">Delete</button>
         </td>
       </tr>
