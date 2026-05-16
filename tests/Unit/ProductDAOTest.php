@@ -54,7 +54,7 @@ class ProductDAOTest extends TestCase
     {
         // maak nep PDOStatement aan en vertel wat fetch() teruggeeft
         $mockStmt = $this->createMock(PDOStatement::class);
-        $mockStmt->method('fetchAll')->willReturn([
+        $mockStmt->method('fetchAll')->willReturn([[
             'naam' => 'Wortel',
             'prijs' => 1.95,
             'verkoop_gewicht' => 2.0,
@@ -63,7 +63,7 @@ class ProductDAOTest extends TestCase
             'leverancier' => 'Pietje',
             'foto_url' => null,
             'product_id' => 1
-        ]);
+        ]]);
 
         $mockPdo = $this->createMock(PDO::class);
         $mockPdo->method('prepare')->willReturn($mockStmt);
