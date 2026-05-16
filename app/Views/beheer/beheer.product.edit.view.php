@@ -28,7 +28,7 @@
     <div class="form__group">
         <label class="form__groupLabel">Eenheid:</label>
         <select name="eenheid" class="form__groupInput" required>
-            <?php foreach($eenheden as $eenheid): ?>
+            <?php foreach ($eenheden as $eenheid) : ?>
                 <option value="<?= $eenheid->value ?>" 
                     <?= $eenheid === $product->getEenheid() ? 'selected' : '' ?>>
                     <?= $eenheid->value ?>
@@ -39,7 +39,7 @@
 
     <div class="form__group">
         <label class="form__groupLabel" for="omschrijving">Omschrijving:</label>
-        <textarea id="omschrijving" name="omschrijving" class="form__groupInput" rows="5"><?= 
+        <textarea id="omschrijving" name="omschrijving" class="form__groupInput" rows="5"><?=
         htmlspecialchars($product->getOmschrijving()) ?? '' ?></textarea>
     </div>
 
