@@ -1,0 +1,41 @@
+<?php
+// Dit kan op dit moment nergens anders.
+// Er moet een POST mogelijkheid worden toegevoegd aan de router zodat dit
+// naar de index kan, om daar al deze informatie in te laten laden.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $db = \App\Core\Database::getConnection();
+    $beheerDAO = new \App\DAO\BeheerDAO($db);
+    $authService = new \App\Core\AuthService($beheerDAO);
+    $controller = new \App\Controllers\LoginController($authService);
+    $controller->handleLogin();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login || useITtoo</title>
+  <!--The two needed stylesheets -->
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.login.css">
+</head>
+<body>
+  <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/>
+<!--The form for logging in, with the post method, as to make sure information 
+will not be directly available to the users through for example the link-->
+  <form method="POST" action="<?= BASE_URL ?>/beheerlogin">
+    <!--An error message if something doesn't go right -->
+    <?php if (!empty($_SESSION['error'])) : ?>
+      <p class="error"><?= htmlspecialchars($_SESSION['error']) ?></p>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+    <label for="gebruikersnaam"></label>
+    <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" class="logInInput" required />
+    <label for="wachtwoord"></label>
+    <input type="password" placeholder="Wachtwoord" name="wachtwoord" class="logInInput" required />
+    <input type="submit" value="Log in" class="logInBtn"/>
+  </form>
+</body>
+</html>

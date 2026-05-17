@@ -103,6 +103,7 @@ button {
       background-color: var(--light-brown);
       color: var(--dark-green);
       border: var(--dark-green) 1px solid;
+      cursor: pointer;
 
       a {
         color: var(--dark-green);
@@ -124,6 +125,7 @@ button {
       color: var(--dark-green);
       background-color: var(--light-brown);
       border: var(--light-green) 1px solid;
+      cursor: pointer;
     }
   }
 
