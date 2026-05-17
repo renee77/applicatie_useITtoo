@@ -139,7 +139,6 @@ class Router
             include $view;
             $content = ob_get_clean();
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
-
         } else {
             http_response_code(404);
             echo '404 - Pagina niet gevonden';
