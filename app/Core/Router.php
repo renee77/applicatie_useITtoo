@@ -150,7 +150,6 @@ class Router
                 // $#    = einde van de string
                 // # wordt gebruikt ipv / omdat URL's al / bevatten
                 if (preg_match('#^' . $pattern . '$#', $path, $matches)) {
-
                     $matched = true;
 
                     // $matches[1] bevat het id uit de URL
