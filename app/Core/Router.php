@@ -140,8 +140,48 @@ class Router
             $content = ob_get_clean();
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
         } else {
-            http_response_code(404);
-            echo '404 - Pagina niet gevonden';
+            $matched = false;
+
+            // Loop door alle geregistreerde routes
+            // want we weten niet welk patroon gaat matchen
+            foreach ($this->routes as $pattern => $route) {
+                // Bouw de volledige regex op:
+                // #^    = begin van de string
+                // $#    = einde van de string
+                // # wordt gebruikt ipv / omdat URL's al / bevatten
+                if (preg_match('#^' . $pattern . '$#', $path, $matches)) {
+                    $matched = true;
+
+                    // $matches[1] bevat het id uit de URL
+                    // (int) zorgt dat het een integer wordt ipv string
+                    $id = (int) $matches[1];
+
+                    $view       = $route['view'];
+                    $layout     = $route['layout'];
+                    $controller = $route['controller'];
+
+                    if ($controller !== null) {
+                        // geef het id mee aan de closure
+                        // zodat de controller het juiste product kan ophalen
+                        $viewData = ($controller)($id);
+                        if (is_array($viewData)) {
+                            extract($viewData);
+                        }
+                    }
+
+                    ob_start();
+                    include $view;
+                    $content = ob_get_clean();
+                    include __DIR__ . '/../../app/Views/layouts/' . $layout;
+                    break; // stop de loop zodra een match gevonden is
+                }
+            }
+
+            // Geen enkel patroon matched → 404
+            if (!$matched) {
+                http_response_code(404);
+                echo '404 - Pagina niet gevonden';
+            }
         }
     }
 }
