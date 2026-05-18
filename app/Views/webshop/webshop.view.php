@@ -5,9 +5,6 @@
 
 $title = 'Webwinkel'; ?>
 
-
-<link rel="stylesheet" href="/css/webshop.css">
-
 <section id="salesBackground">
     <div class="container" id="sales">
         <div class="sale-block">
@@ -29,15 +26,18 @@ $title = 'Webwinkel'; ?>
             <h2>Groente</h2>
             <div class="product-grid">
                 <?php foreach ($groenten as $product) : ?>
-                    <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
-                             alt="<?= htmlspecialchars($product->getNaam()) ?>">
-                        <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
-                        <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
-                           <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
-                        </p>
-                    </div>
+                    <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -45,15 +45,18 @@ $title = 'Webwinkel'; ?>
             <h2>Fruit</h2>
             <div class="product-grid">
                 <?php foreach ($fruit as $product) : ?>
-                    <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
-                             alt="<?= htmlspecialchars($product->getNaam()) ?>">
-                        <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
-                        <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
-                           <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
-                        </p>
-                    </div>
+                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -61,15 +64,18 @@ $title = 'Webwinkel'; ?>
             <h2>Langerhoudbaar</h2>
             <div class="product-grid">
                 <?php foreach ($houdbaar as $product) : ?>
-                    <div class="product-tile">
-                        <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                    BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
-                             alt="<?= htmlspecialchars($product->getNaam()) ?>">
-                        <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
-                        <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
-                           <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
-                        </p>
-                    </div>
+                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
