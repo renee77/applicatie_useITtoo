@@ -20,20 +20,32 @@ $router->register(
         return $controller->index();
     }
 );
+$router->register(
+    '/webshop/(\d+)-([a-z0-9-]+)',
+    __DIR__ . '/../app/Views/webshop/product.view.php',
+    'main.php',
+    function (int $id) {
+        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        $controller = new \App\Controllers\ProductController($dao);
+        return $controller->showProduct($id);
+    }
+);
+
 $router->register('/beheerlogin', __DIR__ . '/../app/Views/beheer/beheer.login.view.php', 'login.beheer.php');
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
 $router->register(
     '/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
-    function() {
+    function () {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        $controller = new \App\Controllers\ProductController($dao);
         return $controller->index(); // ← return! zodat de view data krijgt
     }
 );
 // $router->register(
 //  '/beheer/product',
-//    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php', 
+//    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
 //   'main.beheer.php',
 //    __DIR__ . '/../app/Controllers/ProductController.php');
 // Voer de router uit — hij bepaalt welke view geladen wordt
