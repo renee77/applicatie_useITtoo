@@ -102,13 +102,16 @@ class Account
     public function setVoornaam(?string $voornaam): void
     {
         $this->voornaam = $voornaam;
-    } // ?string was string
+    }
+    // ?string was string
     public function setAchternaam(?string $achternaam): void
     {
         $this->achternaam = $achternaam;
-    } // ?string was string
+    }
+    // ?string was string
     public function setTelefoon(?string $telefoon): void
     {
         $this->telefoon = $telefoon;
-    } // ?string was string
+    }
+    // ?string was string
 }
