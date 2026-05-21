@@ -31,7 +31,21 @@ $router->register(
     }
 );
 
-$router->register('/beheerlogin', __DIR__ . '/../app/Views/beheer/beheer.login.view.php', 'login.beheer.php');
+$router->register('/beheerlogin', 
+__DIR__ . '/../app/Views/beheer/beheer.login.view.php', 
+'login.beheer.php',
+
+function() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        $db = \App\Core\Database::getConnection();
+        $beheerDAO = new \App\DAO\BeheerDAO($db);
+        $authService = new \App\Core\AuthService($beheerDAO);
+        $controller = new \App\Controllers\LoginController($authService);
+        $controller->handleLogin();
+    }
+});
+
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
 $router->register('/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
