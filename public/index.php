@@ -137,6 +137,10 @@ $router->register(
 $router->register('/beheer/upload', 
 __DIR__ . '/../app/Views/beheer/beheer.upload.view.php', 
 'main.beheer.php');
+
+$router->register('/beheer/upload/csv', 
+__DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php', 
+'main.beheer.php');
 // $router->register(
 //  '/beheer/product',
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
