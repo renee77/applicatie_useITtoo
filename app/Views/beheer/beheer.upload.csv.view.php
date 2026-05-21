@@ -4,8 +4,8 @@
 
 <pre>
   naam,prijs,verkoop_gewicht,eenheid,omschrijving,leverancier,foto_url
-  Wortel,1.95,1,kg,Verse wortels, Boer Koen uit Oudenbosch,wortel.jpg
-  Appel,1.49,2,kg,Verse appels, Boer Anna uit Breda,appel.jpg
+  Wortel,1.95,1,kg,Verse wortels, Boer Koen uit Oudenbosch,wortel
+  Appel,1.49,2,kg,Verse appels, Boer Anna uit Breda,appel
 </pre>
 
 <p>Als dit niet op deze manier wordt geupload, <strong>wordt het bestand niet verwerkt!</strong></p>
