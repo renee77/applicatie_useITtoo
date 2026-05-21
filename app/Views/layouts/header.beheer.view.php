@@ -21,13 +21,13 @@
         <a href="<?= BASE_URL ?>/beheer/product" class="navLinks">Producten</a>
       </li>
       <li class="navList">
-        <a href="#" class="navLinks">Categorieën</a>
-      </li>
-      <li class="navList">
-        <a href="#" class="navLinks">Acties</a>
-      </li>
-      <li class="navList">
         <a href="#" class="navLinks">Klanten</a>
+      </li>
+      <li class="navList">
+        <a href="#" class="navLinks">Zoektermen</a>
+      </li>
+      <li class="navList">
+        <a href="#" class="navLinks">Uploaden</a>
       </li>
       <li class="navList">
         <a href="#" class="navLinks">Rapportages</a>
