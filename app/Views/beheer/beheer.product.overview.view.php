@@ -8,8 +8,8 @@
   <a href="<?= BASE_URL ?>/beheer/product/nieuw" class="orangeBtn toNewLink">
     Nieuw Product aanmaken
   </a>
-  <form id="search" method="GET" action="/beheer/product">
-    <input type="text" value="<?= htmlspecialchars($zoekterm ?? '') ?>" 
+  <form id="search" method="GET" action="<?= BASE_URL ?>/beheer/product">
+    <input name="zoekterm" type="text" value="<?= htmlspecialchars($zoekterm ?? '') ?>" 
     placeholder="Typ de productnaam in." class="searchbar">
     <input type="Submit" value="Zoeken" class="orangeBtn btn" />
   </form>

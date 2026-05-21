@@ -54,10 +54,7 @@ $router->register('/beheer/product',
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
         $controller = new \App\Controllers\ProductController($dao);
         
-        // Voor nu een hard gecodeerde zoekterm zodat kan worden gecheckt dat het werkt, 
-        // Alles staat klaar zodat het straks kan de get-request.
-        $zoekterm = 'aardbei';
-        //$zoekterm = trim($_GET['zoek'] ?? '');
+        $zoekterm = trim($_GET['zoekterm'] ?? '');
         if ($zoekterm !== '') {
             $products = $dao->getProductByName($zoekterm);
         } else {
