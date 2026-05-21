@@ -19,7 +19,7 @@ class Beheer extends Account
         string $wachtwoord_hash,
         DateTime $created_at,
         DateTime $geboortedatum,
-        AccountType $type,
+        // AccountType $type,
         ?string $voornaam = null,
         ?string $achternaam = null,
         ?string $telefoon = null,
@@ -28,14 +28,14 @@ class Beheer extends Account
         ?int $account_id = null
     ) {
 
-     // Roep de constructor van Account aan
+        // Roep de constructor van Account aan
         parent::__construct(
             $email,
             $gebruikersnaam,
             $wachtwoord_hash,
             $created_at,
             $geboortedatum,
-            $type,
+            // $type, // niet meer nodig nu checken met if(instanceof(beheer))
             $voornaam,
             $achternaam,
             $telefoon,
@@ -47,7 +47,7 @@ class Beheer extends Account
         $this->datum_in_dienst = $datum_in_dienst;
     }
 
-  // GETTERS
+    // GETTERS
     public function getRol(): Beheerdersrol
     {
         return $this->rol;
@@ -58,7 +58,7 @@ class Beheer extends Account
         return $this->datum_in_dienst;
     }
 
-  // SETTERS
+    // SETTERS
     public function setRol(Beheerdersrol $rol): void
     {
         $this->rol = $rol;

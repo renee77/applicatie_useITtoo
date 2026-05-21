@@ -6,7 +6,7 @@ use App\Core\Database;
 use App\Models\Beheer;
 use App\Models\Beheerdersrol;
 use App\Models\Account;
-use App\Models\AccountType;
+// use App\Models\AccountType;
 use PDO;
 use DateTime;
 
@@ -55,7 +55,7 @@ class BeheerDAO
                 $beheer['wachtwoord_hash'],
                 new DateTime($beheer['created_at']),
                 new DateTime($beheer['geboortedatum']),
-                AccountType::from($beheer['type']),
+                // AccountType::from($beheer['type']),
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],
@@ -105,7 +105,7 @@ class BeheerDAO
                 $beheer['wachtwoord_hash'],
                 new DateTime($beheer['created_at']),
                 new DateTime($beheer['geboortedatum']),
-                AccountType::from($beheer['type']),
+                // AccountType::from($beheer['type']),
                 $beheer['voornaam'],
                 $beheer['achternaam'],
                 $beheer['telefoon'],

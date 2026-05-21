@@ -1,19 +1,19 @@
 <mxfile host="app.diagrams.net" pages="5">
   <diagram id="QI3ucIQRQ3kRUmZV4Gqw" name="gebruikers, authenticatie en communicatie">
-    <mxGraphModel dx="1288" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1362" dy="955" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="32zCkJmsW5I-MBUTwhNG-2" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Account" vertex="1">
+        <mxCell id="32zCkJmsW5I-MBUTwhNG-2" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Account" vertex="1">
           <mxGeometry height="230" width="250" x="200" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="32zCkJmsW5I-MBUTwhNG-3" parent="32zCkJmsW5I-MBUTwhNG-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- account_id: int&lt;br&gt;- email: string&lt;br&gt;- gebruikersnaam: string&lt;br&gt;- wachtwoordhash: string&lt;br&gt;- voornaam: string&lt;br&gt;- achternaam: string&lt;br&gt;- geboortedatum: date&lt;br&gt;- telefoon: string&lt;br&gt;- deleted_at: timestamp&lt;div&gt;- type: enum&lt;/div&gt;" vertex="1">
+        <mxCell id="32zCkJmsW5I-MBUTwhNG-3" parent="32zCkJmsW5I-MBUTwhNG-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- account_id: int&lt;br&gt;- email: string&lt;br&gt;- gebruikersnaam: string&lt;br&gt;- wachtwoordhash: string&lt;br&gt;- voornaam: string&lt;br&gt;- achternaam: string&lt;br&gt;- geboortedatum: date&lt;br&gt;- telefoon: string&lt;br&gt;- deleted_at: timestamp&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="154" width="250" y="26" as="geometry" />
         </mxCell>
         <mxCell id="32zCkJmsW5I-MBUTwhNG-4" parent="32zCkJmsW5I-MBUTwhNG-2" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="250" y="180" as="geometry" />
         </mxCell>
-        <mxCell id="32zCkJmsW5I-MBUTwhNG-5" parent="32zCkJmsW5I-MBUTwhNG-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ authenticate(username, password): bool&lt;br&gt;+ logout()" vertex="1">
+        <mxCell id="32zCkJmsW5I-MBUTwhNG-5" parent="32zCkJmsW5I-MBUTwhNG-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+" vertex="1">
           <mxGeometry height="42" width="250" y="188" as="geometry" />
         </mxCell>
         <mxCell id="32zCkJmsW5I-MBUTwhNG-25" edge="1" parent="1" source="32zCkJmsW5I-MBUTwhNG-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1.013;exitY=0.132;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;">
@@ -96,17 +96,17 @@
             <mxPoint x="-1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Wvb5q7_zuzf1XkYK4vDz-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Customer" vertex="1">
-          <mxGeometry height="120" width="140" x="350" y="348" as="geometry" />
+        <mxCell id="Wvb5q7_zuzf1XkYK4vDz-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Klant" vertex="1">
+          <mxGeometry height="120" width="210" x="350" y="348" as="geometry" />
         </mxCell>
-        <mxCell id="Wvb5q7_zuzf1XkYK4vDz-2" parent="Wvb5q7_zuzf1XkYK4vDz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- account_id: int&lt;br&gt;- joinDate: date&lt;br&gt;- deleted_at: timestamp" vertex="1">
-          <mxGeometry height="54" width="140" y="26" as="geometry" />
+        <mxCell id="Wvb5q7_zuzf1XkYK4vDz-2" parent="Wvb5q7_zuzf1XkYK4vDz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- startdatum_lidmaatschap: date&lt;br&gt;- deleted_at: timestamp" vertex="1">
+          <mxGeometry height="54" width="210" y="26" as="geometry" />
         </mxCell>
         <mxCell id="Wvb5q7_zuzf1XkYK4vDz-3" parent="Wvb5q7_zuzf1XkYK4vDz-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="140" y="80" as="geometry" />
+          <mxGeometry height="8" width="210" y="80" as="geometry" />
         </mxCell>
         <mxCell id="Wvb5q7_zuzf1XkYK4vDz-4" parent="Wvb5q7_zuzf1XkYK4vDz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+" vertex="1">
-          <mxGeometry height="32" width="140" y="88" as="geometry" />
+          <mxGeometry height="32" width="210" y="88" as="geometry" />
         </mxCell>
         <mxCell id="Wvb5q7_zuzf1XkYK4vDz-8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Beheer" vertex="1">
           <mxGeometry height="78" width="140" x="120" y="348" as="geometry" />
@@ -531,21 +531,21 @@
     </mxGraphModel>
   </diagram>
   <diagram id="R3VsixBPQv2emFKUfxXb" name="DAO klassen">
-    <mxGraphModel dx="1144" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1362" dy="955" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="KGOlYequp5SDsX5dp_OD-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="AccountDAO" vertex="1">
-          <mxGeometry height="80" width="250" y="40" as="geometry" />
+          <mxGeometry height="100" width="300" y="40" as="geometry" />
         </mxCell>
         <mxCell id="KGOlYequp5SDsX5dp_OD-3" parent="KGOlYequp5SDsX5dp_OD-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="250" y="26" as="geometry" />
+          <mxGeometry height="8" width="300" y="26" as="geometry" />
         </mxCell>
         <mxCell id="KGOlYequp5SDsX5dp_OD-4" parent="KGOlYequp5SDsX5dp_OD-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getById(account_id): Account&lt;br&gt;+ getByUsername(gebruikersnaam): Account" vertex="1">
-          <mxGeometry height="46" width="250" y="34" as="geometry" />
+          <mxGeometry height="66" width="300" y="34" as="geometry" />
         </mxCell>
         <mxCell id="KGOlYequp5SDsX5dp_OD-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="CustomerDAO" vertex="1">
-          <mxGeometry height="90" width="190" x="272" y="40" as="geometry" />
+          <mxGeometry height="90" width="190" x="970" y="30" as="geometry" />
         </mxCell>
         <mxCell id="KGOlYequp5SDsX5dp_OD-7" parent="KGOlYequp5SDsX5dp_OD-5" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="190" y="26" as="geometry" />

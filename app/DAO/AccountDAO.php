@@ -4,7 +4,6 @@ namespace App\DAO;
 
 use App\Core\Database;
 use App\Models\Account;
-use App\Models\AccountType;
 use PDO;
 use DateTime;
 
@@ -19,7 +18,8 @@ class AccountDAO
 
     public function getById(int $id): ?Account
     {
-        $sql = "SELECT * FROM `account` WHERE `id` = :id";
+        // account_id gemaakt van id
+        $sql = "SELECT * FROM `account` WHERE `account_id` = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id);
         $stmt->execute();
@@ -33,7 +33,7 @@ class AccountDAO
                 $user['wachtwoord_hash'],
                 new DateTime($user['created_at']),
                 new DateTime($user['geboortedatum']),
-                AccountType::from($user['type']),
+                // AccountType::from($user['type']),
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
@@ -50,8 +50,8 @@ class AccountDAO
     //(voor de validatie van het inloggen)
     public function getByUsername(string $gebruikersnaam): ?Account
     {
-        // De SQL query voorbereiden
-        $sql = "SELECT * FROM users 
+        // De SQL query voorbereiden EB: users veranderd in account
+        $sql = "SELECT * FROM account 
         WHERE gebruikersnaam = :gebruikersnaam";
         // De informatie uit de database opvragen via een SQL query
         // (SQL-Injectie voorkomen via bindValue)
@@ -68,7 +68,7 @@ class AccountDAO
                 $user['wachtwoord_hash'],
                 new DateTime($user['created_at']),
                 new DateTime($user['geboortedatum']),
-                AccountType::from($user['type']),
+                // AccountType::from($user['type']),
                 $user['voornaam'],
                 $user['achternaam'],
                 $user['telefoon'],
@@ -76,7 +76,7 @@ class AccountDAO
                 new DateTime($user['deleted_at']) : null,
                 $user['account_id']
             );
-        // Als er niets bestaat, een null-value terugsturen
+            // Als er niets bestaat, een null-value terugsturen
         } else {
             return null;
         }
