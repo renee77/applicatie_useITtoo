@@ -8,7 +8,14 @@
   Appel,1.49,2,kg,Verse appels, Boer Anna uit Breda,appel
 </pre>
 
-<p>Als dit niet op deze manier wordt geupload, <strong>wordt het bestand niet verwerkt!</strong></p>
+<p>Als dit niet op deze manier wordt geupload, <strong>wordt de rij niet verwerkt!</strong></p>
+<p>De volgende eenheden kunnen worden gebruikt:</p>
+<ul>
+  <li class="list_eenheden">kg</li>
+  <li class="list_eenheden">gr</li>
+  <li class="list_eenheden">stuks</li>
+  <li class="list_eenheden">ml</li>
+</ul>
 
 <!--enctype multipart/form-data is nodig om bestanden via post te versturen. Anders kunnen de bestanden NIET worden verzonden. -->
 <form method="POST" 

@@ -65,3 +65,12 @@ input[type="file"]::file-selector-button:hover {
   padding: 0.1rem 1rem;
   margin-top: 0.5rem;
 }
+
+.list_eenheden {
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+.list_eenheden::marker {
+  color: var(--dark-green);
+}
