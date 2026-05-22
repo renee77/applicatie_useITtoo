@@ -90,6 +90,11 @@ function() {
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
+
+        // GET = toon leeg formulier met eenheden voor de select
+        return [
+            'eenheden' => \App\Models\Eenheid::cases()
+        ];
     }
 );
 $router->register(

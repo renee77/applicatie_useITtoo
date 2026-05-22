@@ -44,5 +44,5 @@
     </div>
 
     <input type="submit" value="Opslaan" class="orangeBtn" />
-    <a href="<?= BASE_URL ?>/beheer/product" class="orangeBtn deleteBtn">Annuleren</a>
+    <a href="<?= BASE_URL ?>/beheer/product" class="orangeBtn cancelBtn">Annuleren</a>
 </form>
