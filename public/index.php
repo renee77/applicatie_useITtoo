@@ -214,6 +214,48 @@ function () {
     }
 });
 
+$router->register('/beheer/upload/csv/template',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php', 
+    'main.beheer.php',
+    function() {
+        // Geef aan dat het een CSV bestand gaat zijn.
+        header('Content-Type: text/csv');
+        // Geef aan dat het een download gaat worden en geen nieuwe pagina, met de naam
+        // product_template.csv
+        header('Content-Disposition: attachment; filename="product_template.csv"');
+
+        // Open een output buffer zodat we fputcsv() kunnen gebruiken
+        $output = fopen('php://output', 'w');
+
+        // Eerst zetten we de header in de csv, geven hiermee de kolommen aan. 
+        // Deze matcht met wat de import verwacht.
+        fputcsv($output, [
+            'naam',
+            'prijs',
+            'verkoop_gewicht',
+            'eenheid',
+            'omschrijving',
+            'leverancier',
+            'foto_url'
+        ]);
+
+        // Een voorbeeldrij, waarop te zien is hoe de data moet worden geschreven.
+        fputcsv($output, [
+            'Wortel',
+            '1.95',
+            '1000',
+            'kg',
+            'Verse wortels van de boer',
+            'Boer Koen',
+            'wortel.jpg'
+        ]);
+
+        // Sluit het document en zorg ervoor dat het kan worden gedownload.
+        fclose($output);
+        exit;
+    }
+);
+
 // $router->register(
 //  '/beheer/product',
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',

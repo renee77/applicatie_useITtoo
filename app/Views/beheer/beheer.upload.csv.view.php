@@ -18,3 +18,10 @@ class="csv-form">
   <input type="file" name="csv_bestand" accept=".csv" class="csv-input" required>
   <button type="submit" class="orangeBtn uploadBtn">Uploaden</button>
 </form>
+
+<section class="downloadTemplate">
+  <p>Mocht je willen, kun je hieronder een CSV-voorbeeld downloaden, met de juiste kolommen!</p>
+  <a href="<?= BASE_URL ?>/beheer/upload/csv/template" id="templateDownloader">
+      Download CSV template
+  </a>
+</section>

@@ -53,3 +53,15 @@ input[type="file"]::file-selector-button:hover {
   width: 6rem;
   font-size: 0.8rem;
 }
+
+.downloadTemplate {
+  height: 20vh;
+  align-content: end;
+}
+
+#templateDownloader {
+  background-color: var(--light-green);
+  border-radius: 1rem;
+  padding: 0.1rem 1rem;
+  margin-top: 0.5rem;
+}
