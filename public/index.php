@@ -86,7 +86,7 @@ function() {
 
             $dao->addProduct($product);
             // Sessiemelding aanmaken zodat er een melding kan worden getoond.
-            $_SESSION['melding'] = "Het product $product is succesvol aangemaakt!";
+            $_SESSION['melding'] = "Het product {$product->getNaam()} is succesvol aangemaakt!";
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
