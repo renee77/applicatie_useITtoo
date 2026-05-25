@@ -30,7 +30,7 @@ $title = 'Webwinkel'; ?>
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
                             <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                        BASE_URL . '/assets/images/products/useITtoo_placeholder.png') ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
@@ -49,7 +49,7 @@ $title = 'Webwinkel'; ?>
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
                             <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                        BASE_URL . '/assets/images/products/useITtoo_placeholder.png') ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
@@ -68,7 +68,7 @@ $title = 'Webwinkel'; ?>
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
                             <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                        BASE_URL . '/assets/images/products/useITtoo_placeholder.png') ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 

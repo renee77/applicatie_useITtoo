@@ -15,7 +15,7 @@ $title = htmlspecialchars($product->getNaam()); ?>
 
         <div class="product-afbeelding">
             <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                            BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                            BASE_URL . '/assets/images/products/useITtoo_placeholder.png') ?>"
                  alt="<?= htmlspecialchars($product->getNaam()) ?>">
             <div class="product-koop">
                 <div class="product-prijs-info">
