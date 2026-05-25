@@ -1,0 +1,91 @@
+.newProductForm {
+  width: 90%;
+  margin: auto;
+}
+
+h1 {
+  padding-bottom: 3rem;
+}
+
+#omschrijving {
+  min-height: 1rem;
+}
+
+.form__group {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+select {
+    flex: 1 0 10rem;
+    /*Standaard opmaak van een select button verwijderen */
+    appearance: none; 
+    -webkit-appearance: none; 
+    
+    border: 0.125rem solid var(--orange);
+    border-left-width: 0;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    
+    padding: 0.5rem 1rem 0.5rem 0;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border: 0.125rem solid var(--light-green);
+    border-left: none;
+}
+
+.form__groupInput,
+.form__groupLabel {
+  display: block;
+  background-color: white;
+  border: 0.125rem solid var(--orange);
+  letter-spacing: 0.1em;
+}
+
+.form__groupLabel { 
+  text-transform: uppercase;
+  font-weight: bold;
+  
+  border-right-width: 0;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  
+  padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.form__groupInput {
+  flex: 1 0 10rem;
+
+  border-left-width: 0;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+
+.form__groupInput:focus {
+  outline: none;
+  border: 0.125rem solid var(--light-green);
+  border-left: none;
+}
+
+.form__groupLabel:has(+ .form__groupInput:focus),
+.form__groupLabel:has(+ select:focus) {
+  outline: none;
+  border: 0.125rem solid var(--light-green);
+  border-right: none;
+}
+
+.btn {
+  margin: auto;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  transition: background-color 0.3s, border 0.3s;
+}
+.btn:hover {
+  cursor: pointer;
+}

@@ -1,16 +1,3 @@
-<?php
-// Dit kan op dit moment nergens anders.
-// Er moet een POST mogelijkheid worden toegevoegd aan de router zodat dit
-// naar de index kan, om daar al deze informatie in te laten laden.
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $db = \App\Core\Database::getConnection();
-    $beheerDAO = new \App\DAO\BeheerDAO($db);
-    $authService = new \App\Core\AuthService($beheerDAO);
-    $controller = new \App\Controllers\LoginController($authService);
-    $controller->handleLogin();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>

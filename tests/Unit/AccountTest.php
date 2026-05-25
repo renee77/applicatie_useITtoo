@@ -120,6 +120,24 @@ class AccountTest extends TestCase
         $this->assertEquals($nieuwTel, $tel);
     }
 
+    public function testConstructorSetsAccountId(): void
+    {
+        $account = new Account(
+            "test@test.com",
+            "TestUser",
+            "WachtwoordHash",
+            new \DateTime('2026-05-13'),
+            new \DateTime('2000-05-12'),
+            "Jan",
+            "Jansen",
+            "0612345678",
+            null,
+            5
+        );
+
+        $this->assertEquals(5, $account->getAccountId());
+    }
+
     // Exception Path
     public function testKorteGebruikersnaam(): void
     {
