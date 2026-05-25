@@ -29,11 +29,12 @@ $title = 'Webwinkel'; ?>
                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
-                            <img src="<?= htmlspecialchars(
-                                        $product->getFotoUrl()
-                                            ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
-                                            : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
-                                    ) ?>"
+                            <?php $imgUrl = htmlspecialchars(
+                                $product->getFotoUrl()
+                                    ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
+                                    : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
+                            ); ?>
+                            <img src="<?= $imgUrl ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>"
                                  onerror="this.src='<?= BASE_URL ?>/assets/images/products/useITtoo_placeholder.png'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
@@ -41,7 +42,7 @@ $title = 'Webwinkel'; ?>
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
                             </p>
                         </div>
-                </a>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -49,14 +50,15 @@ $title = 'Webwinkel'; ?>
             <h2>Fruit</h2>
             <div class="product-grid">
                 <?php foreach ($fruit as $product) : ?>
-                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                    <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
-                            <img src="<?= htmlspecialchars(
-                                        $product->getFotoUrl()
-                                            ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
-                                            : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
-                                    ) ?>"
+                            <?php $imgUrl = htmlspecialchars(
+                                $product->getFotoUrl()
+                                    ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
+                                    : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
+                            ); ?>
+                            <img src="<?= $imgUrl ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>"
                                  onerror="this.src='<?= BASE_URL ?>/assets/images/products/useITtoo_placeholder.png'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
@@ -64,7 +66,7 @@ $title = 'Webwinkel'; ?>
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
                             </p>
                         </div>
-                </a>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -72,14 +74,15 @@ $title = 'Webwinkel'; ?>
             <h2>Langerhoudbaar</h2>
             <div class="product-grid">
                 <?php foreach ($houdbaar as $product) : ?>
-                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                    <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
                         strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
                         <div class="product-tile">
-                            <img src="<?= htmlspecialchars(
-                                        $product->getFotoUrl()
-                                            ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
-                                            : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
-                                    ) ?>"
+                            <?php $imgUrl = htmlspecialchars(
+                                $product->getFotoUrl()
+                                    ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
+                                    : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
+                            ); ?>
+                            <img src="<?= $imgUrl ?>"
                                  alt="<?= htmlspecialchars($product->getNaam()) ?>"
                                  onerror="this.src='<?= BASE_URL ?>/assets/images/products/useITtoo_placeholder.png'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
@@ -87,7 +90,7 @@ $title = 'Webwinkel'; ?>
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
                             </p>
                         </div>
-                </a>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
