@@ -173,7 +173,7 @@ section#productBackground {
 
         img {
             width: 100%;
-            max-height: 420px;
+            min-height: 0;
             object-fit: cover;
             display: block;
         }
