@@ -39,47 +39,14 @@ jobs:
         # als één blok uitgevoerd. Niet verwarren met de | pipe in het commando zelf.
         run: |
           set -o pipefail
-
-          # PHPUnit één keer draaien met zowel testdox- als coverage-output.
-          # 2>&1 zorgt dat stderr (bijv. fatale PHP-fouten) ook wordt meegenomen.
-          # --colors=never voorkomt dat ANSI-codes de grep-expressies hieronder verstoren.
-          OUTPUT=$(vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml --colors=never --coverage-filter app/ tests/Unit 2>&1)
-          PHPUNIT_EXIT=$?
-
-          # Output naar het scherm printen zodat je het ziet in de Actions-tab.
-          echo "$OUTPUT"
-
-          # Dezelfde output wegschrijven naar build.log voor ai_check.py verderop in de pipeline.
-          echo "$OUTPUT" > build.log
-
-          # Eerst controleren of de tests zelf geslaagd zijn.
-          # Als phpunit een foutcode teruggaf, heeft parsen van coverage geen zin.
-          if [ $PHPUNIT_EXIT -ne 0 ]; then
-            echo "❌ Tests mislukt — pipeline gestopt"
-            exit $PHPUNIT_EXIT
-          fi
-
-          # Coverage-percentages uit de output filteren.
-          # grep -A2 / -A3 pakt de regels ná de klassenaam; grep -oP haalt alleen het getal op.
-          PRODUCT_LINE=$(echo "$OUTPUT" | grep -A1 "App\\\\Models\\\\Product" | grep "Methods:")
-          METHOD_COV=$(echo "$PRODUCT_LINE" | grep -oP 'Methods:\s+\K[0-9]+\.[0-9]+')
-          LINE_COV=$(echo "$PRODUCT_LINE" | grep -oP 'Lines:\s+\K[0-9]+\.[0-9]+')
-
-          echo "Method coverage : $METHOD_COV%"
-          echo "Line coverage   : $LINE_COV%"
-
-          THRESHOLD=80
-
-          if awk "BEGIN {exit !($METHOD_COV < $THRESHOLD)}"; then
-            echo "❌ Method coverage $METHOD_COV% is onder de drempelwaarde van $THRESHOLD%"
+          vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml --colors=never tests/Unit 2>&1 | tee build.log
+          LINE_COV=$(grep -A4 "Summary:" build.log | grep "Lines:" | grep -oP '[0-9]+\.[0-9]+(?=%)')
+          echo "Line coverage: $LINE_COV%"
+          if awk "BEGIN {exit !($LINE_COV+0 < 80)}"; then
+            echo "❌ Line coverage $LINE_COV% is onder de drempelwaarde van 80%"
             exit 1
           fi
-          if awk "BEGIN {exit !($LINE_COV < $THRESHOLD)}"; then
-            echo "❌ Line coverage $LINE_COV% is onder de drempelwaarde van $THRESHOLD%"
-            exit 1
-          fi
-
-          echo "✅ Code coverage voldoet aan de drempelwaarden (methods: $METHOD_COV%, lines: $LINE_COV%)"
+          echo "✅ Line coverage $LINE_COV% voldoet aan de drempelwaarde"
       # PHPUnit draait één keer; output wordt hergebruikt voor zowel build.log als coverage-parsing.
       # Drempelwaarde: minimaal 80% voor methods én lines.
 

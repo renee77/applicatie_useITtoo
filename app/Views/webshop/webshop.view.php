@@ -1,8 +1,9 @@
 <?php
+/** @var \App\Models\Product[] $groenten */
+/** @var \App\Models\Product[] $fruit */
+/** @var \App\Models\Product[] $houdbaar */
 
 $title = 'Webwinkel'; ?>
-
-<link rel="stylesheet" href="/css/webshop.css">
 
 <section id="salesBackground">
     <div class="container" id="sales">
@@ -21,9 +22,63 @@ $title = 'Webwinkel'; ?>
     <div class="container" id="shop">
         <h1>Onze Producten</h1>
 
-        <div class="product_categorie"><h2>Groente</h2></div>
-        <div class="product_categorie"><h2>Fruit</h2></div>
-        <div class="product_categorie"><h2>Langerhoudbaar</h2></div>
+        <div class="product_categorie">
+            <h2>Groente</h2>
+            <div class="product-grid">
+                <?php foreach ($groenten as $product) : ?>
+                    <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="product_categorie">
+            <h2>Fruit</h2>
+            <div class="product-grid">
+                <?php foreach ($fruit as $product) : ?>
+                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="product_categorie">
+            <h2>Langerhoudbaar</h2>
+            <div class="product-grid">
+                <?php foreach ($houdbaar as $product) : ?>
+                     <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=
+                        strtolower(str_replace(' ', '-', $product->getNaam())) ?>" class="product-tile-link">
+                        <div class="product-tile">
+                            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
+                                        BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                            <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
+                            <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
+                               <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
+                            </p>
+                        </div> 
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
     </div>
 </section>

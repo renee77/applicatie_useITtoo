@@ -12,127 +12,176 @@ namespace App\Core;
  * Herbruikbaar: deze klasse werkt in elk PHP-project, ongeacht het onderwerp.
  * Daarom hoort hij in Core en niet in Models.
  */
+
+// De verantwoordelijkheden zijn:
+
+// Controller → bepaalt welke data de view nodig heeft en geeft die terug
+// Router → zorgt dat die data beschikbaar is in de scope waar de view draait
+// View → gebruikt de data, weet niet waar hij vandaan komt
+
+// gebruik in index.php bij het registreren:
+// $router->register(
+//     '/webshop',
+//     __DIR__ . '/app/Views/webshop.view.php',
+//     'main.php',
+//     function() use ($db) {
+//         $dao = new ProductDAO($db);
+//         $controller = new WebshopController($dao);
+//         $controller->index();
+//     }
+// );
+
+
 class Router
 {
-    /**
-     * Lijst van geregistreerde routes.
-     * Sleutel = URL pad ('/webshop'), waarde = array met 'view' en 'layout'.
-     * Private: niemand buiten deze klasse mag er direct in schrijven.
-     */
+    // Lijst van geregistreerde routes.
+    // Sleutel = URL pad ('/webshop'), waarde = array met 'view' en 'layout'.
+    // Private: niemand buiten deze klasse mag er direct in schrijven.
     private array $routes = [];
-
-    /**
-     * Het projectmapje dat van de URL afgeknipt moet worden.
-     * Bijvoorbeeld: '/eindopdracht_jaar1'
-     *
-     * Herbruikbaar: door dit mee te geven bij aanmaken (in plaats van
-     * hardcoderen) werkt deze klasse in elk project met elke mapnaam.
-     */
+    // Het projectmapje dat van de URL afgeknipt moet worden.
+    // Bijvoorbeeld: '/eindopdracht_jaar1'
+    // Herbruikbaar: door dit mee te geven bij aanmaken (in plaats van
+    // hardcoderen) werkt deze klasse in elk project met elke mapnaam.
     private string $basePath;
 
-    /**
-     * @param string $basePath  Het voorvoegsel in de URL dat geen deel
-     *                          uitmaakt van de routing, bijv. '/eindopdracht_jaar1'
-     */
     public function __construct(string $basePath = '')
     {
         $this->basePath = $basePath;
     }
 
-    /**
-     * Registreert een nieuwe route.
-     *
-     * Je roept deze methode aan vanuit index.php voor elke pagina
-     * die de applicatie kent. Zo bouw je de routelijst op.
-     *
-     * Voorbeeld gebruik:
-     *   $router->register('/', 'home.view.php');
-     *   $router->register('/beheer', 'beheer.view.php', 'main.beheer.php');
-     *
-     * @param string $path      Het URL-pad, bijv. '/' of '/webshop'
-     * @param string $view      Het bestandspad naar de bijbehorende view
-     * @param string $layout    Het te gebruiken layout-bestand (standaard main.php)
-     */
-    public function register(string $path, string $view, string $layout = 'main.php'): void
-    {
-        // Sla de route op met pad, view én layout
-        // Bijvoorbeeld: $routes['/beheer'] = ['view' => 'beheer.view.php', 'layout' => 'main.beheer.php']
+    // Voeg de methode toe waarmee routes worden vastgelegd.
+    // Parameters: $path, $view, $layout (met default), $controller (nullable callable, met default null).
+    // Dit zijn afzonderlijke dingen die de router later apart nodig heeft
+    // De methode slaat de route op in de $routes array.
+    // als associatieve array per route  zodat ik straks in run() elk onderdeel appart kan ophalen
+
+    public function register(
+        string $path,
+        string $view,
+        string $layout = "main.php",
+        ?callable $controller = null
+    ): void {
         $this->routes[$path] = [
-            'view'   => $view,
+            'view' => $view,
             'layout' => $layout,
+            'controller' => $controller,
         ];
     }
 
-    /**
-     * Leest de huidige URL uit en maakt hem klaar voor vergelijking.
-     *
-     * Drie dingen worden gedaan:
-     * 1. Het projectmapje wordt eraf geknipt (/eindopdracht_jaar1/webshop → /webshop)
-     * 2. De querystring wordt verwijderd (/webshop?pagina=2 → /webshop)
-     * 3. De trailing slash wordt verwijderd (/webshop/ → /webshop)
-     *
-     * Daarna is de URL schoon en klaar om te vergelijken met de routelijst.
-     *
-     * Private: wordt alleen intern aangeroepen door run(), niet vanuit buiten de klasse.
-     *
-     * @return string  Het schoongemaakte URL-pad, bijv. '/' of '/webshop'
-     */
+    //     Dit is een private methode die de URL schoonmaakt.
+    // De URL is wat de browser naar de server stuurt, en die zit in een superglobal die PHP altijd beschikbaar maakt
+    // je krijgt bijvoorbeel /eindopdracht_jaar1/webshop?pagina=2 terug
+    // Drie dingen moet hij doen:
+    // Het projectmapje afknippen
+    // De querystring verwijderen
+    // De trailing slash verwijderen
+
     private function resolve(): string
     {
-        // Haal de volledige URL op, bijv. /eindopdracht_jaar1/webshop?pagina=2
         $uri = $_SERVER['REQUEST_URI'];
-
-        // Knip het projectmapje eraf
-        // /eindopdracht_jaar1/webshop → /webshop
+        // Het projectmapje afknippen
         $uri = str_replace($this->basePath, '', $uri);
-
-        // Verwijder de querystring (alles vanaf het vraagteken)
-        // /webshop?pagina=2 → /webshop
+        // De querystring verwijderen mbv strin tokenizer
+        // hij knipt een string op bij een bepaald teken en geeft het eerste stuk terug
         $uri = strtok($uri, '?');
-
-        // Verwijder een eventuele trailing slash aan het einde
-        // /webshop/ → /webshop
-        // rtrim() knipt tekens aan het einde van een string
+        // De trailing slash verwijderen
+        // rtrim() righttrim knipt tekens weg aan het rechteruiteinde van de string
         $uri = rtrim($uri, '/');
 
-        // Als de uri nu leeg is, zijn we op de homepagina
-        // '' → '/'
         return $uri ?: '/';
     }
 
-    /**
-     * Voert de router uit.
-     *
-     * Dit is de enige publieke methode die je vanuit index.php aanroept.
-     * Hij gebruikt resolve() om de URL schoon te maken, zoekt die op
-     * in de routelijst, en laadt de juiste view én layout — of toont een 404.
-     *
-     * Gebruik in index.php:
-     *   $router->run();
-     */
+    // de publieke methode die je in index.php gebruikt, gebruik $router->run();
+    //     Hij moet drie dingen doen:
+    // Het schoongemaakte pad ophalen via resolve()
+    // Kijken of dat pad bekend is in $routes
+    // De juiste view en layout laden — of een 404 tonen
+
     public function run(): void
     {
-        // Haal het schoongemaakte URL-pad op via de private resolve() methode
+        // Het schoongemaakte pad ophalen via resolve()
         $path = $this->resolve();
 
-        // Kijk of dit pad bekend is in de routelijst
+        // Kijken of dat pad bekend is in $routes
         if (array_key_exists($path, $this->routes)) {
-            // Haal view én layout op uit de route-array
-            $view   = $this->routes[$path]['view'];
+            $view = $this->routes[$path]['view'];
             $layout = $this->routes[$path]['layout'];
+            $controller = $this->routes[$path]['controller'];
 
-            // Vang de output van de view op in een variabele
-            // zodat het layout-bestand hem op de juiste plek kan plaatsen
+            // eerst de check of de controller niet null is en dan zorg ik dat de variabelen
+            // die de controller maakt voor de view beschikbaar komen
+            //             $viewData = [
+            //     'groenten' => [...],
+            //     'fruit'    => [...],
+            //     'houdbaar' => [...],
+            // ];
+
+            // extract($viewData);
+
+            // Nu bestaan automatisch:
+            // $groenten = [...]
+            // $fruit    = [...]
+            // $houdbaar = [...]
+
+            if ($controller !== null) {
+                $viewData = ($controller)();
+                if (is_array($viewData)) {
+                    extract($viewData);
+                }
+            }
+
+            // Nu de output buffer. Het probleem is dit: de layout heeft de inhoud van de view nodig als variabele
+            // $content zodat hij hem op de juiste plek kan plaatsen.
+            // Maar als je gewoon include $view doet, wordt de HTML meteen naar de browser gestuurd.
+            // ob_start() vangt alle output op in een buffer in plaats van hem meteen te sturen.
+            // ob_get_clean() geeft die buffer terug als string en leegt hem.
             ob_start();
             include $view;
             $content = ob_get_clean();
-
-            // Laad het juiste layout-bestand (main.php of main.beheer.php)
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
         } else {
-            // Pad staat niet in de routelijst → 404
-            http_response_code(404);
-            echo '404 - Pagina niet gevonden';
+            $matched = false;
+
+            // Loop door alle geregistreerde routes
+            // want we weten niet welk patroon gaat matchen
+            foreach ($this->routes as $pattern => $route) {
+                // Bouw de volledige regex op:
+                // #^    = begin van de string
+                // $#    = einde van de string
+                // # wordt gebruikt ipv / omdat URL's al / bevatten
+                if (preg_match('#^' . $pattern . '$#', $path, $matches)) {
+                    $matched = true;
+
+                    // $matches[1] bevat het id uit de URL
+                    // (int) zorgt dat het een integer wordt ipv string
+                    $id = (int) $matches[1];
+
+                    $view       = $route['view'];
+                    $layout     = $route['layout'];
+                    $controller = $route['controller'];
+
+                    if ($controller !== null) {
+                        // geef het id mee aan de closure
+                        // zodat de controller het juiste product kan ophalen
+                        $viewData = ($controller)($id);
+                        if (is_array($viewData)) {
+                            extract($viewData);
+                        }
+                    }
+
+                    ob_start();
+                    include $view;
+                    $content = ob_get_clean();
+                    include __DIR__ . '/../../app/Views/layouts/' . $layout;
+                    break; // stop de loop zodra een match gevonden is
+                }
+            }
+
+            // Geen enkel patroon matched → 404
+            if (!$matched) {
+                http_response_code(404);
+                echo '404 - Pagina niet gevonden';
+            }
         }
     }
 }
