@@ -34,7 +34,8 @@ $title = 'Webwinkel'; ?>
                                     ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
                                     : BASE_URL . '/assets/images/products/placeholder.jpg'
                             ) ?>"
-                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>"
+                                 onerror="this.src='<?= BASE_URL ?>/assets/images/products/placeholder.jpg'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
@@ -56,7 +57,8 @@ $title = 'Webwinkel'; ?>
                                     ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
                                     : BASE_URL . '/assets/images/products/placeholder.jpg'
                             ) ?>"
-                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>"
+                                 onerror="this.src='<?= BASE_URL ?>/assets/images/products/placeholder.jpg'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
@@ -78,7 +80,8 @@ $title = 'Webwinkel'; ?>
                                     ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
                                     : BASE_URL . '/assets/images/products/placeholder.jpg'
                             ) ?>"
-                                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+                                 alt="<?= htmlspecialchars($product->getNaam()) ?>"
+                                 onerror="this.src='<?= BASE_URL ?>/assets/images/products/placeholder.jpg'">
                             <h3><?= htmlspecialchars($product->getNaam()) ?></h3>
                             <p class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?> / 
                                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>

@@ -14,9 +14,13 @@ $title = htmlspecialchars($product->getNaam()); ?>
         </div>
 
         <div class="product-afbeelding">
-            <img src="<?= htmlspecialchars($product->getFotoUrl() ??
-                            BASE_URL . '/assets/images/products/placeholder.jpg') ?>"
-                 alt="<?= htmlspecialchars($product->getNaam()) ?>">
+            <img src="<?= htmlspecialchars(
+                $product->getFotoUrl()
+                    ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
+                    : BASE_URL . '/assets/images/products/placeholder.jpg'
+            ) ?>"
+                alt="<?= htmlspecialchars($product->getNaam()) ?>"
+                onerror="this.src='<?= BASE_URL ?>/assets/images/products/placeholder.jpg'">
             <div class="product-koop">
                 <div class="product-prijs-info">
                     <span class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?></span>
