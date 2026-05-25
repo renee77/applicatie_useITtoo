@@ -101,6 +101,37 @@ class ProductDAO
         );
     }
 
+    public function getProductByName(string $naam): array
+    {
+        // SQL statement
+        $sql = "SELECT * FROM `product` WHERE `deleted_at` IS NULL AND `naam` LIKE :naam;";
+        // DB werk
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":naam", '%' . $naam . '%');
+        $stmt->execute();
+
+        // De uitkomst in een variabele stoppen
+        $rows = $stmt->fetchAll();
+
+        $products = [];
+
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                $row['naam'],
+                $row['prijs'],
+                $row['verkoop_gewicht'],
+                Eenheid::from($row['eenheid']),
+                $row['omschrijving'],
+                $row['leverancier'],
+                $row['foto_url'],
+                null,
+                $row['product_id']
+            );
+        }
+
+        return $products;
+    }
+
     /** @return Product[] */
     public function getAllProducts(): array
     {
