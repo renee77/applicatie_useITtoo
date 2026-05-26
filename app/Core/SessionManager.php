@@ -3,7 +3,8 @@
 namespace App\Core;
 
 // waar en hoe gebruik je SessionManager? Denk aan de flow:
-// Elke pagina — start() moet aangeroepen worden voordat er iets anders gebeurt. Waar in je applicatie gebeurt altijd iets als eerste?
+// Elke pagina — start() moet aangeroepen worden voordat er iets anders gebeurt.
+//      Waar in je applicatie gebeurt altijd iets als eerste?
 //      de start moet dus gebeuren in index.php
 // Bij inloggen — setAccountId() aanroepen na succesvolle login. Waar gebeurt dat?
 // Bij beveiligde pagina's — requireLogin() bovenaan. Wie beslist welke pagina's beveiligd zijn?
@@ -45,8 +46,10 @@ class SessionManager
     public function requireLogin(): void
     {
         if (!$this->isLoggedIn()) {
-            // header() stuurt een HTTP-header naar de browser. Een HTTP-header is een instructie die de server meegeeft aan de browser
-            // in dit geval Location: /login, wat de browser vertelt "ga naar deze URL". De browser voert dat dan automatisch uit.
+            // header() stuurt een HTTP-header naar de browser.
+            // Een HTTP-header is een instructie die de server meegeeft aan de browser
+            // in dit geval Location: /login, wat de browser vertelt "ga naar deze URL".
+            // De browser voert dat dan automatisch uit.
             header('Location: /login');
             // exit() stopt de uitvoering van het PHP-script op dat punt.
             // Zonder exit() zou PHP na de header() gewoon doorgaan met de rest van de code uitvoeren
