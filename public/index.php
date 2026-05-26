@@ -31,7 +31,21 @@ $router->register(
     }
 );
 
-$router->register('/beheerlogin', __DIR__ . '/../app/Views/beheer/beheer.login.view.php', 'login.beheer.php');
+$router->register('/beheerlogin', 
+__DIR__ . '/../app/Views/beheer/beheer.login.view.php', 
+'login.beheer.php',
+
+function() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        $db = \App\Core\Database::getConnection();
+        $beheerDAO = new \App\DAO\BeheerDAO($db);
+        $authService = new \App\Core\AuthService($beheerDAO);
+        $controller = new \App\Controllers\LoginController($authService);
+        $controller->handleLogin();
+    }
+});
+
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
 $router->register('/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
@@ -40,10 +54,7 @@ $router->register('/beheer/product',
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
         $controller = new \App\Controllers\ProductController($dao);
         
-        // Voor nu een hard gecodeerde zoekterm zodat kan worden gecheckt dat het werkt, 
-        // Alles staat klaar zodat het straks kan de get-request.
-        $zoekterm = 'aardbei';
-        //$zoekterm = trim($_GET['zoek'] ?? '');
+        $zoekterm = trim($_GET['zoekterm'] ?? '');
         if ($zoekterm !== '') {
             $products = $dao->getProductByName($zoekterm);
         } else {
@@ -75,10 +86,15 @@ function() {
 
             $dao->addProduct($product);
             // Sessiemelding aanmaken zodat er een melding kan worden getoond.
-            $_SESSION['melding'] = "Het product $product is succesvol aangemaakt!";
+            $_SESSION['melding'] = "Het product {$product->getNaam()} is succesvol aangemaakt!";
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
+
+        // GET = toon leeg formulier met eenheden voor de select
+        return [
+            'eenheden' => \App\Models\Eenheid::cases()
+        ];
     }
 );
 $router->register(

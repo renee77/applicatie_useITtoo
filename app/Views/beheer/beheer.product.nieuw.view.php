@@ -1,6 +1,6 @@
 <h1>Nieuw product aanmaken</h1>
 
-<form method="POST" action="<?= BASE_URL ?>/beheer/product" class="newProductForm">
+<form method="POST" action="<?= BASE_URL ?>/beheer/product/nieuw" class="newProductForm">
     <div class="form__group">
       <label class="form__groupLabel" for="naam">Naam:</label>
       <input class="form__groupInput" type="text" id="naam" name="naam" required />
@@ -8,7 +8,7 @@
 
     <div class="form__group">
       <label class="form__groupLabel" for="prijs">Prijs:</label>
-      <input class="form__groupInput" type="number" id="prijs" name="prijs" min="0" required />
+      <input class="form__groupInput" type="number" id="prijs" name="prijs" min="0" step="0.01" required />
     </div>
     
     <div class="form__group">
@@ -22,8 +22,8 @@
     </div>
 
     <div class="form__group">
-      <label class="form__groupLabel" for="gewicht">Gewicht:</label>
-      <input class="form__groupInput" type="text" id="gewicht" name="gewicht" />
+      <label class="form__groupLabel" for="verkoop_gewicht">Gewicht:</label>
+      <input class="form__groupInput" type="text" id="verkoop_gewicht" name="verkoop_gewicht" />
     </div>
 
     <div class="form__group">
@@ -38,8 +38,8 @@
     </div>
     
     <div class="form__group">
-      <label class="form__groupLabel" for="afbeelding">Afbeeldingnaam:</label>
-      <input class="form__groupInput" type="text" id="afbeelding" name="afbeelding" />
+      <label class="form__groupLabel" for="foto_url">Afbeeldingnaam:</label>
+      <input class="form__groupInput" type="text" id="foto_url" name="foto_url" />
     </div>
 
     <div class="form__group">

@@ -78,17 +78,21 @@ section#shopBackground {
             grid-template-columns: repeat(6, 1fr);
             gap: 1rem;
 
+            a.product-tile-link {
+                display: block;
+                aspect-ratio: 2 / 3;
+                overflow: hidden;
+                border-radius: 5px;
+                border: 0.05rem solid var(--dark-green);
+                box-shadow: 0 2px 6px var(--dark-green);
+                cursor: pointer;
+            }
 
             div.product-tile {
                 display: flex;
                 flex-direction: column;
-                aspect-ratio: 2 / 3;
+                height: 100%;
                 background-color: white;
-                border: 0.05rem solid var(--dark-green);
-                box-shadow: 0 2px 6px var(--dark-green);
-                border-radius: 5px;
-                overflow: hidden;
-                cursor: pointer;
 
                 img {
                     width: 100%;
@@ -169,7 +173,7 @@ section#productBackground {
 
         img {
             width: 100%;
-            max-height: 420px;
+            min-height: 0;
             object-fit: cover;
             display: block;
         }

@@ -33,6 +33,10 @@ h1 {
   transition: background-color 0.4s;
 }
 
+.cancelBtn {
+  font-size: 0.8rem;
+}
+
 table {
   width: 100%;
 
