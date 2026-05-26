@@ -36,6 +36,13 @@
             <?php endforeach; ?>
         </select>
     </div>
+    
+    <div class="form__group">
+        <label class="form__groupLabel" for="foto_url">Foto URL:</label>
+        <input class="form__groupInput" type="text" id="foto_url" name="foto_url" 
+               value="<?= trim(htmlspecialchars($product->getFotoUrl()) ?? '') ?>" 
+               placeholder="foto.jpg" />
+    </div>
 
     <div class="form__group">
         <label class="form__groupLabel" for="omschrijving">Omschrijving:</label>
