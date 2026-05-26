@@ -2,6 +2,13 @@
 
 namespace App\Core;
 
+// waar en hoe gebruik je SessionManager? Denk aan de flow:
+// Elke pagina — start() moet aangeroepen worden voordat er iets anders gebeurt. Waar in je applicatie gebeurt altijd iets als eerste?
+//      de start moet dus gebeuren in index.php
+// Bij inloggen — setAccountId() aanroepen na succesvolle login. Waar gebeurt dat?
+// Bij beveiligde pagina's — requireLogin() bovenaan. Wie beslist welke pagina's beveiligd zijn?
+// Bij uitloggen — destroy() aanroepen. Waar komt de uitlogknop terecht?
+
 class SessionManager
 {
     // start een sessie
