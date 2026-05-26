@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use Exception;
+
 // waar en hoe gebruik je SessionManager? Denk aan de flow:
 // Elke pagina — start() moet aangeroepen worden voordat er iets anders gebeurt.
 //      Waar in je applicatie gebeurt altijd iets als eerste?
@@ -64,5 +66,16 @@ class SessionManager
     public function setAccountId(int $account_id): void
     {
         $_SESSION['account_id'] = $account_id;
+    }
+
+    public function getLanguage(): string
+    {
+        return $_SESSION['lang'];
+    }
+
+    public function setLanguage(string $language): void
+    {
+        // default bij null wordt nederlands meegegeven
+        $_SESSION['lang'] = $language ?? 'nl';
     }
 }
