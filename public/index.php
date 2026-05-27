@@ -331,7 +331,7 @@ $router->register(
             // Hier komt die TMP_Name ook vandaan. 
             // De move_uploaded file verplaatst het vervolgens naar een definitieve locatie. 
             // Het checkt ook op het via een upload is binnengekomen
-            if (!move_uploaded_file($bestand['tmp_name'], $uploadMap)) {
+            if (!move_uploaded_file($bestand['tmp_name'], $doelpad)) {
                 $_SESSION['fout'] = "Fout bij opslaan van bestand.";
                 header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
                 exit;
