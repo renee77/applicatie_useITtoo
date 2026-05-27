@@ -15,6 +15,4 @@ class LoginControllerGeneriek
         $this->accountDAO = $accountDAO;
         $this->session = $session;
     }
-
-
 }
