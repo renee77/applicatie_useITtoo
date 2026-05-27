@@ -2,6 +2,10 @@
 
 require_once __DIR__ . '/../bootstrap.php';
 
+// maak de sessie aan en start deze daarna
+$session = new \App\Core\SessionManager();
+$session->start();
+
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
 $router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '');
@@ -14,9 +18,9 @@ $router->register(
     '/webshop',
     __DIR__ . '/../app/Views/webshop/webshop.view.php',
     'main.php',
-    function () {
+    function () use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        $controller = new \App\Controllers\WebshopController($dao);
+        $controller = new \App\Controllers\WebshopController($dao, $session);
         return $controller->index();
     }
 );
@@ -24,37 +28,38 @@ $router->register(
     '/webshop/(\d+)-([a-z0-9-]+)',
     __DIR__ . '/../app/Views/webshop/product.view.php',
     'main.php',
-    function (int $id) {
+    function (int $id) use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        $controller = new \App\Controllers\ProductController($dao);
+        $controller = new \App\Controllers\ProductController($dao, $session);
         return $controller->showProduct($id);
     }
 );
 
 // BEHEEROMGEVING
-$router->register('/beheerlogin', 
-__DIR__ . '/../app/Views/beheer/beheer.login.view.php', 
-'login.beheer.php',
-
-function() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        $db = \App\Core\Database::getConnection();
-        $beheerDAO = new \App\DAO\BeheerDAO($db);
-        $authService = new \App\Core\AuthService($beheerDAO);
-        $controller = new \App\Controllers\LoginController($authService);
-        $controller->handleLogin();
+$router->register(
+    '/beheerlogin',
+    __DIR__ . '/../app/Views/beheer/beheer.login.view.php',
+    'login.beheer.php',
+    function () use ($session) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $db = \App\Core\Database::getConnection();
+            $beheerDAO = new \App\DAO\BeheerDAO($db);
+            $authService = new \App\Core\AuthService($beheerDAO);
+            $controller = new \App\Controllers\LoginController($authService, $session);
+            $controller->handleLogin();
+        }
     }
-});
+);
 
 $router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
-$router->register('/beheer/product',
+$router->register(
+    '/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
-    function () {
+    function () use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        $controller = new \App\Controllers\ProductController($dao);
-        
+        $controller = new \App\Controllers\ProductController($dao, $session);
+
         $zoekterm = trim($_GET['zoekterm'] ?? '');
         if ($zoekterm !== '') {
             $products = $dao->getProductByName($zoekterm);
@@ -65,12 +70,14 @@ $router->register('/beheer/product',
             'products' => $products,
             'zoekterm' => $zoekterm
         ];
-            
+
     }
 );
-$router->register('/beheer/product/nieuw', 
-__DIR__ . '/../app/Views/beheer/beheer.product.nieuw.view.php', 'main.beheer.php',
-function() {
+$router->register(
+    '/beheer/product/nieuw',
+    __DIR__ . '/../app/Views/beheer/beheer.product.nieuw.view.php',
+    'main.beheer.php',
+    function () use ($session) {
         // POST request = formulier verstuurd
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
@@ -87,7 +94,7 @@ function() {
 
             $dao->addProduct($product);
             // Sessiemelding aanmaken zodat er een melding kan worden getoond.
-            $_SESSION['melding'] = "Het product {$product->getNaam()} is succesvol aangemaakt!";
+            $session->setMelding("Het product {$product->getNaam()} is succesvol aangemaakt!") ;
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
@@ -102,7 +109,7 @@ $router->register(
     '/beheer/product/edit',
     __DIR__ . '/../app/Views/beheer/beheer.product.edit.view.php',
     'main.beheer.php',
-    function() {
+    function () use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
         $product_id = (int) ($_GET['id'] ?? 0);
 
@@ -123,7 +130,7 @@ $router->register(
             );
 
             $dao->updateProduct($product);
-            $_SESSION['melding'] = "Product succesvol bijgewerkt!";
+            $session->setMelding("Product succesvol bijgewerkt!");
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
@@ -138,103 +145,108 @@ $router->register(
     '/beheer/product/delete',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
-    function() {
+    function () use ($session) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
             $product_id = (int) ($_POST['id'] ?? 0);
 
             $dao->deleteProduct($product_id);
-            $_SESSION['melding'] = "Product succesvol verwijderd!";
+            $session->setMelding("Product succesvol verwijderd!");
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
     }
 );
 
-$router->register('/beheer/upload', 
-__DIR__ . '/../app/Views/beheer/beheer.upload.view.php', 
-'main.beheer.php');
+$router->register(
+    '/beheer/upload',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.view.php',
+    'main.beheer.php'
+);
 
-$router->register('/beheer/upload/csv', 
-__DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php', 
-'main.beheer.php',
-function () {
-    // Check of de form via een POST is verzonden
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        // Controleer of het bestand correct is geüpload.
-        // 'error' is UPLOAD_ERR_OK (0) als alles goed is gegaan.
-        // Anders is er iets misgegaan, bijv. bestand te groot of geen bestand.
-        if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
-            $_SESSION['fout'] = "Fout bij uploaden van bestand.";
-            header('Location: ' . BASE_URL . '/beheer/upload/csv');
+$router->register(
+    '/beheer/upload/csv',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php',
+    'main.beheer.php',
+    function () use ($session) {
+        // Check of de form via een POST is verzonden
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+            // Controleer of het bestand correct is geüpload.
+            // 'error' is UPLOAD_ERR_OK (0) als alles goed is gegaan.
+            // Anders is er iets misgegaan, bijv. bestand te groot of geen bestand.
+            if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
+                $session->setFout("Fout bij uploaden van bestand.");
+                header('Location: ' . BASE_URL . '/beheer/upload/csv');
+                exit;
+            }
+
+            // Open het tijdelijke bestand dat PHP heeft aangemaakt via fopen (file open).
+            // r betekent read-only. Bestand wordt alleen ingelezen.
+            $bestand = fopen($_FILES['csv_bestand']['tmp_name'], 'r');
+
+            // Eerste rij wordt overgeslagen, zijn kolomnamen en geen product.
+            fgetcsv($bestand);
+
+            // Houdt in de gaten hoeveel producten succesvol zijn aangemaakt.
+            $aangemaakt = 0;
+            // Houdt in de gaten hoeveel fouten er zijn geweest.
+            $fouten = 0;
+
+            // Nu door alle CSV-rijen gaan lopen.
+            // fgetcsv() leest één rij tegelijk en geeft een array terug.
+            // Geef aan dat het max 1000 tekens is, en dat het scheidngsteken ',' is.
+            // Als einde van het bestand is bereikt, krijgen we false.
+            while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
+                try {
+                    // Voor elke rij wordt een Product gemaakt.
+                    // Het is belangrijk dat de volgorde van CSV bestand klopt met de nummering.
+                    // Anders wordt informatie bij verkeerde kolom geplaatst.
+                    $product = new \App\Models\Product(
+                        // naam
+                        trim($rij[0]),
+                        // prijs
+                        (float) $rij[1],
+                        // verkoop_gewicht
+                        (float) $rij[2],
+                        // eenheid (moet kloppen met ENUM)
+                        \App\Models\Eenheid::from(trim($rij[3])),
+                        // Omschrijving, kan null zijn.
+                        trim($rij[4]) ?: null,
+                        // Leverancier, kan null zijn.
+                        trim($rij[5]) ?: null,
+                        // foto_url, kan null zijn.
+                        trim($rij[6]) ?: null,
+                    );
+                    // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
+                    $dao->addProduct($product);
+                    $aangemaakt++;
+                } catch (\Exception $e) {
+                    // Als er een fout in de rij zit, wordt de volledige rij overgeslagen.
+                    // Fout kan zijn, negatieve prijs, ongeldige eenheid, prijs als string oid.
+                    // Dan wordt de fouten variabele opgeplust en de rij overgeslagen.
+                    // Daarna gaat hij door met de rest van het bestand.
+                    $fouten++;
+                }
+            }
+
+            // Als alles is verwerkt, wordt het bestand weer gesloten.
+            fclose($bestand);
+
+            // Toon een melding met het aantal succesvol aangemaakte
+            // en overgeslagen producten.
+            $session->setMelding("$aangemaakt product(en) geïmporteerd, $fouten overgeslagen.");
+            header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
-
-        // Open het tijdelijke bestand dat PHP heeft aangemaakt via fopen (file open).
-        // r betekent read-only. Bestand wordt alleen ingelezen.
-        $bestand = fopen($_FILES['csv_bestand']['tmp_name'], 'r');
-
-        // Eerste rij wordt overgeslagen, zijn kolomnamen en geen product.
-        fgetcsv($bestand);
-
-        // Houdt in de gaten hoeveel producten succesvol zijn aangemaakt.
-        $aangemaakt = 0;
-        // Houdt in de gaten hoeveel fouten er zijn geweest.
-        $fouten = 0;
-
-        // Nu door alle CSV-rijen gaan lopen.
-        // fgetcsv() leest één rij tegelijk en geeft een array terug.
-        // Geef aan dat het max 1000 tekens is, en dat het scheidngsteken ',' is.
-        // Als einde van het bestand is bereikt, krijgen we false.
-        while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
-            try {
-                // Voor elke rij wordt een Product gemaakt. 
-                // Het is belangrijk dat de volgorde van CSV bestand klopt met de nummering. 
-                // Anders wordt informatie bij verkeerde kolom geplaatst.
-                $product = new \App\Models\Product(
-                    // naam
-                    trim($rij[0]),                    
-                    // prijs
-                    (float) $rij[1],                     
-                    // verkoop_gewicht
-                    (float) $rij[2],                     
-                    // eenheid (moet kloppen met ENUM)
-                    \App\Models\Eenheid::from(trim($rij[3])),
-                    // Omschrijving, kan null zijn.
-                    trim($rij[4]) ?: null,
-                    // Leverancier, kan null zijn.
-                    trim($rij[5]) ?: null,
-                    // foto_url, kan null zijn.
-                    trim($rij[6]) ?: null,
-                );
-                // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
-                $dao->addProduct($product);
-                $aangemaakt++;
-            } catch (\Exception $e) {
-                // Als er een fout in de rij zit, wordt de volledige rij overgeslagen. 
-                // Fout kan zijn, negatieve prijs, ongeldige eenheid, prijs als string oid.
-                // Dan wordt de fouten variabele opgeplust en de rij overgeslagen. 
-                // Daarna gaat hij door met de rest van het bestand. 
-                $fouten++;
-            }
-        }
-
-        // Als alles is verwerkt, wordt het bestand weer gesloten. 
-        fclose($bestand);
-
-        // Toon een melding met het aantal succesvol aangemaakte
-        // en overgeslagen producten.
-        $_SESSION['melding'] = "$aangemaakt product(en) geïmporteerd, $fouten overgeslagen.";
-        header('Location: ' . BASE_URL . '/beheer/product');
-        exit;
     }
-});
+);
 
-$router->register('/beheer/upload/csv/template',
-    __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php', 
+$router->register(
+    '/beheer/upload/csv/template',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php',
     'main.beheer.php',
-    function() {
+    function () {
         // Geef aan dat het een CSV bestand gaat zijn.
         header('Content-Type: text/csv');
         // Geef aan dat het een download gaat worden en geen nieuwe pagina, met de naam
@@ -244,7 +256,7 @@ $router->register('/beheer/upload/csv/template',
         // Open een output buffer zodat we fputcsv() kunnen gebruiken
         $output = fopen('php://output', 'w');
 
-        // Eerst zetten we de header in de csv, geven hiermee de kolommen aan. 
+        // Eerst zetten we de header in de csv, geven hiermee de kolommen aan.
         // Deze matcht met wat de import verwacht.
         fputcsv($output, [
             'naam',

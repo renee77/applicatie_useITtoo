@@ -6,6 +6,7 @@ use DateTime;
 
 class Klant extends Account
 {
+    // begin datum abbonnement
     private DateTime $startdatum_lidmaatschap;
 
     public function __construct(
