@@ -31,6 +31,7 @@ $router->register(
     }
 );
 
+// BEHEEROMGEVING
 $router->register('/beheerlogin', 
 __DIR__ . '/../app/Views/beheer/beheer.login.view.php', 
 'login.beheer.php',
@@ -269,6 +270,15 @@ $router->register('/beheer/upload/csv/template',
         // Sluit het document en zorg ervoor dat het kan worden gedownload.
         fclose($output);
         exit;
+    }
+);
+
+$router->register(
+    '/beheer/upload/afbeelding',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.afb.view.php',
+    'main.beheer.php',
+    function () {
+
     }
 );
 
