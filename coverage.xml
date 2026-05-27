@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779885983">
-  <project timestamp="1779885983" name="Clover Coverage">
+<coverage generated="1779887854">
+  <project timestamp="1779887854" name="Clover Coverage">
     <package name="App\DAO">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">
@@ -298,25 +298,25 @@
     <package name="App\Models">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Account.php">
         <class name="App\Models\Account" namespace="App\Models">
-          <metrics complexity="16" methods="14" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="28" elements="43" coveredelements="41"/>
+          <metrics complexity="17" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="29" elements="45" coveredelements="43"/>
         </class>
-        <line num="22" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="22"/>
-        <line num="35" type="stmt" count="22"/>
+        <line num="22" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="24"/>
+        <line num="35" type="stmt" count="24"/>
         <line num="36" type="stmt" count="2"/>
-        <line num="39" type="stmt" count="22"/>
-        <line num="40" type="stmt" count="22"/>
-        <line num="41" type="stmt" count="22"/>
+        <line num="39" type="stmt" count="24"/>
+        <line num="40" type="stmt" count="24"/>
+        <line num="41" type="stmt" count="24"/>
         <line num="42" type="stmt" count="1"/>
-        <line num="45" type="stmt" count="22"/>
-        <line num="46" type="stmt" count="22"/>
-        <line num="47" type="stmt" count="22"/>
-        <line num="48" type="stmt" count="22"/>
-        <line num="49" type="stmt" count="22"/>
-        <line num="50" type="stmt" count="22"/>
-        <line num="51" type="stmt" count="22"/>
-        <line num="52" type="stmt" count="22"/>
-        <line num="53" type="stmt" count="22"/>
-        <line num="55" type="stmt" count="22"/>
+        <line num="45" type="stmt" count="24"/>
+        <line num="46" type="stmt" count="24"/>
+        <line num="47" type="stmt" count="24"/>
+        <line num="48" type="stmt" count="24"/>
+        <line num="49" type="stmt" count="24"/>
+        <line num="50" type="stmt" count="24"/>
+        <line num="51" type="stmt" count="24"/>
+        <line num="52" type="stmt" count="24"/>
+        <line num="53" type="stmt" count="24"/>
+        <line num="55" type="stmt" count="24"/>
         <line num="59" type="method" name="getAccountId" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="61" type="stmt" count="1"/>
         <line num="63" type="method" name="getEmail" visibility="public" complexity="1" crap="1" count="1"/>
@@ -343,7 +343,9 @@
         <line num="109" type="stmt" count="1"/>
         <line num="112" type="method" name="setTelefoon" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="114" type="stmt" count="1"/>
-        <metrics loc="118" ncloc="108" classes="1" methods="14" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="28" elements="43" coveredelements="41"/>
+        <line num="117" type="method" name="verifyPassword" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="120" type="stmt" count="2"/>
+        <metrics loc="124" ncloc="116" classes="1" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="29" elements="45" coveredelements="43"/>
       </file>
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Beheer.php">
         <class name="App\Models\Beheer" namespace="App\Models">
@@ -461,6 +463,6 @@
     <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Beheerdersrol.php">
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="9" loc="950" ncloc="832" classes="7" methods="54" coveredmethods="50" conditionals="0" coveredconditionals="0" statements="354" coveredstatements="350" elements="408" coveredelements="400"/>
+    <metrics files="9" loc="956" ncloc="840" classes="7" methods="55" coveredmethods="51" conditionals="0" coveredconditionals="0" statements="355" coveredstatements="351" elements="410" coveredelements="402"/>
   </project>
 </coverage>
