@@ -8,7 +8,7 @@
   Appel,1.49,2,kg,Verse appels, Boer Anna uit Breda,appel
 </pre>
 
-<p>Als dit niet op deze manier wordt geupload, <strong>wordt de rij niet verwerkt!</strong></p>
+<p>Als dit niet op deze manier wordt geupload, wordt de rij niet verwerkt!</p>
 <p>De volgende eenheden kunnen worden gebruikt:</p>
 <ul>
   <li class="list_eenheden">kg</li>

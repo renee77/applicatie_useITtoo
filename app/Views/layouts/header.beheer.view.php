@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard ||UseITtoo</title>
+  <title>Dashboard || UseITtoo</title>
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.homepage.css">
