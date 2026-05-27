@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Core\Database;
+use App\Core\SessionManager;
 use App\DAO\ProductDAO;
 use App\Models\Product;
 
@@ -13,10 +13,12 @@ use App\Models\Product;
 class ProductController
 {
     private ProductDAO $productDAO;
+    private SessionManager $session;
 
-    public function __construct(ProductDAO $productDAO)
+    public function __construct(ProductDAO $productDAO, SessionManager $session)
     {
         $this->productDAO = $productDAO;
+        $this->session = $session;
     }
 
     public function index(): array

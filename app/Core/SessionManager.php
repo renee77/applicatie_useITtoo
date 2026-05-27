@@ -76,4 +76,53 @@ class SessionManager
         // default bij null wordt nederlands meegegeven
         $_SESSION['lang'] = $language;
     }
+
+    // Flash messages:
+    // na het tonen van de melding blijft hij in de sessie staan.
+    // Dus als je daarna naar een andere pagina gaat, zie je hem nog steeds.
+    // Dit lost je op door de waarde te wissen na het ophalen:
+    public function getMelding(): string
+    {
+        $melding = $_SESSION['melding'] ?? '';
+        unset($_SESSION['melding']);
+        return $melding;
+    }
+
+    public function setMelding(string $melding): void
+    {
+        $_SESSION['melding'] = $melding;
+    }
+
+    public function getFout(): string
+    {
+        $fout = $_SESSION['fout'] ?? '';
+        unset($_SESSION['fout']);
+        return $fout;
+    }
+
+    public function setFout(string $fout): void
+    {
+        $_SESSION['fout'] = $fout;
+    }
+
+    public function setRolBeheer(string $rol): void
+    {
+        $_SESSION['rol_beheer'] = $rol;
+    }
+
+    public function getRolBeheer(): string
+    {
+        return $_SESSION['rol_beheer'] ?? '';
+    }
+
+    public function setVoornaam(string $voornaam): void
+    {
+        $_SESSION['voornaam'] = $voornaam;
+    }
+
+    public function getVoornaam(): string
+    {
+        return $_SESSION['voornaam'] ?? '';
+    }
+
 }
