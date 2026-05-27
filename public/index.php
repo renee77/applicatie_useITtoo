@@ -296,6 +296,50 @@ $router->register(
 
             // Hier wordt nog een extra check uitgevoerd of het geuploade bestand wel echt png/jpg/jpeg is. 
             // Anders kan het worden aangepast in de html en komen hackers er dus doorheen. 
+            // Hiervoor geef ik dus eerst aan welke soorten er zijn toegestaan. 
+            $afbTypes = ['image/png', 'image/jpeg'];
+            // En daarna laat ik het type binnenhalen. 
+            // tmp_name geeft aan wat het tijdelijke pad op de server is.
+            $mimeType = mime_content_type($bestand['tmp_name']);
+
+            // Daarna check ik of het overeenkomt.
+            // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array, gaat er ook een foutmelding terug.
+            if (!in_array($mimeType, $afbTypes)) {
+                $_SESSION['fout'] = "Alleen PNG en JPG bestanden zijn toegestaan.";
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            $extensie = '';
+            // Nu checken we welk type het is. PNG of JPG.
+            if ($mimeType === 'image/png') {
+                $extensie = 'png';
+            } else {
+                $extensie = 'jpg';
+            }
+
+            // Nu moet ik alleen de naam ophalen, zonder de extensie erachter. 
+            // Hiervoor gebruik ik pathinfo, die het pad opsnijdt in verschillende stukken.
+            $bestandsnaam =  pathinfo($bestand['name'], PATHINFO_FILENAME);
+
+            // Bepaal de doelmap
+            $uploadMap = __DIR__ . '/../public/assets/images/products/';
+            // Daarna beschrijf ik het volledige doelpad, op basis van alles wat nu is opgevraagd.
+            $doelpad = $uploadMap . $bestandsnaam . '.' . $extensie;
+
+            // Bij het uploaden van een bestand, slaat PHP het eerst tijdelijk op. 
+            // Hier komt die TMP_Name ook vandaan. 
+            // De move_uploaded file verplaatst het vervolgens naar een definitieve locatie. 
+            // Het checkt ook op het via een upload is binnengekomen
+            if (!move_uploaded_file($bestand['tmp_name'], $uploadMap)) {
+                $_SESSION['fout'] = "Fout bij opslaan van bestand.";
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            $_SESSION['melding'] = "Afbeelding succesvol geüpload!";
+            header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+            exit;
         }
     }
 );
