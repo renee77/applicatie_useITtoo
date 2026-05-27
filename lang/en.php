@@ -3,116 +3,116 @@
 return [
   // Homepage
   'header' => [
-    'ariaLogin' => 'Log in to your account',
-    'Login' => 'Login',
-    'altLogo' => 'Logo of useITtoo',
-    'altWinkelwagen' => 'shopping cart logo'
+    'aria_login' => 'Log in to your account',
+    'login' => 'Login',
+    'alt_logo' => 'Logo of useITtoo',
+    'alt_shopping_cart' => 'shopping cart logo'
   ],
 
   'footer' => [
-    'beheerdersportaal' => 'Admin portal',
-    'webwinkel' => 'Web shop',
-    'nieuwsbrief' => 'Newsletter',
-    'schrijfIn' => 'Subscribe to our newsletter:',
-    'mailNieuwsbrief' => 'Email address for newsletter',
-    'inschrijven' => 'Subscribe',
-    'adresHeader' => 'Address and Contact',
+    'admin_portal' => 'Admin portal',
+    'web_shop' => 'Web shop',
+    'newsletter' => 'Newsletter',
+    'newsletter_subscribe' => 'Subscribe to our newsletter:',
+    'newsletter_email' => 'Email address for newsletter',
+    'subscribe' => 'Subscribe',
+    'address_header' => 'Address and Contact',
     'contact' => 'Contact us now',
-    'rechten' => '© 2025, useITall. All rights reserved.'
+    'rights' => '© 2025, useITall. All rights reserved.'
   ],
 
   'homepage' => [
     'title' => 'Welcome',
     'header' => 'Welcome to useITtoo',
     'desc' => 'First-year project by Lonneke van Oers and Eva Bouwman',
-    'Kies' => 'Choose where you want to go:',
-    'Webwinkel' => 'Web shop',
-    'Beheerportaal' => 'Admin portal'
+    'choose' => 'Choose where you want to go:',
+    'web_shop' => 'Web shop',
+    'admin_portal' => 'Admin portal'
   ],
 
   // Webshop pages
   'webshop' => [
-    'aanbieding' => 'Sale',
-    'aanbiedingDummy' => 'Sale dummy',
-    'onzeProducten' => 'Our Products',
-    'groenten' => 'Vegetables',
+    'sale' => 'Sale',
+    'sale_dummy' => 'Sale dummy',
+    'our_products' => 'Our Products',
+    'vegetables' => 'Vegetables',
     'fruit' => 'Fruit',
-    'langerHoudbaar' => 'Longer Shelf Life'
+    'longer_shelf_life' => 'Longer Shelf Life'
   ],
 
   'product' => [
-    'koopNu' => 'Buy now',
-    'beschrijving' => 'Description',
-    'herkomst' => 'Origin'
+    'buy_now' => 'Buy now',
+    'description' => 'Description',
+    'origin' => 'Origin'
   ],
 
   // Admin pages
-  'beheerLogin' => [
-    'gebruikersnaam' => 'Username',
-    'wachtwoord' => 'Password'
+  'admin_login' => [
+    'username' => 'Username',
+    'password' => 'Password'
   ],
 
-  'beheerHeader' => [
+  'admin_header' => [
     'home' => 'Home',
-    'producten' => 'Products',
-    'klanten' => 'Customers',
-    'zoektermen' => 'Search terms',
-    'uploaden' => 'Upload',
-    'rapportages'=> 'Reports',
-    'uitloggen' => 'Log out'
+    'products' => 'Products',
+    'customers' => 'Customers',
+    'search_terms' => 'Search terms',
+    'upload' => 'Upload',
+    'reports' => 'Reports',
+    'logout' => 'Log out'
   ],
 
-  'beheerHomepage' => [
-    'welkom' => 'Welcome, ',
-    'snelProduct' => 'Quickly create a new product',
-    'snelCSV' => 'Quickly upload a CSV file',
-    'snelZoektermen' => 'Quickly go to search terms'
+  'admin_homepage' => [
+    'welcome' => 'Welcome, ',
+    'quick_product' => 'Quickly create a new product',
+    'quick_csv' => 'Quickly upload a CSV file',
+    'quick_search_terms' => 'Quickly go to search terms'
   ],
 
-  'beheerProductOverview' => [
-    'titel' => 'All Products',
-    'nieuwProduct' => 'Create new product',
-    'typNaam' => 'Type the product name.',
-    'zoeken' => 'Search',
-    'naam' => 'Name',
-    'prijs' => 'Price',
-    'leverancier' => 'Supplier',
-    'gewicht' => 'Weight',
-    'omschrijving' => 'Description',
-    'wijzigen' => 'Edit',
+  'admin_product_overview' => [
+    'title' => 'All Products',
+    'new_product' => 'Create new product',
+    'type_name' => 'Type the product name.',
+    'search' => 'Search',
+    'name' => 'Name',
+    'price' => 'Price',
+    'supplier' => 'Supplier',
+    'weight' => 'Weight',
+    'description' => 'Description',
+    'edit_label' => 'Edit',
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'deleteVerwijderen' => 'Are you sure you want to delete this product?: '
+    'delete_confirm' => 'Are you sure you want to delete this product?: '
   ],
 
-  'beheerProduct' => [
-    'titelNieuw' => 'Create new product',
-    'titelBewerk' => 'Edit product',
-    'naam' => 'Name:',
-    'prijs' => 'Price:',
-    'leverancier' => 'Supplier:',
-    'voorraad' => 'Stock:',
-    'gewicht' => 'Weight:',
-    'eenheid' => 'Unit:',
-    'afbeeldingnaam' => 'Image name',
-    'omschrijving' => 'Description',
-    'opslaan' => 'Save',
-    'annuleren' => 'Cancel'
+  'admin_product' => [
+    'title_new' => 'Create new product',
+    'title_edit' => 'Edit product',
+    'name' => 'Name:',
+    'price' => 'Price:',
+    'supplier' => 'Supplier:',
+    'stock' => 'Stock:',
+    'weight' => 'Weight:',
+    'unit' => 'Unit:',
+    'image_name' => 'Image name',
+    'description' => 'Description',
+    'save' => 'Save',
+    'cancel' => 'Cancel'
   ],
 
   'upload' => [
-    'uploadCSV' => 'Upload CSV',
-    'uploadAfb' => 'Upload image'
+    'upload_csv' => 'Upload CSV',
+    'upload_image' => 'Upload image'
   ],
 
-  'uploadCSV' => [
-    'titel' => 'Upload your CSV file here',
-    'belangrijk' => 'Important information!',
-    'tekst' => 'In order to process the CSV file correctly, the content must be submitted in the following format:',
-    'waarschuwingVoorwaarden' => 'If it is not uploaded this way, the row will not be processed!',
-    'eenheden' => 'The following units can be used:',
-    'uploaden' => 'Upload',
-    'downloadTekst' => 'If you wish, you can download a sample CSV below, with the correct columns!',
-    'downloadLink' => 'Download CSV Template'
+  'upload_csv' => [
+    'title' => 'Upload your CSV file here',
+    'important' => 'Important information!',
+    'text' => 'In order to process the CSV file correctly, the content must be submitted in the following format:',
+    'warning_conditions' => 'If it is not uploaded this way, the row will not be processed!',
+    'units' => 'The following units can be used:',
+    'upload' => 'Upload',
+    'download_text' => 'If you wish, you can download a sample CSV below, with the correct columns!',
+    'download_link' => 'Download CSV Template'
   ],
 ];
