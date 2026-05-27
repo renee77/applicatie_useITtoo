@@ -1,10 +1,17 @@
 <?php
 
 require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../app/Core/Helpers.php';
 
 // maak de sessie aan en start deze daarna
 $session = new \App\Core\SessionManager();
 $session->start();
+
+// Bepaalt een actieve taal. Bij geen selectie is het automatisch NL
+$lang = $session->getLanguage() ?? 'nl';
+
+// Laad op basis hiervan het juiste taalbestand in.
+$text = require __DIR__ . '/../lang/' . $lang . '.php';
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
