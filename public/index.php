@@ -278,7 +278,25 @@ $router->register(
     __DIR__ . '/../app/Views/beheer/beheer.upload.afb.view.php',
     'main.beheer.php',
     function () {
+        // Check of er met de request method POST is gewerkt.
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Haal het bestand binnen onder de identifier foto_url
+            $bestand = $_FILES['foto_url'];
 
+            // Dubbelcheck dat er niets fout is gegaan met de upload.
+            // De $_FILES superglobal haalt ook errors binnen, dus deze registreert hij.
+            // 0 Betekent geen fout.
+            if ($bestand['error'] !== UPLOAD_ERR_OK) {
+                // Als er een fout melding is, geef dit aan.
+                $_SESSION['fout'] = "Fout bij uploaden van bestand";
+                // En redirect met header naar de pagina.
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            // Hier wordt nog een extra check uitgevoerd of het geuploade bestand wel echt png/jpg/jpeg is. 
+            // Anders kan het worden aangepast in de html en komen hackers er dus doorheen. 
+        }
     }
 );
 
