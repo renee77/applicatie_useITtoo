@@ -124,5 +124,4 @@ class SessionManager
     {
         return $_SESSION['voornaam'] ?? '';
     }
-
 }
