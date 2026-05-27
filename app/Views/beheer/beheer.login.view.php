@@ -14,9 +14,9 @@
 will not be directly available to the users through for example the link-->
   <form method="POST" action="<?= BASE_URL ?>/beheerlogin">
     <!--An error message if something doesn't go right -->
-    <?php if (!empty($_SESSION['error'])) : ?>
-      <p class="error"><?= htmlspecialchars($_SESSION['error']) ?></p>
-        <?php unset($_SESSION['error']); ?>
+    <?php $fout = $session->getFout(); ?>
+    <?php if (!empty($fout)) : ?>
+        <p class="error"><?= htmlspecialchars($fout) ?></p>
     <?php endif; ?>
     <label for="gebruikersnaam"></label>
     <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" class="logInInput" required />

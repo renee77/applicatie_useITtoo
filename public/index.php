@@ -289,7 +289,7 @@ $router->register(
     '/beheer/upload/afbeelding',
     __DIR__ . '/../app/Views/beheer/beheer.upload.afb.view.php',
     'main.beheer.php',
-    function () {
+    function () use ($session) {
         // Check of er met de request method POST is gewerkt.
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Haal het bestand binnen onder de identifier foto_url
@@ -300,7 +300,7 @@ $router->register(
             // 0 Betekent geen fout.
             if ($bestand['error'] !== UPLOAD_ERR_OK) {
                 // Als er een fout melding is, geef dit aan.
-                $_SESSION['fout'] = "Fout bij uploaden van bestand";
+                $session->setFout("Fout bij uploaden van bestand");
                 // En redirect met header naar de pagina.
                 header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
                 exit;
@@ -317,7 +317,7 @@ $router->register(
             // Daarna check ik of het overeenkomt.
             // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array, gaat er ook een foutmelding terug.
             if (!in_array($mimeType, $afbTypes)) {
-                $_SESSION['fout'] = "Alleen PNG en JPG bestanden zijn toegestaan.";
+                $session->setFout("Alleen PNG en JPG bestanden zijn toegestaan.");
                 header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
                 exit;
             }
@@ -344,12 +344,12 @@ $router->register(
             // De move_uploaded file verplaatst het vervolgens naar een definitieve locatie. 
             // Het checkt ook op het via een upload is binnengekomen
             if (!move_uploaded_file($bestand['tmp_name'], $doelpad)) {
-                $_SESSION['fout'] = "Fout bij opslaan van bestand.";
+                $session->setFout("Fout bij opslaan van bestand.");
                 header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
                 exit;
             }
 
-            $_SESSION['melding'] = "Afbeelding succesvol geüpload!";
+            $session->setMelding("Afbeelding succesvol geüpload!");
             header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
             exit;
         }
