@@ -51,7 +51,16 @@ $router->register(
     }
 );
 
-$router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
+$router->register(
+    '/beheer',
+    __DIR__ . '/../app/Views/beheer/beheer.view.php',
+    'main.beheer.php',
+    function () use ($session) {
+        return [
+            'voornaam' => $session->getVoornaam()
+        ];
+    }
+);
 $router->register(
     '/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
@@ -371,10 +380,24 @@ $router->register(
     }
 );
 
+// uitlog route
+$router->register(
+    '/logout',
+    __DIR__ . '/../app/Views/start/home.view.php',
+    'main.php',
+    function () use ($session) {
+        $session->destroy();
+        $session->start();
+        header('Location: ' . BASE_URL . '/');
+        exit;
+    }
+);
+
 // $router->register(
 //  '/beheer/product',
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
 //   'main.beheer.php',
 //    __DIR__ . '/../app/Controllers/ProductController.php');
 // Voer de router uit — hij bepaalt welke view geladen wordt
+
 $router->run();

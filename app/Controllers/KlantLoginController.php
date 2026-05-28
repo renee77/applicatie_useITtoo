@@ -58,6 +58,7 @@ class KlantLoginController
         // Voornaam altijd opslaan (beide rollen gebruiken dit)
         $this->session->setVoornaam($account->getVoornaam() ?? $gebruikersnaam);
 
+
         // Switch op type → verschillende redirect per rol
         switch ($type) {
             case 'beheer':
@@ -66,6 +67,10 @@ class KlantLoginController
                 exit;
 
             case 'klant':
+                $basePath = $_ENV['APP_BASE_PATH'] ?? '';
+                $redirect_terug = ($redirect_terug === $basePath . '/')
+                    ? BASE_URL . '/webshop'
+                    : BASE_URL . $redirect_terug;
                 header('Location: ' . $redirect_terug);
                 exit;
 
