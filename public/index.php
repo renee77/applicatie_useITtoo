@@ -8,7 +8,7 @@ $session = new \App\Core\SessionManager();
 $session->start();
 
 // Bepaalt een actieve taal. Bij geen selectie is het automatisch NL
-$lang = $session->getLanguage() ?? 'nl';
+$lang = $session->getLanguage();
 
 // Laad op basis hiervan het juiste taalbestand in.
 $text = require __DIR__ . '/../lang/' . $lang . '.php';
