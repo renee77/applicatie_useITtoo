@@ -1,3 +1,5 @@
+<?php //$actieveTaal = $session->getLanguage(); ?>
+<?php $actieveTaal = 'nl'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +16,12 @@
 <body>
   <header>
     <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/>
+    <div class="lang-switcher">
+      <a href="<?= BASE_URL ?>/lang/set?lang=nl"
+      class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>
+      <a href="<?= BASE_URL ?>/lang/set?lang=en"
+      class="lang-btn <?= $actieveTaal === 'en' ? 'active' : '' ?>">EN</a>
+    </div>
     <ul>
       <li class="navList">
         <a href="<?= BASE_URL ?>/beheer" class="navLinks selected">Home</a>

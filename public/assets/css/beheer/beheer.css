@@ -56,6 +56,26 @@ header {
   }
 }
 
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 3px;
+}
+
+.lang-btn {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 16px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.15s ease;
+}
+
 /*********HOVERS***********/
 
 .navList:hover {
@@ -69,6 +89,16 @@ header {
 .logOut:hover {
   color: var(--orange);
   cursor: pointer;
+}
+
+.lang-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.lang-btn.active {
+    background: #fff;
+    color: var(--dark-green);
 }
 
 /*********MOBIEL***********/
