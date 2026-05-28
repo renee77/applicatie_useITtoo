@@ -11,6 +11,10 @@
         <?php endif; ?>
 
         <form method="POST" action="<?= BASE_URL ?>/klant/login" class="login-popup__form">
+            <!-- Dit pakt de huidige URL op het moment dat de pagina geladen wordt en 
+             plakt die mee in het formulier. De strtok knipt de querystring eraf. -->
+            <input type="hidden" name="redirect_to" 
+            value="<?= htmlspecialchars(BASE_URL . strtok($_SERVER['REQUEST_URI'], '?')) ?>">
             <div class="login-popup__group">
                 <label for="gebruikersnaam">Gebruikersnaam</label>
                 <input type="text" id="gebruikersnaam" name="gebruikersnaam"

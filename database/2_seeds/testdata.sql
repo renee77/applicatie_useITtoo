@@ -231,7 +231,7 @@ VALUES
 INSERT INTO `account` (`email`, `gebruikersnaam`, `wachtwoord_hash`, `voornaam`, `achternaam`, `geboortedatum`, `telefoon`)
 VALUES
 ('jan.vermeer@example.com',      'JVermeer',        '$2y$12$K0c.y/s6lue.cfNKj2E/qu.33q7srds1tII2FI0SKM8MWIoZ424OO', 'Jan',    'Vermeer',     '1985-03-21', '+31610000001'),
-('sara.jansen@example.com',      'Saraatje1992',    '$2y$12$EAnOBmO2aXbm6Du6fclCv.vSO6HS.5AiN9a9EySAr8jo0yNwTaaIe ', 'Sara',   'Jansen',      '1992-07-14', '+31610000002'),
+('sara.jansen@example.com',      'Saraatje1992',    '$2y$12$EAnOBmO2aXbm6Du6fclCv.vSO6HS.5AiN9a9EySAr8jo0yNwTaaIe', 'Sara',   'Jansen',      '1992-07-14', '+31610000002'),
 ('mark.devries@example.com',     'MVriezz',         '$2y$12$F3bf7yiI7Zvzn/8IF9YkWOyRBsy83VFrGbQGL6pcx4raKGs2weR92', 'Mark',   'De Vries',    '1978-11-30', '+31610000003'),
 ('lisa.bakker@example.com',      'BakkerLiesje',    '$2y$12$v4BlECCx1DJcUjVsNOsdD.BdaK4Lyy7TSwF/DjKbcEVC3SftpLntS', 'Lisa',   'Bakker',      '1995-01-08', '+31610000004'),
 ('tom.smit@example.com',         'TommieTomaatje',  '$2y$12$xZnJLhL65rpb0luBaGAXsO/E.ILIA4wTuLndrmMgZyYZ7Cc2hE0vW', 'Tom',    'Smit',        '1989-05-19', '+31610000005'),

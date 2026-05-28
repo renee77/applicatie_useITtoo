@@ -8,7 +8,7 @@ $session->start();
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
-$router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '');
+$router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '', $session);
 
 // Registreer alle bekende routes
 // Patroon: $router->register(URL-pad, view-bestand, layout-bestand);
@@ -280,6 +280,22 @@ $router->register(
 
         // Sluit het document en zorg ervoor dat het kan worden gedownload.
         fclose($output);
+        exit;
+    }
+);
+
+$router->register(
+    '/klant/login',
+    __DIR__ . '/../app/Views/start/home.view.php', // wordt nooit getoond, controller doet altijd een redirect
+    'main.php',
+    function () use ($session) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dao = new \App\DAO\AccountDAO(\App\Core\Database::getConnection());
+            $controller = new \App\Controllers\KlantLoginController($dao, $session);
+            $controller->handleLogin();
+        }
+        // GET-request op /klant/login heeft geen zin — stuur terug naar home
+        header('Location: ' . BASE_URL . '/');
         exit;
     }
 );

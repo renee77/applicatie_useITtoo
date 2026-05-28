@@ -43,10 +43,12 @@ class Router
     // Herbruikbaar: door dit mee te geven bij aanmaken (in plaats van
     // hardcoderen) werkt deze klasse in elk project met elke mapnaam.
     private string $basePath;
+    private ?SessionManager $session;
 
-    public function __construct(string $basePath = '')
+    public function __construct(string $basePath = '', ?SessionManager $session = null)
     {
         $this->basePath = $basePath;
+        $this->session = $session;
     }
 
     // Voeg de methode toe waarmee routes worden vastgelegd.
@@ -138,6 +140,7 @@ class Router
             ob_start();
             include $view;
             $content = ob_get_clean();
+            $session = $this->session;
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
         } else {
             $matched = false;
@@ -172,6 +175,7 @@ class Router
                     ob_start();
                     include $view;
                     $content = ob_get_clean();
+                    $session = $this->session;
                     include __DIR__ . '/../../app/Views/layouts/' . $layout;
                     break; // stop de loop zodra een match gevonden is
                 }
