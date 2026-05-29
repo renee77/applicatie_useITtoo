@@ -1,5 +1,5 @@
 <div class="main-container">
-  <h1>Welkom, <?= htmlspecialchars($_SESSION['voornaam']) ?>!</h1>
+  <h1>Welkom<?= htmlspecialchars(" " . $voornaam) ?>!</h1>
 
   <div class="quickButtons">
     <button href="#" class="light-button">Snel een nieuw product maken</button>

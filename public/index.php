@@ -15,7 +15,7 @@ $GLOBALS['text'] = require __DIR__ . '/../lang/' . $lang . '.php';
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking
-$router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '');
+$router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '', $session);
 
 // Registreer alle bekende routes
 // Patroon: $router->register(URL-pad, view-bestand, layout-bestand);
@@ -42,6 +42,7 @@ $router->register(
     }
 );
 
+// BEHEEROMGEVING
 $router->register(
     '/beheerlogin',
     __DIR__ . '/../app/Views/beheer/beheer.login.view.php',
@@ -57,14 +58,22 @@ $router->register(
     }
 );
 
-$router->register('/beheer', __DIR__ . '/../app/Views/beheer/beheer.view.php', 'main.beheer.php');
+$router->register(
+    '/beheer',
+    __DIR__ . '/../app/Views/beheer/beheer.view.php',
+    'main.beheer.php',
+    function () use ($session) {
+        return [
+            'voornaam' => $session->getVoornaam()
+        ];
+    }
+);
 $router->register(
     '/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
-    function () use ($session) {
+    function () {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        $controller = new \App\Controllers\ProductController($dao, $session);
 
         $zoekterm = trim($_GET['zoekterm'] ?? '');
         if ($zoekterm !== '') {
@@ -227,7 +236,7 @@ $router->register(
                     // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
                     $dao->addProduct($product);
                     $aangemaakt++;
-                } catch (\Exception $e) {
+                } catch (\Exception) {
                     // Als er een fout in de rij zit, wordt de volledige rij overgeslagen.
                     // Fout kan zijn, negatieve prijs, ongeldige eenheid, prijs als string oid.
                     // Dan wordt de fouten variabele opgeplust en de rij overgeslagen.
@@ -291,10 +300,111 @@ $router->register(
     }
 );
 
+$router->register(
+    '/webshop/login',
+    __DIR__ . '/../app/Views/start/home.view.php', // wordt nooit getoond, controller doet altijd een redirect
+    'main.php',
+    function () use ($session) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dao = new \App\DAO\AccountDAO(\App\Core\Database::getConnection());
+            $controller = new \App\Controllers\KlantLoginController($dao, $session);
+            $controller->handleLogin();
+        }
+        // GET-request op /klant/login heeft geen zin — stuur terug naar home
+        header('Location: ' . BASE_URL . '/');
+        exit;
+    }
+);
+
+$router->register(
+    '/beheer/upload/afbeelding',
+    __DIR__ . '/../app/Views/beheer/beheer.upload.afb.view.php',
+    'main.beheer.php',
+    function () use ($session) {
+        // Check of er met de request method POST is gewerkt.
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Haal het bestand binnen onder de identifier foto_url
+            $bestand = $_FILES['foto_url'];
+
+            // Dubbelcheck dat er niets fout is gegaan met de upload.
+            // De $_FILES superglobal haalt ook errors binnen, dus deze registreert hij.
+            // 0 Betekent geen fout.
+            if ($bestand['error'] !== UPLOAD_ERR_OK) {
+                // Als er een fout melding is, geef dit aan.
+                $session->setFout("Fout bij uploaden van bestand");
+                // En redirect met header naar de pagina.
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            // Hier wordt nog een extra check uitgevoerd of het geuploade bestand wel echt png/jpg/jpeg is.
+            // Anders kan het worden aangepast in de html en komen hackers er dus doorheen.
+            // Hiervoor geef ik dus eerst aan welke soorten er zijn toegestaan.
+            $afbTypes = ['image/png', 'image/jpeg'];
+            // En daarna laat ik het type binnenhalen.
+            // tmp_name geeft aan wat het tijdelijke pad op de server is.
+            $mimeType = mime_content_type($bestand['tmp_name']);
+
+            // Daarna check ik of het overeenkomt.
+            // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array, gaat er ook een foutmelding terug.
+            if (!in_array($mimeType, $afbTypes)) {
+                $session->setFout("Alleen PNG en JPG bestanden zijn toegestaan.");
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            $extensie = '';
+            // Nu checken we welk type het is. PNG of JPG.
+            if ($mimeType === 'image/png') {
+                $extensie = 'png';
+            } else {
+                $extensie = 'jpg';
+            }
+
+            // Nu moet ik alleen de naam ophalen, zonder de extensie erachter.
+            // Hiervoor gebruik ik pathinfo, die het pad opsnijdt in verschillende stukken.
+            $bestandsnaam =  pathinfo($bestand['name'], PATHINFO_FILENAME);
+
+            // Bepaal de doelmap
+            $uploadMap = __DIR__ . '/../public/assets/images/products/';
+            // Daarna beschrijf ik het volledige doelpad, op basis van alles wat nu is opgevraagd.
+            $doelpad = $uploadMap . $bestandsnaam . '.' . $extensie;
+
+            // Bij het uploaden van een bestand, slaat PHP het eerst tijdelijk op.
+            // Hier komt die TMP_Name ook vandaan.
+            // De move_uploaded file verplaatst het vervolgens naar een definitieve locatie.
+            // Het checkt ook op het via een upload is binnengekomen
+            if (!move_uploaded_file($bestand['tmp_name'], $doelpad)) {
+                $session->setFout("Fout bij opslaan van bestand.");
+                header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+                exit;
+            }
+
+            $session->setMelding("Afbeelding succesvol geüpload!");
+            header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
+            exit;
+        }
+    }
+);
+
+// uitlog route
+$router->register(
+    '/logout',
+    __DIR__ . '/../app/Views/start/home.view.php',
+    'main.php',
+    function () use ($session) {
+        $session->destroy();
+        $session->start();
+        header('Location: ' . BASE_URL . '/');
+        exit;
+    }
+);
+
 // $router->register(
 //  '/beheer/product',
 //    __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
 //   'main.beheer.php',
 //    __DIR__ . '/../app/Controllers/ProductController.php');
 // Voer de router uit — hij bepaalt welke view geladen wordt
+
 $router->run();

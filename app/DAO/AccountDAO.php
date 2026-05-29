@@ -2,8 +2,8 @@
 
 namespace App\DAO;
 
-use App\Core\Database;
 use App\Models\Account;
+use App\Models\AccountType;
 use PDO;
 use DateTime;
 
@@ -80,5 +80,31 @@ class AccountDAO
         } else {
             return null;
         }
+    }
+
+    public function getTypeByAccountId(int $account_id): ?string
+    {
+        // Loop door alle mogelijke accounttypes (klant, beheer)
+        foreach (AccountType::cases() as $type) {
+            // Zoek het account_id op in de bijbehorende tabel
+            // Tabelnaam wordt direct in de query gezet omdat bindValue
+            // niet werkt voor tabelnamen, alleen voor waardes
+            $sql = "SELECT account_id FROM $type->value 
+                WHERE $type->value.account_id = :account_id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':account_id', $account_id);
+            $stmt->execute();
+
+            $typeVan = $stmt->fetch(\PDO::FETCH_NUM);
+
+            // fetch() geeft false terug als er niets gevonden is
+            // Als er wel iets gevonden is, is dit het type van het account
+            if ($typeVan !== false) {
+                return $type->value;
+            }
+        }
+
+        // Account staat in geen van de tabellen — geen type bekend
+        return null;
     }
 }

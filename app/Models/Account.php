@@ -103,15 +103,20 @@ class Account
     {
         $this->voornaam = $voornaam;
     }
-    // ?string was string
+
     public function setAchternaam(?string $achternaam): void
     {
         $this->achternaam = $achternaam;
     }
-    // ?string was string
+
     public function setTelefoon(?string $telefoon): void
     {
         $this->telefoon = $telefoon;
     }
-    // ?string was string
+
+    public function verifyPassword(string $wachtwoord): bool
+    {
+        //  password_verify() — die vergelijkt een plaintext wachtwoord met een hash
+        return password_verify($wachtwoord, $this->wachtwoord_hash);
+    }
 }

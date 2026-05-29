@@ -1,9 +1,9 @@
-  <?php if (isset($_SESSION['melding'])) : ?>
+<?php $melding = $session->getMelding(); ?>
+<?php if (!empty($melding)) : ?>
     <div class="melding">
-      <?= htmlspecialchars($_SESSION['melding']) ?>
+        <?= htmlspecialchars($melding) ?>
     </div>
-      <?php unset($_SESSION['melding']); ?>
-  <?php endif; ?>
+<?php endif; ?>
   <h1>Alle Producten</h1>
   <a href="<?= BASE_URL ?>/beheer/product/nieuw" class="orangeBtn toNewLink">
     Nieuw Product aanmaken

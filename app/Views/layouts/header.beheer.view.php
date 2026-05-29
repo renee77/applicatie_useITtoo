@@ -41,6 +41,6 @@
       <li class="navList">
         <a href="#" class="navLinks">Rapportages</a>
       </li>
-      <p class="logOut">Log uit</p>
+      <a href="<?= BASE_URL ?>/logout" class="logOut navLinks">Log uit</a>
     </ul>
   </header>

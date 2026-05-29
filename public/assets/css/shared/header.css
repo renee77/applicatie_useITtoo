@@ -35,8 +35,34 @@ header {
             }
 
         }
+    }
 
+    .login-wrapper {
+        position: relative;
+        display: inline-block;
+    }
 
+    .login-wrapper:hover .login-dropdown {
+        display: block;
+    }
+
+    .login-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 12px 16px;
+        white-space: nowrap;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-dropdown p {
+        margin: 0 0 8px 0;
+        font-size: 0.9rem;
     }
 }
 
