@@ -4,7 +4,7 @@
             <h3>Sitemap</h3>
             <ul>
                 <li><a href="<?= BASE_URL ?>/">Home</a></li>
-                <li><a href="<?= BASE_URL ?>/beheer">Beheerdersportaal</a></li>
+                <li><a href="<?= BASE_URL ?>/beheer"><?= __('footer.admin_portal') ?></a></li>
                 <li><a href="<?= BASE_URL ?>/webshop">Webwinkel</a></li>
             </ul>
         </div>

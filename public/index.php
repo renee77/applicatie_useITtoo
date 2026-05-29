@@ -11,7 +11,7 @@ $session->start();
 $lang = $session->getLanguage();
 
 // Laad op basis hiervan het juiste taalbestand in.
-$text = require __DIR__ . '/../lang/' . $lang . '.php';
+$GLOBALS['text'] = require __DIR__ . '/../lang/' . $lang . '.php';
 
 // Maak de router aan met het projectmapje als basePath
 // Dit mapje wordt van elke URL afgeknipt voor de vergelijking

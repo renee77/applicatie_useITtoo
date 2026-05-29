@@ -2,7 +2,7 @@
 
 function __($key): string
 {
-    global $text;
+    $text = $GLOBALS['text'];
 
   // Hier worden de key opgesplitst via de punten, zodat
   // webshop.add vertaal naar ['webshop']['add']
