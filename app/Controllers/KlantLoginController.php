@@ -24,19 +24,39 @@ class KlantLoginController
         // De pagina waar de gebruiker vandaan komt (hidden field uit het formulier)
         // Fallback naar /webshop als het veld ontbreekt of leeg is
         $redirect_terug = $_POST['redirect_to'] ?? BASE_URL . '/webshop';
+        // controleer of het een interne URL is
+        if (!str_starts_with($redirect_terug, BASE_URL)) {
+            $redirect_terug = BASE_URL . '/webshop';
+        }
+
 
         // Lege velden checken
         if ($gebruikersnaam === '' || $wachtwoord === '') {
+            $this->session->incrementLoginPogingen();
             $this->session->setFout('Vul je gebruikersnaam en wachtwoord in.');
+            header('Location: ' . $redirect_terug);
+            exit;
+        }
+        // Maximaal 5 mislukte pogingen toestaan
+        if ($this->session->getLoginPogingen() >= 5) {
+            $this->session->setFout('Te veel mislukte pogingen. Probeer het later opnieuw.');
             header('Location: ' . $redirect_terug);
             exit;
         }
 
         // Account ophalen via gebruikersnaam
         $account = $this->accountDAO->getByUsername($gebruikersnaam);
+        // check of account niet verwijderd is
+        if ($account->getDeletedAt() !== null) {
+            $this->session->incrementLoginPogingen();
+            $this->session->setFout('Dit account is niet meer actief.');
+            header('Location: ' . $redirect_terug);
+            exit;
+        }
 
         // Account bestaat niet
         if ($account === null) {
+            $this->session->incrementLoginPogingen();
             $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
             header('Location: ' . $redirect_terug);
             exit;
@@ -44,6 +64,7 @@ class KlantLoginController
 
         // Wachtwoord controleren
         if (!$account->verifyPassword($wachtwoord)) {
+            $this->session->incrementLoginPogingen();
             $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
             header('Location: ' . $redirect_terug);
             exit;
@@ -57,6 +78,7 @@ class KlantLoginController
 
         // Voornaam altijd opslaan (beide rollen gebruiken dit)
         $this->session->setVoornaam($account->getVoornaam() ?? $gebruikersnaam);
+        $this->session->resetLoginPogingen();
 
 
         // Switch op type → verschillende redirect per rol
