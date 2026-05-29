@@ -4,13 +4,8 @@ namespace App\DAO;
 
 use App\Models\Product;
 use App\Models\Eenheid;
-use Exception;
 use PDO;
-use PDOStatement;
-use PhpParser\Node\Stmt;
 use App\Models\Categorie;
-
-use function PHPUnit\Framework\throwException;
 
 class ProductDAO
 {
