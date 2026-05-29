@@ -174,4 +174,39 @@ class AccountTest extends TestCase
             // AccountType::klant
         );
     }
+
+    public function testVerifyPasswordReturnsTrueWithCorrectPassword(): void
+    {
+        // Maak een account aan met een echt gehashed wachtwoord
+        // password_hash() maakt een hash van het wachtwoord zoals in de echte applicatie
+        $hash = password_hash('CorrectWachtwoord', PASSWORD_BCRYPT);
+
+        $account = new Account(
+            "test@test.com",
+            "TestUser",
+            $hash,
+            new \DateTime('2026-05-13'),
+            new \DateTime('2000-05-12')
+        );
+
+        // Controleer of het juiste wachtwoord true teruggeeft
+        $this->assertTrue($account->verifyPassword('CorrectWachtwoord'));
+    }
+
+    public function testVerifyPasswordReturnsFalseWithWrongPassword(): void
+    {
+        // Maak een account aan met een echt gehashed wachtwoord
+        $hash = password_hash('CorrectWachtwoord', PASSWORD_BCRYPT);
+
+        $account = new Account(
+            "test@test.com",
+            "TestUser",
+            $hash,
+            new \DateTime('2026-05-13'),
+            new \DateTime('2000-05-12')
+        );
+
+        // Controleer of een verkeerd wachtwoord false teruggeeft
+        $this->assertFalse($account->verifyPassword('VerkerdWachtwoord'));
+    }
 }
