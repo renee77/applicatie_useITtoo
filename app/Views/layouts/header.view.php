@@ -16,9 +16,14 @@
     <header>
         <div class="header container">
             <nav>
+<<<<<<< HEAD
                 <a href="<?= BASE_URL ?>/" class="logo-link">
                     <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" 
                         class="logo" alt="logo van useITtoo"></a>
+=======
+                <a href="<?= BASE_URL . "/webshop" ?>/" class="logo-link"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" class="logo"
+                        alt="logo van useITtoo"></a>
+>>>>>>> main
             </nav>
 
             <div id="search">
