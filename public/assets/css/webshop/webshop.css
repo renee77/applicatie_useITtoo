@@ -99,6 +99,7 @@ section#shopBackground {
                     flex: 1;
                     min-height: 0;
                     object-fit: cover;
+                    object-position: center;
                 }
 
                 h3 {
