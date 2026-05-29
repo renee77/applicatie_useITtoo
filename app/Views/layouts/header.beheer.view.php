@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.homepage.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.product.overview.view.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.product.nieuw.view.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.upload.css">
 </head>
 <body>
   <header>
@@ -27,7 +28,7 @@
         <a href="#" class="navLinks">Zoektermen</a>
       </li>
       <li class="navList">
-        <a href="#" class="navLinks">Uploaden</a>
+        <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks">Uploaden</a>
       </li>
       <li class="navList">
         <a href="#" class="navLinks">Rapportages</a>
