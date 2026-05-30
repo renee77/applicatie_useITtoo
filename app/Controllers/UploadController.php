@@ -152,7 +152,8 @@ class UploadController
         $mimeType = mime_content_type($bestand['tmp_name']);
 
       // Daarna check ik of het overeenkomt.
-      // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array, gaat er ook een foutmelding terug.
+      // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array,
+      //gaat er ook een foutmelding terug.
         if (!in_array($mimeType, $afbTypes)) {
             $this->session->setFout("Alleen PNG en JPG bestanden zijn toegestaan.");
             header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
