@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780132761">
-  <project timestamp="1780132761" name="Clover Coverage">
+<coverage generated="1780133051">
+  <project timestamp="1780133051" name="Clover Coverage">
     <package name="App\DAO">
       <file name="C:\xampp\htdocs\applicatie_useITtoo\app\DAO\AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">
@@ -68,8 +68,8 @@
         <class name="App\DAO\BeheerDAO" namespace="App\DAO">
           <metrics complexity="7" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="47" coveredstatements="47" elements="50" coveredelements="50"/>
         </class>
-        <line num="17" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
-        <line num="19" type="stmt" count="4"/>
+        <line num="17" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="19" type="stmt" count="5"/>
         <line num="22" type="method" name="getByUsername" visibility="public" complexity="3" crap="3" count="2"/>
         <line num="24" type="stmt" count="2"/>
         <line num="42" type="stmt" count="2"/>
@@ -300,23 +300,23 @@
         <class name="App\Models\Account" namespace="App\Models">
           <metrics complexity="17" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="29" elements="45" coveredelements="43"/>
         </class>
-        <line num="22" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="24"/>
-        <line num="35" type="stmt" count="24"/>
+        <line num="22" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="25"/>
+        <line num="35" type="stmt" count="25"/>
         <line num="36" type="stmt" count="2"/>
-        <line num="39" type="stmt" count="24"/>
-        <line num="40" type="stmt" count="24"/>
-        <line num="41" type="stmt" count="24"/>
+        <line num="39" type="stmt" count="25"/>
+        <line num="40" type="stmt" count="25"/>
+        <line num="41" type="stmt" count="25"/>
         <line num="42" type="stmt" count="1"/>
-        <line num="45" type="stmt" count="24"/>
-        <line num="46" type="stmt" count="24"/>
-        <line num="47" type="stmt" count="24"/>
-        <line num="48" type="stmt" count="24"/>
-        <line num="49" type="stmt" count="24"/>
-        <line num="50" type="stmt" count="24"/>
-        <line num="51" type="stmt" count="24"/>
-        <line num="52" type="stmt" count="24"/>
-        <line num="53" type="stmt" count="24"/>
-        <line num="55" type="stmt" count="24"/>
+        <line num="45" type="stmt" count="25"/>
+        <line num="46" type="stmt" count="25"/>
+        <line num="47" type="stmt" count="25"/>
+        <line num="48" type="stmt" count="25"/>
+        <line num="49" type="stmt" count="25"/>
+        <line num="50" type="stmt" count="25"/>
+        <line num="51" type="stmt" count="25"/>
+        <line num="52" type="stmt" count="25"/>
+        <line num="53" type="stmt" count="25"/>
+        <line num="55" type="stmt" count="25"/>
         <line num="59" type="method" name="getAccountId" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="61" type="stmt" count="1"/>
         <line num="63" type="method" name="getEmail" visibility="public" complexity="1" crap="1" count="1"/>
@@ -349,30 +349,30 @@
       </file>
       <file name="C:\xampp\htdocs\applicatie_useITtoo\app\Models\Beheer.php">
         <class name="App\Models\Beheer" namespace="App\Models">
-          <metrics complexity="4" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="16" elements="21" coveredelements="19"/>
+          <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="21" coveredelements="21"/>
         </class>
-        <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
-        <line num="32" type="stmt" count="4"/>
-        <line num="33" type="stmt" count="4"/>
-        <line num="34" type="stmt" count="4"/>
-        <line num="35" type="stmt" count="4"/>
-        <line num="36" type="stmt" count="4"/>
-        <line num="37" type="stmt" count="4"/>
-        <line num="39" type="stmt" count="4"/>
-        <line num="40" type="stmt" count="4"/>
-        <line num="41" type="stmt" count="4"/>
-        <line num="42" type="stmt" count="4"/>
-        <line num="43" type="stmt" count="4"/>
-        <line num="44" type="stmt" count="4"/>
-        <line num="46" type="stmt" count="4"/>
-        <line num="47" type="stmt" count="4"/>
-        <line num="51" type="method" name="getRol" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="53" type="stmt" count="1"/>
+        <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="32" type="stmt" count="5"/>
+        <line num="33" type="stmt" count="5"/>
+        <line num="34" type="stmt" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <line num="36" type="stmt" count="5"/>
+        <line num="37" type="stmt" count="5"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="40" type="stmt" count="5"/>
+        <line num="41" type="stmt" count="5"/>
+        <line num="42" type="stmt" count="5"/>
+        <line num="43" type="stmt" count="5"/>
+        <line num="44" type="stmt" count="5"/>
+        <line num="46" type="stmt" count="5"/>
+        <line num="47" type="stmt" count="5"/>
+        <line num="51" type="method" name="getRol" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="53" type="stmt" count="2"/>
         <line num="56" type="method" name="getDatumInDienst" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="58" type="stmt" count="1"/>
-        <line num="62" type="method" name="setRol" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="64" type="stmt" count="0"/>
-        <metrics loc="67" ncloc="61" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="16" elements="21" coveredelements="19"/>
+        <line num="62" type="method" name="setRol" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="64" type="stmt" count="1"/>
+        <metrics loc="67" ncloc="61" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="21" coveredelements="21"/>
       </file>
       <file name="C:\xampp\htdocs\applicatie_useITtoo\app\Models\Klant.php">
         <class name="App\Models\Klant" namespace="App\Models">
@@ -463,6 +463,6 @@
     <file name="C:\xampp\htdocs\applicatie_useITtoo\app\Models\Beheerdersrol.php">
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="9" loc="950" ncloc="834" classes="7" methods="55" coveredmethods="53" conditionals="0" coveredconditionals="0" statements="355" coveredstatements="353" elements="410" coveredelements="406"/>
+    <metrics files="9" loc="950" ncloc="834" classes="7" methods="55" coveredmethods="54" conditionals="0" coveredconditionals="0" statements="355" coveredstatements="354" elements="410" coveredelements="408"/>
   </project>
 </coverage>

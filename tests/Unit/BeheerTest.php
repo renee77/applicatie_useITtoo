@@ -39,12 +39,12 @@ class BeheerTest extends TestCase
         $this->assertEquals(new \DateTime('2025-09-01'), $date);
     }
 
-    // public function testSetRol(): void
-    // {
-    //   $andereRol = Beheerdersrol::voorraadbeheerder;
-    //   $this->beheerder->setRol($andereRol);
-    //   $rol = $this->beheerder->getRol();
+    public function testSetRol(): void
+    {
+      $andereRol = Beheerdersrol::voorraadbeheerder;
+      $this->beheerder->setRol($andereRol);
+      $rol = $this->beheerder->getRol();
 
-    //   $this->assertEquals($andereRol, $rol);
-    // }
+      $this->assertEquals($andereRol, $rol);
+    }
 }
