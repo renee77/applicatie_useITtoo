@@ -31,7 +31,8 @@ $currentPage = '';
         <a href="#" class="navLinks <?= $currentPage === 'zoekterm' ? 'selected' : '' ?>" >Zoektermen</a>
       </li>
       <li class="navList">
-        <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks <?= $currentPage === 'upload' ? 'selected' : '' ?>">Uploaden</a>
+        <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks <?= $currentPage === 'upload' ? 'selected' : '' ?>">
+          Uploaden</a>
       </li>
       <li class="navList">
         <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">Rapportages</a>
