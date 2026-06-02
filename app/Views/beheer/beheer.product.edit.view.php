@@ -1,3 +1,7 @@
+<?php
+$currentPage = 'product';
+$pageTitle = 'Producten';
+?>
 <h1>Product bewerken</h1>
 
 <form method="POST" action="<?= BASE_URL ?>/beheer/product/edit?id=<?= $product->getId() ?>">

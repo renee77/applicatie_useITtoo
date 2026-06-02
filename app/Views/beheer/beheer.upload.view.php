@@ -1,3 +1,7 @@
+<?php 
+$currentPage = 'upload';
+$pageTitle = 'Uploaden';
+?>
 <section class="choices">
   <a href="<?= BASE_URL ?>/beheer/upload/csv"><div class="choice-block">
     CSV uploaden

@@ -1,3 +1,7 @@
+<?php 
+$currentPage = 'upload';
+$pageTitle = 'Uploaden';
+?>
 <h1>Afbeelding uploaden</h1>
 <p>Upload hier een afbeelding voor je producten. Het is belangrijk om de volgende punten te onthouden:</p>
 <ul>

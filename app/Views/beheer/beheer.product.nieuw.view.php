@@ -1,3 +1,7 @@
+<?php
+$currentPage = 'product';
+$pageTitle = 'Producten';
+?>
 <h1>Nieuw product aanmaken</h1>
 
 <form method="POST" action="<?= BASE_URL ?>/beheer/product/nieuw" class="newProductForm">

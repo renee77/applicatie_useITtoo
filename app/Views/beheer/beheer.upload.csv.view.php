@@ -1,3 +1,7 @@
+<?php 
+$currentPage = 'upload';
+$pageTitle = 'Uploaden';
+?>
 <h1>Upload hier je CSV-bestand</h1>
 <h3>Belangrijke informatie!</h3>
 <p>Om het CSV-bestand goed te kunnen verwerken, moet de tekst in het bestand op de volgende manier worden ingestuurd:</p>
