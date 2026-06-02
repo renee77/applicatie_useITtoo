@@ -69,4 +69,52 @@ class BeheerDAOTest extends TestCase
 
         $this->assertInstanceOf(Beheer::class, $beheer);
     }
+
+  // Sad path
+  public function testGetBeheerByIDReturnsNullWhenNotFound(): void
+  {
+    // CreateMock() maakt een nep PDOstatement.
+    $stmt = $this->createMock(PDOStatement::class);
+    // Aangeven wat de fetch moet gaan teruggeven.
+    $stmt->method('fetch')->willReturn(false);
+
+    // Maken een nep PDO
+    $mockPdo = $this->createMock(PDO::class);
+    $mockPdo->method('prepare')->willReturn($stmt);
+
+    // Nu maken we een DAO met de nep PDO
+    $beheerdao = new BeheerDAO($mockPdo);
+    // En zoeken we het ID wat niet bestaat.
+    $result = $beheerdao->getById(999);
+
+    // Bevestiging dat het echt werkt.
+    $this->assertNull($result);
+  }
+
+  public function testGetBeheerByUsernameReturnsNullWhenNotFound(): void
+  {
+      $stmt = $this->createMock(PDOStatement::class);
+      $stmt->method('fetch')->willReturn(false); 
+
+      $mockPdo = $this->createMock(PDO::class);
+      $mockPdo->method('prepare')->willReturn($stmt);
+
+      $beheerdao = new BeheerDAO($mockPdo);
+
+      $result = $beheerdao->getByUsername('onbekende_gebruiker');
+
+      $this->assertNull($result);
+  }
+
+  public function testConstructorSetsPdo(): void
+  {
+      // Maak een nep-PDO
+      $mockPdo = $this->createMock(PDO::class);
+
+      // Maken een DAO, die de constructer aanroept.
+      $beheerdao = new BeheerDAO($mockPdo);
+
+      // Controleren of het een juist object is en een instantie van BeheerDAO
+      $this->assertInstanceOf(BeheerDAO::class, $beheerdao);
+  }
 }
