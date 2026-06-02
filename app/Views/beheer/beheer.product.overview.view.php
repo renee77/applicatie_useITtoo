@@ -1,5 +1,5 @@
-<?php 
-$melding = $session->getMelding(); 
+<?php
+$melding = $session->getMelding();
 $currentPage = 'product';
 $pageTitle = 'Producten';
 ?>

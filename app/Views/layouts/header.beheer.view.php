@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $currentPage = '';
 ?>
 <!DOCTYPE html>

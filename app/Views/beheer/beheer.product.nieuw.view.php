@@ -35,7 +35,7 @@ $pageTitle = 'Producten';
         <select name="eenheid" class="form_groupInput" required>
           <?php foreach ($eenheden as $eenheid) : ?>
             <option value="<?= $eenheid->value ?>">
-              <?= $eenheid->value ?>
+                <?= $eenheid->value ?>
             </option>
           <?php endforeach; ?>
         </select>
