@@ -326,4 +326,38 @@ class ProductDAO
 
         return $products;
     }
+
+    public function zoekProducten(string $zoekterm): array
+    {
+        $gevondenProducten = [];
+
+        $sql = "
+            SELECT naam, omschrijving, prijs, verkoop_gewicht, eenheid, product.product_id, 
+            leverancier, foto_url FROM product
+            WHERE naam LIKE :zoekterm 
+            OR omschrijving LIKE :zoekterm
+            OR leverancier LIKE :zoekterm";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':zoekterm', '%' . $zoekterm . '%', PDO::PARAM_STR);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll();
+
+        foreach ($rows as $row) {
+            $gevondenProducten[] = new Product(
+                $row['naam'],
+                $row['prijs'],
+                $row['verkoop_gewicht'],
+                Eenheid::from($row['eenheid']),
+                $row['omschrijving'],
+                $row['leverancier'],
+                $row['foto_url'],
+                null, //deleted-at
+                $row['product_id']
+            );
+        }
+
+        return $gevondenProducten;
+    }
 }
