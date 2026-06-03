@@ -1,3 +1,9 @@
+<?php
+
+$currentPage = 'home';
+$pageTitle = 'Homepage';
+?>
+
 <div class="main-container">
   <h1>Welkom<?= htmlspecialchars(" " . $voornaam) ?>!</h1>
 
