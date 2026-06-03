@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780489274">
-  <project timestamp="1780489274" name="Clover Coverage">
+<coverage generated="1780512378">
+  <project timestamp="1780512378" name="Clover Coverage">
     <package name="App\DAO">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">
@@ -315,6 +315,34 @@
         <line num="361" type="stmt" count="2"/>
         <metrics loc="364" ncloc="287" classes="1" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="178" coveredstatements="178" elements="189" coveredelements="189"/>
       </file>
+      <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/ZoektermDAO.php">
+        <class name="App\DAO\ZoektermDAO" namespace="App\DAO">
+          <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="22" coveredelements="22"/>
+        </class>
+        <line num="10" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="12" type="stmt" count="4"/>
+        <line num="18" type="method" name="bestaatZoekterm" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="21" type="stmt" count="2"/>
+        <line num="22" type="stmt" count="2"/>
+        <line num="24" type="stmt" count="2"/>
+        <line num="25" type="stmt" count="2"/>
+        <line num="26" type="stmt" count="2"/>
+        <line num="28" type="stmt" count="2"/>
+        <line num="31" type="method" name="opslaanZoekterm" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="38" type="stmt" count="1"/>
+        <line num="39" type="stmt" count="1"/>
+        <line num="40" type="stmt" count="1"/>
+        <line num="41" type="stmt" count="1"/>
+        <line num="44" type="method" name="verhoogAantal" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="47" type="stmt" count="1"/>
+        <line num="49" type="stmt" count="1"/>
+        <line num="51" type="stmt" count="1"/>
+        <line num="52" type="stmt" count="1"/>
+        <line num="53" type="stmt" count="1"/>
+        <metrics loc="56" ncloc="48" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="22" coveredelements="22"/>
+      </file>
     </package>
     <package name="App\Models">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Account.php">
@@ -477,6 +505,18 @@
         <line num="131" type="stmt" count="1"/>
         <metrics loc="134" ncloc="130" classes="1" methods="17" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="54" coveredelements="54"/>
       </file>
+      <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Zoekterm.php">
+        <class name="App\Models\Zoekterm" namespace="App\Models">
+          <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+        </class>
+        <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="9" type="stmt" count="6"/>
+        <line num="11" type="method" name="getZoekterm" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <line num="16" type="method" name="getAantalKeerGezocht" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="18" type="stmt" count="2"/>
+        <metrics loc="21" ncloc="21" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      </file>
     </package>
     <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/AccountType.php">
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -484,6 +524,6 @@
     <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Beheerdersrol.php">
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="9" loc="984" ncloc="867" classes="7" methods="56" coveredmethods="55" conditionals="0" coveredconditionals="0" statements="375" coveredstatements="374" elements="431" coveredelements="429"/>
+    <metrics files="11" loc="1061" ncloc="936" classes="9" methods="63" coveredmethods="62" conditionals="0" coveredconditionals="0" statements="396" coveredstatements="395" elements="459" coveredelements="457"/>
   </project>
 </coverage>
