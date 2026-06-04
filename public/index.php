@@ -227,7 +227,7 @@ $router->register(
     function () use ($session) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dao = new \App\DAO\AccountDAO(\App\Core\Database::getConnection());
-            $controller = new \App\Controllers\KlantLoginController($dao, $session);
+            $controller = new \App\Controllers\LoginController($dao, $session);
             $controller->handleLogin();
         }
         // GET-request op /klant/login heeft geen zin — stuur terug naar home
