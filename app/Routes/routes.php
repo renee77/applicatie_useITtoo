@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Routes;
+
 use App\Core\Router;
 use App\Core\SessionManager;
 
@@ -137,7 +139,7 @@ class Routes
                         'product'  => $dao->getProductById($product_id),
                         'eenheden' => \App\Models\Eenheid::cases()
                     ];
-                } catch (\RuntimeException $e) {
+                } catch (\RuntimeException) {
                     $session->setFout("Product niet gevonden.");
                     header('Location: ' . BASE_URL . '/beheer/product');
                     exit;

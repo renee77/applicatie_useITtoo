@@ -8,6 +8,6 @@ $session->start();
 
 $router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '', $session);
 
-Routes::register($router, $session);
+\App\Routes\Routes::register($router, $session);
 
 $router->run();
