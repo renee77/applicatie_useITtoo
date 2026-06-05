@@ -41,7 +41,7 @@ class ZoektermDAO
         $stmt->execute();
     }
 
-    public function verhoogAantal(Zoekterm $zoekterm): void
+    public function verhoogAantal(string $zoekterm): void
     {
         // aantal + 1 voorkomt race conditions bij gelijktijdige zoekopdrachten van meerdere gebruikers
         $sql = "
@@ -49,7 +49,7 @@ class ZoektermDAO
             WHERE zoekterm = :zoekterm";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':zoekterm', $zoekterm->getZoekterm());
+        $stmt->bindValue(':zoekterm', $zoekterm);
         $stmt->execute();
     }
 }

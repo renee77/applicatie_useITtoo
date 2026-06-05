@@ -77,7 +77,7 @@ class ZoektermDAOTest extends TestCase
         $mockPdo = $this->createMock(PDO::class);
         $mockPdo->method('prepare')->willReturn($mockStmt);
 
-        $zoekterm = new Zoekterm('wortel');
+        $zoekterm = 'wortel';
         $zoektermDao = new ZoektermDAO($mockPdo);
 
         $this->expectNotToPerformAssertions();
