@@ -1,4 +1,8 @@
-<?php $melding = $session->getMelding(); ?>
+<?php
+$melding = $session->getMelding();
+$currentPage = 'product';
+$pageTitle = 'Producten';
+?>
 <?php if (!empty($melding)) : ?>
     <div class="melding">
         <?= htmlspecialchars($melding) ?>
