@@ -334,9 +334,10 @@ class ProductDAO
         $sql = "
             SELECT naam, omschrijving, prijs, verkoop_gewicht, eenheid, product.product_id, 
             leverancier, foto_url FROM product
-            WHERE naam LIKE :zoekterm 
+            WHERE deleted_at IS NULL
+            AND (naam LIKE :zoekterm
             OR omschrijving LIKE :zoekterm
-            OR leverancier LIKE :zoekterm";
+            OR leverancier LIKE :zoekterm)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':zoekterm', '%' . $zoekterm . '%', PDO::PARAM_STR);
