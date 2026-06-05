@@ -137,10 +137,10 @@ class Router
             // Maar als je gewoon include $view doet, wordt de HTML meteen naar de browser gestuurd.
             // ob_start() vangt alle output op in een buffer in plaats van hem meteen te sturen.
             // ob_get_clean() geeft die buffer terug als string en leegt hem.
+            $session = $this->session;
             ob_start();
             include $view;
             $content = ob_get_clean();
-            $session = $this->session;
             include __DIR__ . '/../../app/Views/layouts/' . $layout;
         } else {
             $matched = false;

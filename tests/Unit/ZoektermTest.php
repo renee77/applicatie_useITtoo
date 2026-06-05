@@ -27,5 +27,4 @@ class ZoektermTest extends TestCase
 
         $this->assertEquals(1, $aantalKeergezocht);
     }
-
 }

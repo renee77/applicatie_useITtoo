@@ -123,7 +123,15 @@ class ProductDAOTest extends TestCase
 
     public function testAddProduct(): void
     {
-        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null);
+        $product = new Product(
+            'Citroen',
+            3.23,
+            250,
+            Eenheid::Gram,
+            'Mooie grote citroenen nu voor het eerst lokaal gekweekt',
+            'Het Brabantse Land',
+            null
+        );
 
         $mockStmt = $this->createMock(PDOStatement::class);
         // Dit zegt: "ik verwacht dat execute() precies één keer aangeroepen wordt". Als dat niet gebeurt faalt de test!
@@ -142,12 +150,21 @@ class ProductDAOTest extends TestCase
 
         // assert
         $this->assertIsInt($product_id);
-
     }
 
     public function testUpdateProduct(): void
     {
-        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null, null, 1);
+        $product = new Product(
+            'Citroen',
+            3.23,
+            250,
+            Eenheid::Gram,
+            'Mooie grote citroenen nu voor het eerst lokaal gekweekt',
+            'Het Brabantse Land',
+            null,
+            null,
+            1
+        );
 
         $mockStmt = $this->createMock(PDOStatement::class);
         $mockStmt->expects($this->once())
@@ -161,7 +178,6 @@ class ProductDAOTest extends TestCase
 
         // act
         $productDao->updateProduct($product);
-
     }
 
     public function testDeleteProduct(): void
@@ -274,7 +290,7 @@ class ProductDAOTest extends TestCase
         $mockStmt = $this->createMock(PDOStatement::class);
         $mockStmt->method('fetchAll')->willReturn(
             [
-           [
+            [
                 'naam' => 'Wortel',
                 'prijs' => 1.95,
                 'verkoop_gewicht' => 2.0,
@@ -294,7 +310,7 @@ class ProductDAOTest extends TestCase
                 'foto_url' => null,
                 'product_id' => 2
             ]
-        ]
+            ]
         );
 
         $mockPdo =  $this->createMock(PDO::class);
@@ -357,7 +373,15 @@ class ProductDAOTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
 
-        $product = new Product('Citroen', 3.23, 250, Eenheid::Gram, 'Mooie grote citroenen nu voor het eerst lokaal gekweekt', 'Het Brabantse Land', null);
+        $product = new Product(
+            'Citroen',
+            3.23,
+            250,
+            Eenheid::Gram,
+            'Mooie grote citroenen nu voor het eerst lokaal gekweekt',
+            'Het Brabantse Land',
+            null
+        );
         $productDao->updateProduct($product);
     }
 
@@ -392,5 +416,4 @@ class ProductDAOTest extends TestCase
 
         $productDao->restoreProduct(1);
     }
-
 }

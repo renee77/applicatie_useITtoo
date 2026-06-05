@@ -34,23 +34,19 @@ $router->register(
         return $controller->showProduct($id);
     }
 );
-
-// BEHEEROMGEVING
 $router->register(
-    '/beheerlogin',
-    __DIR__ . '/../app/Views/beheer/beheer.login.view.php',
-    'login.beheer.php',
+    '/zoeken',
+    __DIR__ . '/../app/Views/webshop/zoeken.view.php',
+    'main.php',
     function () use ($session) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $db = \App\Core\Database::getConnection();
-            $beheerDAO = new \App\DAO\BeheerDAO($db);
-            $authService = new \App\Core\AuthService($beheerDAO);
-            $controller = new \App\Controllers\LoginController($authService, $session);
-            $controller->handleLogin();
-        }
+        $zoekDao = new \App\DAO\ZoektermDAO(\App\Core\Database::getConnection());
+        $productDao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        $controller = new \App\Controllers\ZoekController($zoekDao, $productDao, $session);
+        return $controller->zoeken();
     }
 );
 
+// BEHEEROMGEVING
 $router->register(
     '/beheer',
     __DIR__ . '/../app/Views/beheer/beheer.view.php',

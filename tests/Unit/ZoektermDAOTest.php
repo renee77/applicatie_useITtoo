@@ -62,10 +62,8 @@ class ZoektermDAOTest extends TestCase
         $zoektermDao = new ZoektermDAO($mockPdo);
 
         // de check zit al in dat de methode 1x uitgevoerd wordt
-        $this->expectNotToPerformAssertions();
 
         $zoektermDao->opslaanZoekterm($zoekterm);
-
     }
 
     public function testVerhoogAantal(): void
@@ -79,8 +77,6 @@ class ZoektermDAOTest extends TestCase
 
         $zoekterm = 'wortel';
         $zoektermDao = new ZoektermDAO($mockPdo);
-
-        $this->expectNotToPerformAssertions();
 
         $zoektermDao->verhoogAantal($zoekterm);
     }

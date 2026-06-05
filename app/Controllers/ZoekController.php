@@ -10,9 +10,9 @@ use App\Models\Zoekterm;
 class ZoekController
 {
     public function __construct(
-        private SessionManager $session,
         private ZoektermDAO $zoektermDao,
-        private ProductDAO $productDao
+        private ProductDAO $productDao,
+        private SessionManager $session
     ) {
     }
 
@@ -32,7 +32,7 @@ class ZoekController
 
         if ($gevondenProducten) {
             // Geef producten  mee aan view
-            return  $gevondenProducten;
+            return  ['producten' => $gevondenProducten];
         } else {
             // Geen producten gevonden:
             // Zet flash melding via SessionManager
@@ -47,8 +47,6 @@ class ZoekController
                 $this->zoektermDao->opslaanZoekterm(new Zoekterm($zoekterm));
                 return [];
             }
-
         }
     }
-
 }

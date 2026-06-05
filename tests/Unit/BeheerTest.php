@@ -41,10 +41,10 @@ class BeheerTest extends TestCase
 
     public function testSetRol(): void
     {
-      $andereRol = Beheerdersrol::voorraadbeheerder;
-      $this->beheerder->setRol($andereRol);
-      $rol = $this->beheerder->getRol();
+        $andereRol = Beheerdersrol::voorraadbeheerder;
+        $this->beheerder->setRol($andereRol);
+        $rol = $this->beheerder->getRol();
 
-      $this->assertEquals($andereRol, $rol);
+        $this->assertEquals($andereRol, $rol);
     }
 }

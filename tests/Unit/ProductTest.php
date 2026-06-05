@@ -89,7 +89,15 @@ class ProductTest extends TestCase
     public function testConstructorSetsFotoUrlWithValue(): void
     {
         // arange
-        $productWithFotoUrl = new Product("Wortel", 1.95, 2, Eenheid::Kilogram, "lekkere oranje wortels", "Pietje", "url_naar_foto");
+        $productWithFotoUrl = new Product(
+            "Wortel",
+            1.95,
+            2,
+            Eenheid::Kilogram,
+            "lekkere oranje wortels",
+            "Pietje",
+            "url_naar_foto"
+        );
         // act
         $foto_url = $productWithFotoUrl->getFotoUrl();
         // assert
@@ -165,7 +173,6 @@ class ProductTest extends TestCase
         $this->product->setEenheid($nieuweEenheid);
         // assert
         $this->assertEquals($nieuweEenheid, $this->product->getEenheid());
-
     }
 
     // randgevallen

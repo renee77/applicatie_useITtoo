@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780512378">
-  <project timestamp="1780512378" name="Clover Coverage">
+<coverage generated="1780690898">
+  <project timestamp="1780690898" name="Clover Coverage">
     <package name="App\DAO">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">
@@ -509,10 +509,10 @@
         <class name="App\Models\Zoekterm" namespace="App\Models">
           <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
         </class>
-        <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
-        <line num="9" type="stmt" count="6"/>
-        <line num="11" type="method" name="getZoekterm" visibility="public" complexity="1" crap="1" count="5"/>
-        <line num="13" type="stmt" count="5"/>
+        <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="9" type="stmt" count="5"/>
+        <line num="11" type="method" name="getZoekterm" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="13" type="stmt" count="4"/>
         <line num="16" type="method" name="getAantalKeerGezocht" visibility="public" complexity="1" crap="1" count="2"/>
         <line num="18" type="stmt" count="2"/>
         <metrics loc="21" ncloc="21" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
