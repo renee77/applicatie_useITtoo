@@ -83,17 +83,7 @@ class ProductDAO
         }
 
         // Return het object
-        return new Product(
-            $row['naam'],
-            $row['prijs'],
-            $row['verkoop_gewicht'],
-            Eenheid::from($row['eenheid']),
-            $row['omschrijving'],
-            $row['leverancier'],
-            $row['foto_url'],
-            null, // deleted_at
-            $row['product_id']
-        );
+        return $this->mapRowToProduct($row);
     }
 
     public function getProductByName(string $naam): array
@@ -111,17 +101,7 @@ class ProductDAO
         $products = [];
 
         foreach ($rows as $row) {
-            $products[] = new Product(
-                $row['naam'],
-                $row['prijs'],
-                $row['verkoop_gewicht'],
-                Eenheid::from($row['eenheid']),
-                $row['omschrijving'],
-                $row['leverancier'],
-                $row['foto_url'],
-                null,
-                $row['product_id']
-            );
+            $products[] = $this->mapRowToProduct($row);
         }
 
         return $products;
@@ -346,19 +326,24 @@ class ProductDAO
         $rows = $stmt->fetchAll();
 
         foreach ($rows as $row) {
-            $gevondenProducten[] = new Product(
-                $row['naam'],
-                $row['prijs'],
-                $row['verkoop_gewicht'],
-                Eenheid::from($row['eenheid']),
-                $row['omschrijving'],
-                $row['leverancier'],
-                $row['foto_url'],
-                null, //deleted-at
-                $row['product_id']
-            );
+            $gevondenProducten[] = $this->mapRowToProduct($row);
         }
 
         return $gevondenProducten;
+    }
+
+    private function mapRowToProduct(array $row): Product
+    {
+        return new Product(
+            $row['naam'],
+            $row['prijs'],
+            $row['verkoop_gewicht'],
+            Eenheid::from($row['eenheid']),
+            $row['omschrijving'],
+            $row['leverancier'],
+            $row['foto_url'],
+            null,
+            $row['product_id']
+        );
     }
 }
