@@ -138,10 +138,16 @@ $router->register(
             header('Location: ' . BASE_URL . '/beheer/product');
             exit;
         }
-        return [
-            'product'  => $dao->getProductById($product_id),
-            'eenheden' => \App\Models\Eenheid::cases()
-        ];
+        try {
+            return [
+                'product'  => $dao->getProductById($product_id),
+                'eenheden' => \App\Models\Eenheid::cases()
+            ];
+        } catch (\RuntimeException $e) {
+            $session->setFout("Product niet gevonden.");
+            header('Location: ' . BASE_URL . '/beheer/product');
+            exit;
+        }
     }
 );
 
