@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Core\SessionManager;
 use App\DAO\ProductDAO;
-use App\Models\Eenheid;
-use App\Models\Product;
 use PDO;
 
 class UploadController
@@ -17,15 +15,22 @@ class UploadController
     ) {
     }
 
+    private function mistakeRedirect(string $bericht, string $pad): void
+    {
+    // Sla de foutmelding op in de sessie zodat de view hem kan tonen
+    $this->session->setFout($bericht);
+    // Stuur de gebruiker terug naar de opgegeven pagina
+    header('Location: ' . BASE_URL . $pad);
+    exit;
+    }
+
     public function handleCSVUpload(): void
     {
             // Controleer of het bestand correct is geüpload.
             // 'error' is UPLOAD_ERR_OK (0) als alles goed is gegaan.
             // Anders is er iets misgegaan, bijv. bestand te groot of geen bestand.
         if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
-            $this->session->setFout("Fout bij uploaden van bestand.");
-            header('Location: ' . BASE_URL . '/beheer/upload/csv');
-            exit;
+          $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/csv');    
         }
 
             // Open het tijdelijke bestand dat PHP heeft aangemaakt via fopen (file open).
@@ -136,11 +141,7 @@ class UploadController
       // De $_FILES superglobal haalt ook errors binnen, dus deze registreert hij.
       // 0 Betekent geen fout.
         if ($bestand['error'] !== UPLOAD_ERR_OK) {
-            // Als er een fout melding is, geef dit aan.
-            $this->session->setFout("Fout bij uploaden van bestand");
-            // En redirect met header naar de pagina.
-            header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
-            exit;
+            $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/afbeelding');    
         }
 
       // Hier wordt nog een extra check uitgevoerd of het geuploade bestand wel echt png/jpg/jpeg is.
@@ -155,9 +156,7 @@ class UploadController
       // Als het type uit de mimeType dus niet overeenkomt met de opties in mijn array,
       //gaat er ook een foutmelding terug.
         if (!in_array($mimeType, $afbTypes)) {
-            $this->session->setFout("Alleen PNG en JPG bestanden zijn toegestaan.");
-            header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
-            exit;
+            $this->mistakeRedirect("Alleen PNG en JPG bestanden zijn toegestaan.", '/beheer/upload/afbeelding');
         }
 
         $extensie = '';
@@ -182,9 +181,7 @@ class UploadController
       // De move_uploaded file verplaatst het vervolgens naar een definitieve locatie.
       // Het checkt ook op het via een upload is binnengekomen
         if (!move_uploaded_file($bestand['tmp_name'], $doelpad)) {
-            $this->session->setFout("Fout bij opslaan van bestand.");
-            header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
-            exit;
+            $this->mistakeRedirect("Fout bij opslaan van bestand", '/beheer/upload/afbeelding');
         }
 
         $this->session->setMelding("Afbeelding succesvol geüpload!");
