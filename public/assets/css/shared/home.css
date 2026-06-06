@@ -10,37 +10,14 @@
     gap: 1.5rem;
     margin: 30px;
 
-}
+    h2 {
+        font-size: 1.1rem;
+        color: var(--orange);
+        font-weight: bold;
+        letter-spacing: 0.03em;
+    }
 
-
-.start-keuze h2 {
-    font-size: 1.125rem;
-    color: var(--orange);
-    font-weight: normal;
-    letter-spacing: 0.03em;
-}
-
-.start-keuze>p {
-    font-size: 1.125rem;
-    color: var(--dark-green);
-    opacity: 0.8;
-}
-
-.keuze-knoppen {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    justify-content: center;
-    margin-top: 0.5rem;
-
-
-    button {
-        min-width: 10rem;
-        min-height: 4rem;
-
-        a {
-            font-size: 1.125rem;
-            font-weight: bold;
-        }
+    img.logo {
+        width: 25%;
     }
 }
