@@ -30,8 +30,14 @@ class ProductController
 
     public function showProduct(int $product_id): array
     {
-        return [
-            'product' => $this->productDAO->getProductById($product_id)
-        ];
+        try {
+            return [
+                'product' => $this->productDAO->getProductById($product_id)
+            ];
+        } catch (\RuntimeException $e) {
+            $this->session->setFout("Product niet gevonden.");
+            header('Location: ' . BASE_URL . '/webshop');
+            exit;
+        }
     }
 }

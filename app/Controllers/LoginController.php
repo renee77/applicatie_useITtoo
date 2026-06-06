@@ -2,62 +2,110 @@
 
 namespace App\Controllers;
 
-use App\Core\AuthService;
 use App\Core\SessionManager;
+use App\DAO\AccountDAO;
 
 class LoginController
 {
-    // De Authservice wordt hier direct aangeroepen en opgeslagen
-    // zodat er snel weer gebruik van kan worden gemaakt.
-    private AuthService $authService;
-    private SessionManager $session;
-
-    public function __construct(AuthService $authService, SessionManager $session)
-    {
-        $this->authService = $authService;
-        $this->session = $session;
+    // Door private vóór de parameter te zetten in de constructor doet PHP automatisch drie dingen:
+    // property declareren, parameter ontvangen, en toewijzen aan $this->
+    public function __construct(
+        private AccountDAO $accountDAO,
+        private SessionManager $session
+    ) {
     }
 
-    // Hier wordt het loginverzoek verwerkt wat via de POST-methode
-    // wordt toegestuurd. De gebruiker wordt altijd verder geleid,
-    // of het nu is geslaagd of niet. Dit gebeurd via de header() functie.
     public function handleLogin(): void
     {
-        if (ob_get_level() === 0) {
-            ob_start();
-        }
-        // Waarden ophalen uit POST verzoek.
-        // Foutvoorkoming als een veld niet is gevuld (??)
+        // Gebruikersnaam en wachtwoord ophalen uit $_POST
         $gebruikersnaam = trim($_POST['gebruikersnaam'] ?? '');
-        $wachtwoord = $_POST['wachtwoord'] ?? '';
+        $wachtwoord     = $_POST['wachtwoord'] ?? '';
 
-        // Eerst nakijken of velden niet leeg zijn.
-        // Dit ter voorkoming van het feit dat er een database query wordt gedaan met de helft van de informatie.
-        if (empty($gebruikersnaam) || empty($wachtwoord)) {
-            $this->session->setFout("Vul alle velden in.");
-            header("Location: " . BASE_URL . "/beheerlogin");
+        // De pagina waar de gebruiker vandaan komt (hidden field uit het formulier)
+        // Fallback naar /webshop als het veld ontbreekt of leeg is
+        $redirect_terug = $_POST['redirect_to'] ?? BASE_URL . '/webshop';
+
+        // Controleer of het een interne URL is, zo niet stuur naar webshop
+        if (!str_starts_with($redirect_terug, BASE_URL)) {
+            $redirect_terug = BASE_URL . '/webshop';
+        }
+
+        // Maximaal 5 mislukte pogingen toestaan
+        if ($this->session->getLoginPogingen() >= 5) {
+            $this->session->setFout('Te veel mislukte pogingen. Probeer het later opnieuw.');
+            header('Location: ' . $redirect_terug);
             exit;
         }
 
-        // Nu gaan we Authservice gebruiken om te kijken of ww en naam matcht.
-        // Dit gaat allemaal buiten de controller om.
-        $beheer = $this->authService->loginBeheerder($gebruikersnaam, $wachtwoord);
-
-        // Nakijken of er een match is qua gebruikersnaam(anders is het null.)
-        if ($beheer === null) {
-            $this->session->setFout("Ongeldige gebruikersnaam of wachtwoord.");
-            header("Location: " . BASE_URL . "/beheerlogin");
+        // Lege velden checken
+        if ($gebruikersnaam === '' || $wachtwoord === '') {
+            $this->session->incrementLoginPogingen();
+            $this->session->setFout('Vul je gebruikersnaam en wachtwoord in.');
+            header('Location: ' . $redirect_terug);
             exit;
-        };
+        }
 
-        // Als alle stappen doorlopen, geslaagd.
-        /// Sla de gegvens van de beheerder op in sessie, zodat bekend is
-        // wie er is ingelogd en welke rol deze persoon heeft.
-        $this->session->setAccountId($beheer->getAccountId());
-        $this->session->setRolBeheer($beheer->getRol()->value);
-        $this->session->setVoornaam(trim($beheer->getVoornaam()));
+        // Account ophalen via gebruikersnaam
+        $account = $this->accountDAO->getByUsername($gebruikersnaam);
 
-        header("Location: " . BASE_URL . "/beheer");
-        exit;
+        // Account bestaat niet
+        if ($account === null) {
+            $this->session->incrementLoginPogingen();
+            $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
+            header('Location: ' . $redirect_terug);
+            exit;
+        }
+
+        // Controleer of het account niet verwijderd is
+        if ($account->getDeletedAt() !== null) {
+            $this->session->incrementLoginPogingen();
+            $this->session->setFout('Dit account is niet meer actief.');
+            header('Location: ' . $redirect_terug);
+            exit;
+        }
+
+        // Wachtwoord controleren
+        if (!$account->verifyPassword($wachtwoord)) {
+            $this->session->incrementLoginPogingen();
+            $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
+            header('Location: ' . $redirect_terug);
+            exit;
+        }
+
+        // Type ophalen (geeft 'klant' of 'beheer' terug, of null)
+        $type = $this->accountDAO->getTypeByAccountId($account->getAccountId());
+
+        // Account_id in de sessie zetten
+        $this->session->setAccountId($account->getAccountId());
+
+        // Voornaam altijd opslaan (beide rollen gebruiken dit)
+        $this->session->setVoornaam($account->getVoornaam() ?? $gebruikersnaam);
+
+        // Mislukte pogingen resetten na succesvolle login
+        $this->session->resetLoginPogingen();
+
+        // Switch op type → verschillende redirect per rol
+        switch ($type) {
+            case 'beheer':
+                $this->session->setRolBeheer('beheer');
+                header('Location: ' . BASE_URL . '/beheer');
+                exit;
+
+            case 'klant':
+                $basePath = $_ENV['APP_BASE_PATH'] ?? '';
+                $redirect_terug = ($redirect_terug === BASE_URL . '/')
+                    ? BASE_URL . '/webshop'
+                    : $redirect_terug;
+                header('Location: ' . $redirect_terug);
+                exit;
+
+            default:
+                // Type onbekend of null — veilig uitloggen en foutmelding tonen
+                $this->session->destroy();
+                $this->session->start();
+                $this->session->setFout('Je account heeft geen geldige rol. Neem contact op.');
+                header('Location: ' . $redirect_terug);
+                exit;
+        }
     }
 }

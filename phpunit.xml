@@ -23,6 +23,7 @@
             <directory>app/Views</directory>
             <directory>app/Core</directory>
             <directory>app/Controllers</directory>
+            <file>app/Routes/routes.php</file>
         </exclude>
     </source>
 </phpunit>

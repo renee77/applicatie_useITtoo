@@ -1,9 +1,13 @@
+<?php
+
+$currentPage = '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard ||UseITtoo</title>
+  <title><?= htmlspecialchars($pageTitle ?? 'Dashboard') ?> ||UseITtoo</title>
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.homepage.css">
@@ -16,22 +20,22 @@
     <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/>
     <ul>
       <li class="navList">
-        <a href="<?= BASE_URL ?>/beheer" class="navLinks selected">Home</a>
+        <a href="<?= BASE_URL ?>/beheer" class="navLinks <?= $currentPage === 'home' ? 'selected' : '' ?>">
+          Home</a>
       </li>
       <li class="navList">
-        <a href="<?= BASE_URL ?>/beheer/product" class="navLinks">Producten</a>
+        <a href="<?= BASE_URL ?>/beheer/product" class="navLinks <?= $currentPage === 'product' ? 'selected' : '' ?>">
+          Producten</a>
       </li>
       <li class="navList">
-        <a href="#" class="navLinks">Klanten</a>
+        <a href="#" class="navLinks <?= $currentPage === 'zoekterm' ? 'selected' : '' ?>" >Zoektermen</a>
       </li>
       <li class="navList">
-        <a href="#" class="navLinks">Zoektermen</a>
+        <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks <?= $currentPage === 'upload' ? 'selected' : '' ?>">
+          Uploaden</a>
       </li>
       <li class="navList">
-        <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks">Uploaden</a>
-      </li>
-      <li class="navList">
-        <a href="#" class="navLinks">Rapportages</a>
+        <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">Rapportages</a>
       </li>
       <a href="<?= BASE_URL ?>/logout" class="logOut navLinks">Log uit</a>
     </ul>

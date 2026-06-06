@@ -1,3 +1,7 @@
+<?php
+$currentPage = 'product';
+$pageTitle = 'Producten';
+?>
 <h1>Nieuw product aanmaken</h1>
 
 <form method="POST" action="<?= BASE_URL ?>/beheer/product/nieuw" class="newProductForm">
@@ -31,7 +35,7 @@
         <select name="eenheid" class="form_groupInput" required>
           <?php foreach ($eenheden as $eenheid) : ?>
             <option value="<?= $eenheid->value ?>">
-              <?= $eenheid->value ?>
+                <?= $eenheid->value ?>
             </option>
           <?php endforeach; ?>
         </select>

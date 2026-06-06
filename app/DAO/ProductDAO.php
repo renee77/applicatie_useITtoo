@@ -83,17 +83,7 @@ class ProductDAO
         }
 
         // Return het object
-        return new Product(
-            $row['naam'],
-            $row['prijs'],
-            $row['verkoop_gewicht'],
-            Eenheid::from($row['eenheid']),
-            $row['omschrijving'],
-            $row['leverancier'],
-            $row['foto_url'],
-            null, // deleted_at
-            $row['product_id']
-        );
+        return $this->mapRowToProduct($row);
     }
 
     public function getProductByName(string $naam): array
@@ -111,17 +101,7 @@ class ProductDAO
         $products = [];
 
         foreach ($rows as $row) {
-            $products[] = new Product(
-                $row['naam'],
-                $row['prijs'],
-                $row['verkoop_gewicht'],
-                Eenheid::from($row['eenheid']),
-                $row['omschrijving'],
-                $row['leverancier'],
-                $row['foto_url'],
-                null,
-                $row['product_id']
-            );
+            $products[] = $this->mapRowToProduct($row);
         }
 
         return $products;
@@ -325,5 +305,45 @@ class ProductDAO
         }
 
         return $products;
+    }
+
+    public function zoekProducten(string $zoekterm): array
+    {
+        $gevondenProducten = [];
+
+        $sql = "
+            SELECT naam, omschrijving, prijs, verkoop_gewicht, eenheid, product.product_id, 
+            leverancier, foto_url FROM product
+            WHERE deleted_at IS NULL
+            AND (naam LIKE :zoekterm
+            OR omschrijving LIKE :zoekterm
+            OR leverancier LIKE :zoekterm)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':zoekterm', '%' . $zoekterm . '%', PDO::PARAM_STR);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll();
+
+        foreach ($rows as $row) {
+            $gevondenProducten[] = $this->mapRowToProduct($row);
+        }
+
+        return $gevondenProducten;
+    }
+
+    private function mapRowToProduct(array $row): Product
+    {
+        return new Product(
+            $row['naam'],
+            $row['prijs'],
+            $row['verkoop_gewicht'],
+            Eenheid::from($row['eenheid']),
+            $row['omschrijving'],
+            $row['leverancier'],
+            $row['foto_url'],
+            null,
+            $row['product_id']
+        );
     }
 }

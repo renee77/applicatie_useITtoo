@@ -54,6 +54,5 @@ class KlantTest extends TestCase
             "eva",
             '0123456789'
         );
-
     }
 }

@@ -10,9 +10,13 @@ header {
         align-items: center;
 
 
-        div#search {
+        form#search {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
             input[type="text"] {
-                width: 100%;
+                flex: 1;
                 height: 2rem;
                 padding: 6px;
                 border-radius: 5px;
@@ -39,7 +43,9 @@ header {
 
     .login-wrapper {
         position: relative;
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .login-wrapper:hover .login-dropdown {
