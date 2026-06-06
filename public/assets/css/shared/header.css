@@ -1,6 +1,7 @@
 header {
     width: 100%;
     background-color: var(--dark-green);
+    position: relative;
 
     .header {
         height: 100%;
@@ -8,6 +9,7 @@ header {
         grid-template-columns: 0.5fr 2fr 0.5fr;
         gap: 10px;
         align-items: center;
+        padding: 1rem 0;
 
 
         form#search {
@@ -41,6 +43,32 @@ header {
         }
     }
 
+    #header-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    /* Hamburger: standaard verborgen op desktop */
+    #hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+
+        span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--light-green);
+            border-radius: 2px;
+        }
+    }
+
     .login-wrapper {
         position: relative;
         display: flex;
@@ -69,5 +97,49 @@ header {
     .login-dropdown p {
         margin: 0 0 8px 0;
         font-size: 0.9rem;
+    }
+}
+
+/* ─── Header responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    header .header {
+        grid-template-columns: auto 1fr auto;
+    }
+
+    /* Logo kleiner op mobiel */
+    header .logo {
+        height: 30px !important;
+        width: auto;
+    }
+
+    /* Zoekknop verbergen: mobielgebruikers gebruiken Enter/Go op het toetsenbord */
+    header form#search button {
+        display: none;
+    }
+
+    /* Login verbergen achter hamburger */
+    header .header div#login {
+        display: none;
+    }
+
+    /* Dropdown zichtbaar na klik op hamburger */
+    header .header div#login.open {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--dark-green);
+        padding: 1rem 1.25rem;
+        border-radius: 0 0 5px 5px;
+        z-index: 200;
+        min-width: 160px;
+    }
+
+    /* Hamburger zichtbaar op mobiel */
+    header #hamburger {
+        display: flex;
     }
 }

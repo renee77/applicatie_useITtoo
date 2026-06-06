@@ -32,7 +32,7 @@ $pageTitle = 'Producten';
 
     <div class="form__group">
       <label class="form__groupLabel" for="gewicht">Eenheid:</label>
-        <select name="eenheid" class="form_groupInput" required>
+        <select name="eenheid" class="form__groupInput" required>
           <?php foreach ($eenheden as $eenheid) : ?>
             <option value="<?= $eenheid->value ?>">
                 <?= $eenheid->value ?>
