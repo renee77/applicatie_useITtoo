@@ -59,7 +59,7 @@ class Routes
 
         $router->register(
             '/beheer/product',
-            __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
             function () use ($session) {
                     $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
@@ -70,7 +70,7 @@ class Routes
 
         $router->register(
             '/beheer/product/nieuw',
-            __DIR__ . '/../app/Views/beheer/beheer.product.nieuw.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.product.nieuw.view.php',
             'main.beheer.php',
             function () use ($session) {
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
@@ -86,7 +86,7 @@ class Routes
 
         $router->register(
             '/beheer/product/edit',
-            __DIR__ . '/../app/Views/beheer/beheer.product.edit.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.product.edit.view.php',
             'main.beheer.php',
             function () use ($session) {
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
@@ -102,7 +102,7 @@ class Routes
 
         $router->register(
             '/beheer/product/delete',
-            __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
             function () use ($session) {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -122,7 +122,7 @@ class Routes
 
         $router->register(
             '/beheer/upload/csv',
-            __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.upload.csv.view.php',
             'main.beheer.php',
             function () use ($session) {
                 // Hier wordt één verbinding aangemaakt. Als er een losse verbinding wordt gemaakt in de DAO,
@@ -141,7 +141,7 @@ class Routes
 
         $router->register(
             '/beheer/upload/csv/template',
-            __DIR__ . '/../app/Views/beheer/beheer.upload.csv.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.upload.csv.view.php',
             'main.beheer.php',
             function () use ($session) {
                 $controller = new \App\Controllers\UploadController($session);
@@ -151,7 +151,7 @@ class Routes
 
         $router->register(
             '/beheer/upload/afbeelding',
-            __DIR__ . '/../app/Views/beheer/beheer.upload.afb.view.php',
+            __DIR__ . '/../../app/Views/beheer/beheer.upload.afb.view.php',
             'main.beheer.php',
             function () use ($session) {
                 // Check of er met de request method POST is gewerkt.

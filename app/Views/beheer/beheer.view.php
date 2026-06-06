@@ -5,6 +5,7 @@ $pageTitle = 'Homepage';
 ?>
 
 <div class="main-container">
+  <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" class="homepageImg"/>
   <h1>Welkom<?= htmlspecialchars(" " . $voornaam) ?>!</h1>
 
   <div class="quickButtons">
