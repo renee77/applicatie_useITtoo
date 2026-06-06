@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'useITtoo' ?></title>
+    <title><?= $title ?? "useITtoo" ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/footer.css">
@@ -21,9 +21,10 @@
                         class="logo" alt="logo van useITtoo"></a>
             </nav>
 
-            <div id="search">
-                <input type="text" placeholder="Search....">
-            </div>
+            <form action="<?= BASE_URL ?>/zoeken" method="GET" id="search">
+                <input type="text" name="zoekterm" placeholder="Zoeken...">
+                <button type="submit" class="light-button">Zoeken</button>
+            </form>
             <div id="login">
                 <!-- Wrapper rond het login-icoon en dropdown, zodat de dropdown relatief 
                     hieraan gepositioneerd kan worden -->

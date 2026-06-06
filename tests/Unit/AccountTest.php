@@ -42,11 +42,11 @@ class AccountTest extends TestCase
         $this->assertEquals("TestAccount", $user);
     }
 
-    /*public function testConstructorSetsWachtwoord(): void
+    public function testConstructorSetsWachtwoordHash(): void
     {
-      $pass = $this->account->getWachtwoord();
-      $this->assertEquals("HashWachtwoord", $pass);
-    }*/
+        $hash = $this->account->getWachtwoordHash();
+        $this->assertEquals("HashWachtwoord", $hash);
+    }
 
     public function testConstructorSetsCreatedAt(): void
     {
