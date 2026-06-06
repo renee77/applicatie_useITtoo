@@ -1,4 +1,5 @@
 <?php
+
 /** @var \App\Models\Product $product */
 $imgUrl = htmlspecialchars(
     $product->getFotoUrl()
