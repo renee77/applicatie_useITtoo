@@ -65,87 +65,42 @@ $router->register(
     '/beheer/product',
     __DIR__ . '/../app/Views/beheer/beheer.product.overview.view.php',
     'main.beheer.php',
-    function () {
+    function () use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-
-        $zoekterm = trim($_GET['zoekterm'] ?? '');
-        if ($zoekterm !== '') {
-            $products = $dao->getProductByName($zoekterm);
-        } else {
-            $products = $dao->getAllProducts();
-        }
-        return [
-            'products' => $products,
-            'zoekterm' => $zoekterm
-        ];
-
+        $controller = new \App\Controllers\BeheerProductController($dao, $session);
+        return $controller->index();
     }
 );
+
 $router->register(
     '/beheer/product/nieuw',
     __DIR__ . '/../app/Views/beheer/beheer.product.nieuw.view.php',
     'main.beheer.php',
     function () use ($session) {
-        // POST request = formulier verstuurd
+        $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+        $controller = new \App\Controllers\BeheerProductController($dao, $session);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-
-            $product = new \App\Models\Product(
-                trim($_POST['naam']),
-                (float) $_POST['prijs'],
-                (float) $_POST['verkoop_gewicht'],
-                \App\Models\Eenheid::from($_POST['eenheid']),
-                trim($_POST['omschrijving']) ?: null,
-                trim($_POST['leverancier']) ?: null,
-                trim($_POST['foto_url']) ?: null,
-            );
-
-            $dao->addProduct($product);
-            // Sessiemelding aanmaken zodat er een melding kan worden getoond.
-            $session->setMelding("Het product {$product->getNaam()} is succesvol aangemaakt!") ;
-            header('Location: ' . BASE_URL . '/beheer/product');
-            exit;
+            $controller->createProduct();
         }
 
-        // GET = toon leeg formulier met eenheden voor de select
-        return [
-            'eenheden' => \App\Models\Eenheid::cases()
-        ];
+        return $controller->newProductForm();
     }
 );
+
 $router->register(
     '/beheer/product/edit',
     __DIR__ . '/../app/Views/beheer/beheer.product.edit.view.php',
     'main.beheer.php',
     function () use ($session) {
         $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-        $product_id = (int) ($_GET['id'] ?? 0);
+        $controller = new \App\Controllers\BeheerProductController($dao, $session);
 
-        // POST = formulier verstuurd, update uitvoeren
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product = new \App\Models\Product(
-                trim($_POST['naam']),
-                (float) $_POST['prijs'],
-                (float) $_POST['gewicht'],
-                \App\Models\Eenheid::from($_POST['eenheid']),
-                trim($_POST['omschrijving']) ?: null,
-                trim($_POST['leverancier']) ?: null,
-                trim($_POST['foto_url']) ?: null,
-                null,
-                // Hier wordt het id meegegeven, zodat updateProduct weet welk
-                // product moet worden geupdate.
-                $product_id
-            );
-
-            $dao->updateProduct($product);
-            $session->setMelding("Product succesvol bijgewerkt!");
-            header('Location: ' . BASE_URL . '/beheer/product');
-            exit;
+            $controller->updateProduct();
         }
-        return [
-            'product'  => $dao->getProductById($product_id),
-            'eenheden' => \App\Models\Eenheid::cases()
-        ];
+
+        return $controller->editProductForm();
     }
 );
 
@@ -156,12 +111,8 @@ $router->register(
     function () use ($session) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-            $product_id = (int) ($_POST['id'] ?? 0);
-
-            $dao->deleteProduct($product_id);
-            $session->setMelding("Product succesvol verwijderd!");
-            header('Location: ' . BASE_URL . '/beheer/product');
-            exit;
+            $controller = new \App\Controllers\BeheerProductController($dao, $session);
+            $controller->deleteProduct();
         }
     }
 );
