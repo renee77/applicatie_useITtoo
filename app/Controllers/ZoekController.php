@@ -49,4 +49,13 @@ class ZoekController
             }
         }
     }
+
+        // Verwijdert een zoekterm
+    public function delete(): void
+    {
+        $this->zoektermDao->verwijderZoekterm($_POST['zoekterm']);
+        $this->session->setMelding("Zoekterm succesvol verwijderd!");
+        header('Location: ' . BASE_URL . '/beheer/zoekterm');
+        exit;
+    }
 }

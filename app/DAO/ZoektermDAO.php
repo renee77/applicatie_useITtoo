@@ -63,4 +63,12 @@ class ZoektermDAO
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function verwijderZoekterm(string $zoekterm): void
+    {
+        $sql = "DELETE FROM zoekterm WHERE zoekterm = :zoekterm";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':zoekterm', $zoekterm);
+        $stmt->execute();
+    }
 }

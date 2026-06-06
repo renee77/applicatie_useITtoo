@@ -203,5 +203,19 @@ class Routes
                 ];
             }
         );
+
+        $router->register(
+            '/beheer/zoekterm/delete',
+            __DIR__ . '/../../app/Views/beheer/beheer.zoekterm.view.php',
+            'main.beheer.php',
+            function () use ($session) {
+                $controller = new \App\Controllers\ZoekController(
+                    new \App\DAO\ZoektermDAO(\App\Core\Database::getConnection()),
+                    new \App\DAO\ProductDAO(\App\Core\Database::getConnection()),
+                    $session
+                );
+                $controller->delete();
+            }
+        );
     }
 }

@@ -1,3 +1,7 @@
+<?php
+$currentPage = 'zoekterm';
+$pageTitle = 'Zoektermen';
+?>
 <h1>Zoektermen overzicht</h1>
 
 <?php $melding = $session->getMelding(); ?>
@@ -21,6 +25,17 @@
                 <tr>
                     <td><?= htmlspecialchars($zoekterm['zoekterm']) ?></td>
                     <td><?= $zoekterm['aantal'] ?></td>
+                        <td>
+                            <form method="POST" action="<?= BASE_URL ?>/beheer/zoekterm/delete">
+                                <input type="hidden" name="zoekterm" 
+                                value="<?= htmlspecialchars($zoekterm['zoekterm']) ?>">
+                                <button type="submit" class="deleteBtn changesBtn"
+                                        onclick="return confirm('Weet je zeker dat je \'
+                                        <?= htmlspecialchars($zoekterm['zoekterm']) ?>\' wilt verwijderen?')">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
