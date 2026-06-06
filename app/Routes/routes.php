@@ -61,19 +61,10 @@ class Routes
             '/beheer/product',
             __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
-            function () {
-                $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-
-                $zoekterm = trim($_GET['zoekterm'] ?? '');
-                if ($zoekterm !== '') {
-                    $products = $dao->getProductByName($zoekterm);
-                } else {
-                    $products = $dao->getAllProducts();
-                }
-                return [
-                    'products' => $products,
-                    'zoekterm' => $zoekterm
-                ];
+            function () use ($session) {
+                    $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+                    $controller = new \App\Controllers\BeheerProductController($dao, $session);
+                    return $controller->index();
             }
         );
 
@@ -82,28 +73,14 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.nieuw.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+                $controller = new \App\Controllers\BeheerProductController($dao, $session);
+
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-
-                    $product = new \App\Models\Product(
-                        trim($_POST['naam']),
-                        (float) $_POST['prijs'],
-                        (float) $_POST['verkoop_gewicht'],
-                        \App\Models\Eenheid::from($_POST['eenheid']),
-                        trim($_POST['omschrijving']) ?: null,
-                        trim($_POST['leverancier']) ?: null,
-                        trim($_POST['foto_url']) ?: null,
-                    );
-
-                    $dao->addProduct($product);
-                    $session->setMelding("Het product {$product->getNaam()} is succesvol aangemaakt!");
-                    header('Location: ' . BASE_URL . '/beheer/product');
-                    exit;
+                    $controller->createProduct();
                 }
 
-                return [
-                    'eenheden' => \App\Models\Eenheid::cases()
-                ];
+                return $controller->newProductForm();
             }
         );
 
@@ -113,37 +90,13 @@ class Routes
             'main.beheer.php',
             function () use ($session) {
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-                $product_id = (int) ($_GET['id'] ?? 0);
+                $controller = new \App\Controllers\BeheerProductController($dao, $session);
 
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $product = new \App\Models\Product(
-                        trim($_POST['naam']),
-                        (float) $_POST['prijs'],
-                        (float) $_POST['gewicht'],
-                        \App\Models\Eenheid::from($_POST['eenheid']),
-                        trim($_POST['omschrijving']) ?: null,
-                        trim($_POST['leverancier']) ?: null,
-                        trim($_POST['foto_url']) ?: null,
-                        null,
-                        $product_id
-                    );
-
-                    $dao->updateProduct($product);
-                    $session->setMelding("Product succesvol bijgewerkt!");
-                    header('Location: ' . BASE_URL . '/beheer/product');
-                    exit;
+                    $controller->updateProduct();
                 }
 
-                try {
-                    return [
-                        'product'  => $dao->getProductById($product_id),
-                        'eenheden' => \App\Models\Eenheid::cases()
-                    ];
-                } catch (\RuntimeException) {
-                    $session->setFout("Product niet gevonden.");
-                    header('Location: ' . BASE_URL . '/beheer/product');
-                    exit;
-                }
+                return $controller->editProductForm();
             }
         );
 
@@ -154,12 +107,8 @@ class Routes
             function () use ($session) {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-                    $product_id = (int) ($_POST['id'] ?? 0);
-
-                    $dao->deleteProduct($product_id);
-                    $session->setMelding("Product succesvol verwijderd!");
-                    header('Location: ' . BASE_URL . '/beheer/product');
-                    exit;
+                    $controller = new \App\Controllers\BeheerProductController($dao, $session);
+                    $controller->deleteProduct();
                 }
             }
         );
@@ -176,8 +125,12 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.upload.csv.view.php',
             'main.beheer.php',
             function () use ($session) {
+                // Hier wordt één verbinding aangemaakt. Als er een losse verbinding wordt gemaakt in de DAO,
+                // Zit de transactie en de DAO op twee verschillende verbndingen. Dit zou dus niet werken.
                 $db = \App\Core\Database::getConnection();
+                // Gaat alleen over de informatie die op moet worden opgehaald via de DB.
                 $dao = new \App\DAO\ProductDAO($db);
+                // Behandelt de logica op basis van de o.a. de DAO en database.
                 $controller = new \App\Controllers\UploadController($session, $dao, $db);
 
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -201,6 +154,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.upload.afb.view.php',
             'main.beheer.php',
             function () use ($session) {
+                // Check of er met de request method POST is gewerkt.
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $controller = new \App\Controllers\UploadController($session);
                     $controller->uploadImage();

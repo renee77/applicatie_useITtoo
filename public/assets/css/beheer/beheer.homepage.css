@@ -12,3 +12,7 @@
     padding-top: 3rem;
   }
 }
+
+.homepageImg {
+  max-width: 800px;
+}

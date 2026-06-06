@@ -1,13 +1,12 @@
 <?php
 
-$currentPage = '';
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= htmlspecialchars($pageTitle ?? 'Dashboard') ?> ||UseITtoo</title>
+  <title><?= htmlspecialchars($pageTitle ?? 'Dashboard') ?> || UseITtoo</title>
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/shared/style.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.homepage.css">
@@ -17,7 +16,7 @@ $currentPage = '';
 </head>
 <body>
   <header>
-    <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/>
+    <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/></a>
     <ul>
       <li class="navList">
         <a href="<?= BASE_URL ?>/beheer" class="navLinks <?= $currentPage === 'home' ? 'selected' : '' ?>">
