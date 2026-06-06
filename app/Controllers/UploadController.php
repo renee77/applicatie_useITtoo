@@ -18,10 +18,10 @@ class UploadController
     private function mistakeRedirect(string $bericht, string $pad): void
     {
     // Sla de foutmelding op in de sessie zodat de view hem kan tonen
-    $this->session->setFout($bericht);
+        $this->session->setFout($bericht);
     // Stuur de gebruiker terug naar de opgegeven pagina
-    header('Location: ' . BASE_URL . $pad);
-    exit;
+        header('Location: ' . BASE_URL . $pad);
+        exit;
     }
 
     public function handleCSVUpload(): void
@@ -30,7 +30,7 @@ class UploadController
             // 'error' is UPLOAD_ERR_OK (0) als alles goed is gegaan.
             // Anders is er iets misgegaan, bijv. bestand te groot of geen bestand.
         if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
-          $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/csv');    
+            $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/csv');
         }
 
             // Open het tijdelijke bestand dat PHP heeft aangemaakt via fopen (file open).
@@ -141,7 +141,7 @@ class UploadController
       // De $_FILES superglobal haalt ook errors binnen, dus deze registreert hij.
       // 0 Betekent geen fout.
         if ($bestand['error'] !== UPLOAD_ERR_OK) {
-            $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/afbeelding');    
+            $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/afbeelding');
         }
 
       // Hier wordt nog een extra check uitgevoerd of het geuploade bestand wel echt png/jpg/jpeg is.
