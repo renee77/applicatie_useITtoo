@@ -3,7 +3,7 @@
 $currentPage = '';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +37,8 @@ $currentPage = '';
       <li class="navList">
         <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">Rapportages</a>
       </li>
-      <a href="<?= BASE_URL ?>/logout" class="logOut navLinks">Log uit</a>
+      <li class="navList">
+        <a href="<?= BASE_URL ?>/logout" class="logOut navLinks">Log uit</a>
+      </li>
     </ul>
   </header>

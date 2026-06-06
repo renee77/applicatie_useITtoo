@@ -9,7 +9,7 @@
             </ul>
         </div>
 
-        <div id="newletter">
+        <div id="newsletter">
             <h3>Nieuwsbrief</h3>
 
             <p>Schrijf je in voor onze nieuwsbrief:</p>
