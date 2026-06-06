@@ -52,4 +52,15 @@ class ZoektermDAO
         $stmt->bindValue(':zoekterm', $zoekterm);
         $stmt->execute();
     }
+
+    public function getAlle(): array
+    {
+        $sql = "SELECT zoekterm, aantal 
+                FROM zoekterm 
+                ORDER BY aantal DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

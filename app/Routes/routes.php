@@ -188,5 +188,20 @@ class Routes
                 exit;
             }
         );
+
+
+        $router->register(
+            '/beheer/zoekterm',
+            __DIR__ . '/../../app/Views/beheer/beheer.zoekterm.view.php',
+            'main.beheer.php',
+            function () use ($session) {
+                $dao = new \App\DAO\ZoektermDAO(\App\Core\Database::getConnection());
+
+                return [
+                    'zoektermen' => $dao->getAlle(),
+                    'session'    => $session
+                ];
+            }
+        );
     }
 }
