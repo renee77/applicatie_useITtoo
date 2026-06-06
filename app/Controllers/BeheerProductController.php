@@ -12,7 +12,8 @@ class BeheerProductController
     public function __construct(
         private ProductDAO $dao,
         private SessionManager $session
-    ) {}
+    ) {
+    }
 
     public function index(): array
     {
