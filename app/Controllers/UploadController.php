@@ -26,12 +26,13 @@ class UploadController
 
     public function handleCSVUpload(): void
     {
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Controleer of het bestand correct is geüpload.
             // 'error' is UPLOAD_ERR_OK (0) als alles goed is gegaan.
             // Anders is er iets misgegaan, bijv. bestand te groot of geen bestand.
-        if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
+          if ($_FILES['csv_bestand']['error'] !== UPLOAD_ERR_OK) {
             $this->mistakeRedirect("Fout bij uploaden van bestand", '/beheer/upload/csv');
-        }
+          }
 
             // Open het tijdelijke bestand dat PHP heeft aangemaakt via fopen (file open).
             // r betekent read-only. Bestand wordt alleen ingelezen.
@@ -43,17 +44,19 @@ class UploadController
             // Houdt in de gaten hoeveel producten succesvol zijn aangemaakt.
             $aangemaakt = 0;
             // Houdt in de gaten hoeveel fouten er zijn geweest.
-            $fouten = 0;
+            $fouten = [];
+            // Signaleert bij welke rij we beginnen
+            $rijnummer = 2;
 
             // Transactie starten vóór de loop
         $this->db->beginTransaction();
 
-        try {
+        while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
           // Nu door alle CSV-rijen gaan lopen.
           // fgetcsv() leest één rij tegelijk en geeft een array terug.
           // Geef aan dat het max 1000 tekens is, en dat het scheidngsteken ',' is.
           // Als einde van het bestand is bereikt, krijgen we false.
-            while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
+            try {
                 // Voor elke rij wordt een Product gemaakt.
                     // Het is belangrijk dat de volgorde van CSV bestand klopt met de nummering.
                     // Anders wordt informatie bij verkeerde kolom geplaatst.
@@ -76,21 +79,48 @@ class UploadController
                     // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
                     $this->dao->addProduct($product);
                     $aangemaakt++;
-            }
+
 
                 // Alles gelukt, opslaan
                 $this->db->commit();
-        } catch (\Exception $e) {
-            // Als er een fout in de rij zit, wordt de alles teruggedraaid.
-            // Fout kan zijn, negatieve prijs, ongeldige eenheid, prijs als string oid..
+        } catch (\InvalidArgumentException $e) {
+            // Ongeldige productdata — negatieve prijs, naam te kort etc.
+            // Komt uit de validatie in het Product model
             $this->db->rollBack();
-            $fouten++;
+            $fouten[] = "Rij $rijnummer: ongeldige data — " . $e->getMessage();
+
+        } catch (\ValueError $e) {
+            // Ongeldige eenheid — waarde bestaat niet in de Eenheid enum
+            // Komt van Eenheid::from() als de waarde niet bekend is
+            $this->db->rollBack();
+            $fouten[] = "Rij $rijnummer: ongeldige eenheid '{$rij[3]}'";
+
+        } catch (\Exception $e) {
+            // Onverwachte fout — vang alles op wat hierboven niet is gevangen
+            $this->db->rollBack();
+            $fouten[] = "Rij $rijnummer: onverwachte fout — " . $e->getMessage();
         }
 
-            fclose($bestand);
-            $this->session->setMelding("$aangemaakt product(en) geïmporteerd, $fouten overgeslagen.");
-            header('Location: ' . BASE_URL . '/beheer/product');
-            exit;
+        $rijnummer++;
+    }
+
+    fclose($bestand);
+
+    // Stel de melding samen op basis van het resultaat
+    if (empty($fouten)) {
+        // Alles gelukt
+        $this->session->setMelding("$aangemaakt product(en) succesvol geïmporteerd.");
+    } else {
+        // Deels gelukt — toon hoeveel gelukt zijn en welke rijen mislukten
+        $foutMelding = "$aangemaakt product(en) geïmporteerd. "
+            . count($fouten) . " rij(en) overgeslagen:\n"
+            . implode("\n", $fouten);
+        $this->session->setFout($foutMelding);
+        }
+
+        header('Location: ' . BASE_URL . '/beheer/upload/csv');
+        exit;
+       }
     }
 
     public function sendCSVTemplate(): void
