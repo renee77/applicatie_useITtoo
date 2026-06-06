@@ -1,3 +1,14 @@
+/* Centreert het vlak verticaal in de beschikbare ruimte tussen header en footer */
+main:has(.start-keuze) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main:has(.start-keuze) .container {
+    width: 100%;
+}
+
 .start-keuze {
     display: flex;
     flex-direction: column;
@@ -9,38 +20,18 @@
     text-align: center;
     gap: 1.5rem;
     margin: 30px;
+    border: 0.05rem solid var(--dark-green);
+    border-radius: 5px;
+    box-shadow: 0 2px 6px var(--dark-green);
 
-}
+    h2 {
+        font-size: 1.1rem;
+        color: var(--orange);
+        font-weight: bold;
+        letter-spacing: 0.03em;
+    }
 
-
-.start-keuze h2 {
-    font-size: 1.125rem;
-    color: var(--orange);
-    font-weight: normal;
-    letter-spacing: 0.03em;
-}
-
-.start-keuze>p {
-    font-size: 1.125rem;
-    color: var(--dark-green);
-    opacity: 0.8;
-}
-
-.keuze-knoppen {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    justify-content: center;
-    margin-top: 0.5rem;
-
-
-    button {
-        min-width: 10rem;
-        min-height: 4rem;
-
-        a {
-            font-size: 1.125rem;
-            font-weight: bold;
-        }
+    img.logo {
+        width: 25%;
     }
 }

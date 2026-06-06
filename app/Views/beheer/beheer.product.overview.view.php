@@ -52,6 +52,3 @@ $pageTitle = 'Producten';
     <?php endforeach; ?>
   </tbody>
   </table>
-</main>
-</body>
-</html>
