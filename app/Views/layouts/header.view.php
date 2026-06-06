@@ -25,35 +25,44 @@
                 <input type="text" name="zoekterm" placeholder="Zoeken...">
                 <button type="submit" class="light-button">Zoeken</button>
             </form>
-            <div id="login">
-                <!-- Wrapper rond het login-icoon en dropdown, zodat de dropdown relatief 
-                    hieraan gepositioneerd kan worden -->
-                <div class="login-wrapper">
-                    <!-- Login icoon, altijd zichtbaar -->
-                    <img src="<?= BASE_URL ?>/assets/images/clickables/login-logo.png" id="loginLogo" alt="login logo">
+            <div id="header-right">
+                <div id="login">
+                    <!-- Wrapper rond het login-icoon en dropdown, zodat de dropdown relatief
+                        hieraan gepositioneerd kan worden -->
+                    <div class="login-wrapper">
+                        <!-- Login icoon, altijd zichtbaar -->
+                        <img src="<?= BASE_URL ?>/assets/images/clickables/login-logo.png" id="loginLogo" alt="login logo">
 
-                    <?php if ($session->isLoggedIn()) : ?>
-                        <!-- Klant is ingelogd: toon de dropdown met naam en uitlogknop -->
-                        <div class="login-dropdown">
-                            <!-- Voornaam ophalen uit de sessie en veilig tonen met htmlspecialchars -->
-                            <!-- htmlspecialchars voorkomt XSS: tekens zoals < > " 
-                             worden omgezet naar HTML-entiteiten -->
-                            <p>U bent ingelogd als <strong><?= htmlspecialchars($session->getVoornaam()) ?></strong></p>
-                    
-                            <!-- POST-formulier naar de logout route — verwijdert de sessie en redirect naar home -->
-                            <form action="<?= BASE_URL ?>/logout" method="POST">
-                                <button type="submit" class="light-button">Uitloggen</button>
-                            </form>
-                        </div>
-                    <?php else : ?>
-                        <!-- Klant is niet ingelogd: toon de gewone loginknop -->
-                        <button class="light-button login" aria-label="Log in bij je account">Login</button>
-                    <?php endif; ?>
+                        <?php if ($session->isLoggedIn()) : ?>
+                            <!-- Klant is ingelogd: toon de dropdown met naam en uitlogknop -->
+                            <div class="login-dropdown">
+                                <!-- Voornaam ophalen uit de sessie en veilig tonen met htmlspecialchars -->
+                                <!-- htmlspecialchars voorkomt XSS: tekens zoals < > "
+                                 worden omgezet naar HTML-entiteiten -->
+                                <p>U bent ingelogd als <strong><?= htmlspecialchars($session->getVoornaam()) ?></strong></p>
+
+                                <!-- POST-formulier naar de logout route — verwijdert de sessie en redirect naar home -->
+                                <form action="<?= BASE_URL ?>/logout" method="POST">
+                                    <button type="submit" class="light-button">Uitloggen</button>
+                                </form>
+                            </div>
+                        <?php else : ?>
+                            <!-- Klant is niet ingelogd: toon de gewone loginknop -->
+                            <button class="light-button login" aria-label="Log in bij je account">Login</button>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Winkelwagen icoon, staat buiten de login-wrapper zodat hij niet mee hoverd -->
+                    <img src="<?= BASE_URL ?>/assets/images/clickables/winkelwagen-lichtgroen.png"
+                        id="winkelwagenLogo" alt="winkelwagen logo">
                 </div>
-                    
-                <!-- Winkelwagen icoon, staat buiten de login-wrapper zodat hij niet mee hoverd -->
-                <img src="<?= BASE_URL ?>/assets/images/clickables/winkelwagen-lichtgroen.png" 
-                    id="winkelwagenLogo" alt="winkelwagen logo">
+
+                <!-- Hamburger knop: alleen zichtbaar op mobiel, vervangt de login/winkelwagen iconen -->
+                <button id="hamburger" type="button" aria-label="Menu openen" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
 

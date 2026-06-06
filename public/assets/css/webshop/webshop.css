@@ -127,12 +127,25 @@ section#shopBackground {
 
 /* ─── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+    /* Aanbiedingen: marge aan de zijkanten */
     #sales {
+        grid-template-columns: 1fr;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Shop: marge aan de zijkanten voor categorie-blokken */
+    #shop {
+        padding: 2rem 1rem;
+    }
+
+    /* Product tegels: één per rij */
+    #shop div.product_categorie div.product-grid {
         grid-template-columns: 1fr;
     }
 
-    #shop div.product_categorie div.product-grid {
-        grid-template-columns: repeat(3, 1fr);
+    /* Productpagina: marge aan de zijkanten */
+    #product {
+        padding: 0 1rem;
     }
 }
 
@@ -456,6 +469,95 @@ section#zoekresultatenBackground {
             span.hoeveelheid {
                 font-size: 0.85rem;
                 color: var(--dark-green);
+            }
+        }
+    }
+}
+
+/* Staand (portrait): tegels zoals webshop-grid */
+@media (max-width: 768px) and (orientation: portrait) {
+    #zoekresultaten {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    #zoekresultaten a.zoekresultaat-tegel {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .zoekresultaat-info {
+            padding: 0.4rem 0.5rem 0.1rem;
+
+            h3 {
+                font-size: 0.9rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
+                color: var(--dark-green);
+                margin: 0;
+            }
+
+            p.omschrijving {
+                display: none;
+            }
+        }
+
+        .zoekresultaat-prijs {
+            align-items: center;
+            padding: 0.1rem 0.5rem 0.75rem;
+
+            span.prijs {
+                font-size: 1rem;
+            }
+
+            span.hoeveelheid {
+                font-size: 0.75rem;
+            }
+        }
+    }
+}
+
+/* Liggend (landscape): foto rechts, prijs en gewicht links */
+@media (max-height: 500px) and (orientation: landscape) {
+    #zoekresultaten {
+        padding: 0 1rem;
+    }
+
+    #zoekresultaten a.zoekresultaat-tegel {
+        flex-direction: row-reverse;
+        gap: 1rem;
+        padding: 0.75rem;
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .zoekresultaat-info {
+            p.omschrijving {
+                display: none;
+            }
+        }
+
+        .zoekresultaat-prijs {
+            align-items: flex-start;
+            order: -1;
+
+            span.prijs {
+                font-size: 1.2rem;
             }
         }
     }

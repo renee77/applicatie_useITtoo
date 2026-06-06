@@ -1,3 +1,14 @@
+/* Centreert het vlak verticaal in de beschikbare ruimte tussen header en footer */
+main:has(.start-keuze) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main:has(.start-keuze) .container {
+    width: 100%;
+}
+
 .start-keuze {
     display: flex;
     flex-direction: column;
@@ -9,6 +20,9 @@
     text-align: center;
     gap: 1.5rem;
     margin: 30px;
+    border: 0.05rem solid var(--dark-green);
+    border-radius: 5px;
+    box-shadow: 0 2px 6px var(--dark-green);
 
     h2 {
         font-size: 1.1rem;

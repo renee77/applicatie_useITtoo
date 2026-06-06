@@ -1,3 +1,23 @@
+// Hamburger menu: toggle login/winkelwagen dropdown op mobiel
+const hamburger = document.getElementById("hamburger");
+if (hamburger) {
+  const loginMenu = document.getElementById("login");
+
+  hamburger.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isOpen = loginMenu.classList.toggle("open");
+    this.setAttribute("aria-expanded", isOpen);
+  });
+
+  // Sluit menu bij klik buiten de header
+  document.addEventListener("click", function (e) {
+    if (!hamburger.contains(e.target) && !loginMenu.contains(e.target)) {
+      loginMenu.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
 const loginOverlay = document.getElementById("loginOverlay");
 
 if (loginOverlay) {
