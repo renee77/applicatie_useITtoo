@@ -469,18 +469,6 @@ VALUES
 
 
 -- ============================================================
--- CONTACT_FORMULIER
--- account_id is nullable: ook niet-ingelogde bezoekers kunnen contact opnemen.
--- ============================================================
-INSERT INTO `contact_formulier` (`naam`, `email`, `bericht`, `account_id`)
-VALUES
-('Jan Vermeer',  'jan.vermeer@example.com', 'Ik had een vraag over mijn bestelling 1, wanneer wordt die geleverd?', 1),
-('Sara Jansen',  'sara.jansen@example.com', 'Zijn er ook seizoensabonnementen mogelijk?', 2),
-('Onbekende bezoeker', 'bezoeker@example.com', 'Hoe kan ik mij aanmelden als vrijwilligerspunt voor een afhaallocatie?', NULL),
-('Mark de Vries','mark.devries@example.com', 'Ik zou graag weten of jullie ook bulk orders accepteren voor horeca.', 3);
-
-
--- ============================================================
 -- ZOEKTERM
 -- Meest gezochte termen op het platform.
 -- ============================================================
