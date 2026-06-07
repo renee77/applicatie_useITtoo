@@ -30,8 +30,8 @@ $pageTitle = 'Zoektermen';
                                 <input type="hidden" name="zoekterm" 
                                 value="<?= htmlspecialchars($zoekterm['zoekterm']) ?>">
                                 <button type="submit" class="deleteBtn changesBtn"
-                                        onclick="return confirm('Weet je zeker dat je \'
-                                        <?= htmlspecialchars($zoekterm['zoekterm']) ?>\' wilt verwijderen?')">
+                                        onclick="return confirm('Weet je zeker dat je \'<?= 
+                                        htmlspecialchars($zoekterm['zoekterm']) ?>\' wilt verwijderen?')">
                                     Delete
                                 </button>
                             </form>
