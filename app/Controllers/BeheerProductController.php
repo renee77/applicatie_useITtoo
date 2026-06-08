@@ -18,12 +18,30 @@ class BeheerProductController
     public function index(): array
     {
         $zoekterm = trim($_GET['zoekterm'] ?? '');
+        // Zoekterm is ingevuld maar te kort — minimaal 2 tekens vereisen
+        // voorkomt ook dat een spatie als zoekterm wordt geaccepteerd
+        if (isset($_GET['zoek']) && $zoekterm === '') {
+            $this->session->setFout("Vul een zoekterm in om te zoeken.");
+            $products = $this->dao->getAllProducts();
+        } elseif ($zoekterm !== '') {
+            $products = $this->dao->getProductByName($zoekterm);
+
+            // Geef een melding als er geen resultaten zijn
+            if (empty($products)) {
+                $this->session->setFout("Geen producten gevonden voor '$zoekterm'.");
+            }
+        } else {
+            // Geen zoekterm — laad alle producten
+            $products = $this->dao->getAllProducts();
+        }
+
         $products = $zoekterm !== '' ? $this->dao->getProductByName($zoekterm)
             : $this->dao->getAllProducts();
 
         return [
             'products' => $products,
-            'zoekterm' => $zoekterm
+            'zoekterm' => $zoekterm,
+            'session' => $this->session
         ];
     }
 

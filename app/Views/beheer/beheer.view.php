@@ -9,8 +9,14 @@ $pageTitle = 'Homepage';
   <h1>Welkom<?= htmlspecialchars(" " . $voornaam) ?>!</h1>
 
   <div class="quickButtons">
-    <button href="#" class="light-button">Snel een nieuw product maken</button>
-    <button href="#" class="light-button">Snel een CSV Bestand uploaden</button>
-    <button href="#" class="light-button">Snel naar klantbestellingen</button>
+     <a class="orangeBtn" 
+          href="<?= BASE_URL ?>/beheer/product/nieuw">Snel een nieuw product maken
+    </a>
+    <a class="orangeBtn" 
+          href="<?= BASE_URL ?>/beheer/upload/csv">Snel een CSV Bestand uploaden
+    </a>
+    <a class="orangeBtn" 
+          href="<?= BASE_URL ?>/beheer/zoekterm">Snel naar zoektermen
+    </a>
   </div>
 </div>
