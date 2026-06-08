@@ -10,7 +10,19 @@ use PHPUnit\Framework\TestCase;
 
 class ContactFormulierDAOTest extends TestCase
 {
-    // Herbruikbare databaserij die fromDatabase() verwacht
+    /**
+     * Hulpmethode die een standaard databaserij aanmaakt zoals fromDatabase() die verwacht.
+     *
+     * array_merge combineert twee arrays. Als dezelfde sleutel in beide arrays voorkomt,
+     * wint de tweede array. Zo kun je in een test één veld aanpassen zonder de hele
+     * array opnieuw te schrijven:
+     *
+     *   $this->maakDatabaseRij(['email' => 'ongeldig@'])
+     *
+     * geeft de standaardrij terug maar met een ander e-mailadres.
+     *
+     * @param array $overschrijf Velden die afwijken van de standaardwaarden.
+     */
     private function maakDatabaseRij(array $overschrijf = []): array
     {
         return array_merge([
@@ -27,14 +39,23 @@ class ContactFormulierDAOTest extends TestCase
         ], $overschrijf);
     }
 
-    // --- contactFormulierOpslaan ---
+    // ---------------------------------------------------------------
+    // contactFormulierOpslaan
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat execute() wordt aangeroepen bij een formulier zonder optionele velden.
+     * We mocken PDO en PDOStatement zodat er geen echte databaseverbinding nodig is.
+     * Een mock vervangt een echt object door een nep-versie die we kunnen besturen in de test.
+     */
     public function testContactFormulierOpslaan(): void
     {
-        // Nep statement aanmaken en controleren dat execute() wordt aangeroepen
+        // createMock maakt een nep-PDOStatement aan.
+        // expects($this->once()) controleert dat execute() precies één keer wordt aangeroepen.
         $stmt = $this->createMock(PDOStatement::class);
         $stmt->expects($this->once())->method('execute');
 
+        // De nep-PDO geeft altijd het nep-statement terug bij prepare().
         $mockPdo = $this->createMock(PDO::class);
         $mockPdo->method('prepare')->willReturn($stmt);
 
@@ -44,6 +65,10 @@ class ContactFormulierDAOTest extends TestCase
         $dao->contactFormulierOpslaan($formulier);
     }
 
+    /**
+     * Controleert dat opslaan ook werkt als telefoonnummer en klant_id zijn ingevuld.
+     * Dit test het pad waarbij de nullable velden een waarde hebben in plaats van null.
+     */
     public function testContactFormulierOpslaanMetTelefoonnummerEnKlantId(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -59,11 +84,18 @@ class ContactFormulierDAOTest extends TestCase
         $dao->contactFormulierOpslaan($formulier);
     }
 
-    // --- getOpenFormulieren ---
+    // ---------------------------------------------------------------
+    // getOpenFormulieren
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat getOpenFormulieren() een array van ContactFormulier objecten teruggeeft.
+     * fetchAll() geeft twee ruwe rijen terug; de methode moet die omzetten via fromDatabase().
+     */
     public function testGetOpenFormulieren(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
+        // willReturn stuurt de opgegeven waarde terug wanneer fetchAll() wordt aangeroepen.
         $stmt->method('fetchAll')->willReturn([
             $this->maakDatabaseRij(),
             $this->maakDatabaseRij(['contact_formulier_id' => 2, 'email' => 'bob@example.com']),
@@ -76,10 +108,16 @@ class ContactFormulierDAOTest extends TestCase
 
         $resultaat = $dao->getOpenFormulieren();
 
+        // assertCount controleert dat er precies 2 objecten in de array zitten.
         $this->assertCount(2, $resultaat);
+        // assertInstanceOf controleert dat het eerste element een ContactFormulier object is.
         $this->assertInstanceOf(ContactFormulier::class, $resultaat[0]);
     }
 
+    /**
+     * Controleert dat getOpenFormulieren() een lege array teruggeeft als er geen resultaten zijn.
+     * Dit test het randgeval waarbij de database geen overeenkomende rijen heeft.
+     */
     public function testGetOpenFormulierenGeeftLegeArray(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -92,12 +130,19 @@ class ContactFormulierDAOTest extends TestCase
 
         $resultaat = $dao->getOpenFormulieren();
 
+        // assertIsArray controleert dat de return value een array is, ook als die leeg is.
         $this->assertIsArray($resultaat);
         $this->assertEmpty($resultaat);
     }
 
-    // --- getFormulierById ---
+    // ---------------------------------------------------------------
+    // getFormulierById
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat getFormulierById() een ContactFormulier object teruggeeft
+     * en dat de waarden correct worden ingeladen via fromDatabase().
+     */
     public function testGetFormulierById(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -114,10 +159,14 @@ class ContactFormulierDAOTest extends TestCase
         $this->assertEquals('Anna', $formulier->getVoornaam());
     }
 
+    /**
+     * Controleert dat getFormulierById() null teruggeeft als het id niet bestaat.
+     * fetch() geeft false terug bij geen resultaat — de methode moet dat opvangen.
+     */
     public function testGetFormulierByIdGeeftNull(): void
     {
-        // fetch() geeft false terug — id bestaat niet
         $stmt = $this->createMock(PDOStatement::class);
+        // false simuleert een lege databaseresultaat — het id bestaat niet.
         $stmt->method('fetch')->willReturn(false);
 
         $mockPdo = $this->createMock(PDO::class);
@@ -130,8 +179,15 @@ class ContactFormulierDAOTest extends TestCase
         $this->assertNull($formulier);
     }
 
-    // --- deleteContactFormulier ---
+    // ---------------------------------------------------------------
+    // deleteContactFormulier
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat de soft delete query wordt uitgevoerd.
+     * We controleren alleen dat execute() wordt aangeroepen — de SQL zelf
+     * wordt niet getest omdat we geen echte database hebben.
+     */
     public function testDeleteContactFormulier(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -144,8 +200,13 @@ class ContactFormulierDAOTest extends TestCase
         $dao->deleteContactFormulier(1);
     }
 
-    // --- setAfgehandeld ---
+    // ---------------------------------------------------------------
+    // setAfgehandeld
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat de afhandeling query wordt uitgevoerd.
+     */
     public function testSetAfgehandeld(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -158,8 +219,13 @@ class ContactFormulierDAOTest extends TestCase
         $dao->setAfgehandeld(1);
     }
 
-    // --- updateEmail ---
+    // ---------------------------------------------------------------
+    // updateEmail
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat het e-mailadres kan worden bijgewerkt.
+     */
     public function testUpdateEmail(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -172,8 +238,13 @@ class ContactFormulierDAOTest extends TestCase
         $dao->updateEmail(1, 'nieuw@example.com');
     }
 
-    // --- updateTelefoonnummer ---
+    // ---------------------------------------------------------------
+    // updateTelefoonnummer
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat het telefoonnummer kan worden bijgewerkt met een waarde.
+     */
     public function testUpdateTelefoonnummer(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -186,9 +257,12 @@ class ContactFormulierDAOTest extends TestCase
         $dao->updateTelefoonnummer(1, '0698765432');
     }
 
+    /**
+     * Controleert dat null een geldige waarde is voor telefoonnummer.
+     * Dit test het pad waarbij PDO::PARAM_NULL wordt gebruikt in bindValue().
+     */
     public function testUpdateTelefoonnummerMetNull(): void
     {
-        // telefoonnummer mag null zijn — controleer dat null ook werkt
         $stmt = $this->createMock(PDOStatement::class);
         $stmt->expects($this->once())->method('execute');
 
@@ -199,8 +273,14 @@ class ContactFormulierDAOTest extends TestCase
         $dao->updateTelefoonnummer(1, null);
     }
 
-    // --- getAllContactFormulieren ---
+    // ---------------------------------------------------------------
+    // getAllContactFormulieren
+    // ---------------------------------------------------------------
 
+    /**
+     * Controleert dat getAllContactFormulieren() alle niet-soft-deleted formulieren teruggeeft,
+     * inclusief formulieren die al zijn afgehandeld.
+     */
     public function testGetAllContactFormulieren(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
@@ -208,6 +288,7 @@ class ContactFormulierDAOTest extends TestCase
             $this->maakDatabaseRij(),
             $this->maakDatabaseRij([
                 'contact_formulier_id' => 2,
+                // afgehandeld_op is ingevuld — dit formulier is al behandeld maar nog zichtbaar
                 'afgehandeld_op'       => '2026-06-02 12:00:00',
             ]),
         ]);
@@ -223,6 +304,10 @@ class ContactFormulierDAOTest extends TestCase
         $this->assertInstanceOf(ContactFormulier::class, $resultaat[0]);
     }
 
+    /**
+     * Controleert dat getAllContactFormulieren() een lege array teruggeeft
+     * als er geen actieve formulieren in de database staan.
+     */
     public function testGetAllContactFormulierenLegeArrayTerug(): void
     {
         $stmt = $this->createMock(PDOStatement::class);
