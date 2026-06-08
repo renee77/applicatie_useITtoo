@@ -1,11 +1,17 @@
 <?php
 $melding = $session->getMelding();
+$fout = $session->getFout();
 $currentPage = 'product';
 $pageTitle = 'Producten';
 ?>
 <?php if (!empty($melding)) : ?>
     <div class="melding">
         <?= htmlspecialchars($melding) ?>
+    </div>
+<?php endif; ?>
+<?php if (!empty($fout)) : ?>
+    <div class="fout">
+        <?= htmlspecialchars($fout) ?>
     </div>
 <?php endif; ?>
   <h1>Alle Producten</h1>
