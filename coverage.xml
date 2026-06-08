@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780697210">
-  <project timestamp="1780697210" name="Clover Coverage">
+<coverage generated="1780911591">
+  <project timestamp="1780911591" name="Clover Coverage">
     <package name="App\DAO">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">
@@ -405,6 +405,66 @@
         <line num="64" type="stmt" count="1"/>
         <metrics loc="67" ncloc="61" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="21" coveredelements="21"/>
       </file>
+      <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/ContactFormulier.php">
+        <class name="App\Models\ContactFormulier" namespace="App\Models">
+          <metrics complexity="18" methods="16" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="38" elements="54" coveredelements="54"/>
+        </class>
+        <line num="37" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="23"/>
+        <line num="45" type="stmt" count="23"/>
+        <line num="46" type="stmt" count="23"/>
+        <line num="47" type="stmt" count="23"/>
+        <line num="48" type="stmt" count="23"/>
+        <line num="67" type="method" name="fromDatabase" visibility="public" complexity="3" crap="3" count="6"/>
+        <line num="73" type="stmt" count="6"/>
+        <line num="74" type="stmt" count="6"/>
+        <line num="75" type="stmt" count="6"/>
+        <line num="76" type="stmt" count="6"/>
+        <line num="77" type="stmt" count="6"/>
+        <line num="78" type="stmt" count="6"/>
+        <line num="79" type="stmt" count="6"/>
+        <line num="80" type="stmt" count="6"/>
+        <line num="85" type="stmt" count="6"/>
+        <line num="86" type="stmt" count="6"/>
+        <line num="87" type="stmt" count="6"/>
+        <line num="88" type="stmt" count="6"/>
+        <line num="93" type="stmt" count="6"/>
+        <line num="94" type="stmt" count="2"/>
+        <line num="95" type="stmt" count="4"/>
+        <line num="97" type="stmt" count="6"/>
+        <line num="98" type="stmt" count="1"/>
+        <line num="99" type="stmt" count="5"/>
+        <line num="104" type="stmt" count="6"/>
+        <line num="106" type="stmt" count="6"/>
+        <line num="113" type="method" name="getContactFormulierId" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="115" type="stmt" count="3"/>
+        <line num="118" type="method" name="getKlantId" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="120" type="stmt" count="3"/>
+        <line num="123" type="method" name="getVoornaam" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="125" type="stmt" count="2"/>
+        <line num="128" type="method" name="getAchternaam" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="130" type="stmt" count="2"/>
+        <line num="133" type="method" name="getEmail" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="135" type="stmt" count="3"/>
+        <line num="138" type="method" name="getTelefoonnummer" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="140" type="stmt" count="4"/>
+        <line num="143" type="method" name="getBericht" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="145" type="stmt" count="2"/>
+        <line num="148" type="method" name="getVerzondenOp" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="150" type="stmt" count="3"/>
+        <line num="153" type="method" name="getAfgehandeldOp" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="155" type="stmt" count="4"/>
+        <line num="158" type="method" name="getDeletedAt" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="160" type="stmt" count="3"/>
+        <line num="170" type="method" name="setAfgehandeldOp" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="172" type="stmt" count="1"/>
+        <line num="179" type="method" name="setDeletedAt" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="181" type="stmt" count="1"/>
+        <line num="187" type="method" name="setTelefoonnummer" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="189" type="stmt" count="1"/>
+        <line num="195" type="method" name="setEmail" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="197" type="stmt" count="1"/>
+        <metrics loc="200" ncloc="129" classes="1" methods="16" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="38" elements="54" coveredelements="54"/>
+      </file>
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Klant.php">
         <class name="App\Models\Klant" namespace="App\Models">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="16" coveredelements="16"/>
@@ -506,6 +566,6 @@
     <file name="/home/eva/htdocs/eindopdracht_jaar1/app/Models/Beheerdersrol.php">
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="11" loc="1047" ncloc="924" classes="9" methods="64" coveredmethods="64" conditionals="0" coveredconditionals="0" statements="377" coveredstatements="377" elements="441" coveredelements="441"/>
+    <metrics files="12" loc="1247" ncloc="1053" classes="10" methods="80" coveredmethods="80" conditionals="0" coveredconditionals="0" statements="415" coveredstatements="415" elements="495" coveredelements="495"/>
   </project>
 </coverage>
