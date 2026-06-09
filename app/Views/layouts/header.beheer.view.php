@@ -28,7 +28,8 @@
             Producten</a>
         </li>
         <li class="navList">
-          <a href="<?= BASE_URL ?>/beheer/zoekterm" class="navLinks <?= $currentPage == 'zoekterm' ? 'selected' : '' ?>" >
+          <a href="<?= BASE_URL ?>/beheer/zoekterm" 
+          class="navLinks <?= $currentPage == 'zoekterm' ? 'selected' : '' ?>" >
           Zoektermen</a>
         </li>
         <li class="navList">
