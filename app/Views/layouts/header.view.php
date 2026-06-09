@@ -1,3 +1,4 @@
+<?php $actieveTaal = $session->getLanguage(); ?>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -19,6 +20,13 @@
                 <a href="<?= BASE_URL ?>/" class="logo-link">
                     <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" 
                         class="logo" alt="logo van useITtoo"></a>
+                
+                <div class="lang-switcher">
+                    <a href="<?= BASE_URL ?>/lang/set?lang=nl"
+                    class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>
+                    <a href="<?= BASE_URL ?>/lang/set?lang=en"
+                    class="lang-btn <?= $actieveTaal === 'en' ? 'active' : '' ?>">EN</a>
+                </div>
             </nav>
 
             <form action="<?= BASE_URL ?>/zoeken" method="GET" id="search">
