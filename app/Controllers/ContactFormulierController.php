@@ -72,8 +72,7 @@ class ContactFormulierController
             $fouten[] = "Bericht is te kort, geef minimaal 4 letters in.";
         }
         if ($berichtLengte > 1000) {
-            $fouten[] = "Bericht is te lang, geef maximaal 1000 tekens in. 
-                        U heeft en er nu $berichtLengte ";
+            $fouten[] = "Bericht is te lang, uw bericht heeft $berichtLengte tekens. Geef maximaal 1000 tekens in.";
         }
 
 

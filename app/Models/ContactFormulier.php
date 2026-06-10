@@ -82,10 +82,11 @@ class ContactFormulier
         // MariaDB geeft timestamps terug als strings (bijv. "2024-01-15 10:30:00").
         // createFromFormat zet die string om naar een DateTime object op basis
         // van het opgegeven formaat: Y=jaar, m=maand, d=dag, H=uur, i=minuten, s=seconden.
-        $contactFormulier->verzonden_op = DateTime::createFromFormat(
-            'Y-m-d H:i:s',
-            $row['verzonden_op']
-        );
+        $verzonden = DateTime::createFromFormat('Y-m-d H:i:s', $row['verzonden_op']);
+        if ($verzonden === false) {
+            throw new \InvalidArgumentException("Ongeldige datumwaarde in de database: {$row['verzonden_op']}");
+        }
+        $contactFormulier->verzonden_op = $verzonden;
 
         // afgehandeld_op en deleted_at kunnen NULL zijn in de database.
         // We controleren dit eerst voordat we createFromFormat aanroepen,
