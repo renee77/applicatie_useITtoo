@@ -10,7 +10,7 @@ $session->start();
 $lang = $session->getLanguage();
 
 // Laad op basis hiervan het juiste taalbestand in.
-$GLOBALS['text'] = require __DIR__ . '/../../app/lang/' . $lang . '.php';
+$GLOBALS['text'] = require __DIR__ . '/../app/lang/' . $lang . '.php';
 
 $router = new \App\Core\Router($_ENV['APP_BASE_PATH'] ?? '', $session);
 

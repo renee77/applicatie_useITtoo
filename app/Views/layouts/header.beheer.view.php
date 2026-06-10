@@ -31,7 +31,7 @@ $actieveTaal = $session->getLanguage(); ?>
         </li>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/product" class="navLinks <?= $currentPage === 'product' ? 'selected' : '' ?>">
-            Producten</a>
+            <?= __('admin_header.products') ?></a>
         </li>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/zoekterm" 
