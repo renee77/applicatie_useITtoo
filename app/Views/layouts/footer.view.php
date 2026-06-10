@@ -3,26 +3,34 @@
         <div id="sitemap">
             <h3>Sitemap</h3>
             <ul>
-                <li><a href="<?= BASE_URL ?>/">Home</a></li>
-                <li><a href="<?= BASE_URL ?>/beheer">Beheerdersportaal</a></li>
-                <li><a href="<?= BASE_URL ?>/webshop">Webwinkel</a></li>
+                <li><a href="<?= BASE_URL ?>/">
+                    <?= __('footer.home') ?>
+                </a></li>
+                <li><a href="<?= BASE_URL ?>/beheer">
+                    <?= __('footer.admin_portal') ?>
+                </a></li>
+                <li><a href="<?= BASE_URL ?>/webshop">
+                    <?= __('footer.webshop') ?>
+                </a></li>
             </ul>
         </div>
 
         <div id="newsletter">
-            <h3>Nieuwsbrief</h3>
+            <h3><?= __('footer.newsletter') ?></h3>
 
-            <p>Schrijf je in voor onze nieuwsbrief:</p>
+            <p><?= __('footer.newsletter_subscribe') ?></p>
             <form id="newsletterForm">
-                <label for="newsletterEmail" class="invisible">E-mailadres voor nieuwsbrief</label>
+                <label for="newsletterEmail" class="invisible"><?= __('footer.newsletter_email') ?></label>
                 <input type="email" id="newsletterEmail" placeholder="Emailadres" name="email" required />
-                <button class="light-button" id="newsletter" type="submit">Inschrijven</button>
+                <button class="light-button" id="newsletter" type="submit">
+                    <?= __('footer.subscribe') ?>
+                </button>
             </form>
 
         </div>
 
         <div class="adress">
-            <h3>Adres & Contact</h3>
+            <h3><?= __('footer.address_header') ?></h3>
             <address>
                 useITtoo<br>
                 Hogeschoollaan 1<br>
@@ -30,12 +38,12 @@
                 Tel: 012-3456789
             </address>
             <p>Email: <a href="mailto:info@useitall.nl">info@useittoo.nl</a></p>
-            <button class="light-button contact">Neem nu contact op</button>
+            <button class="light-button contact"><?= __('footer.contact') ?></button>
         </div>
     </div>
     <div class="footer-bottom container">
         <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" alt="">
-        <p> © 2025, useITall. Alle rechten voorbehouden.</p>
+        <p> <?= __('footer.rights') ?></p>
     </div>
 </footer>
 

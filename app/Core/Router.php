@@ -124,7 +124,7 @@ class Router
             // Voer de handler uit (bijv. LanguageController::set())
             // Die slaat de taal op in de sessie en doet zelf header() + exit.
             ($this->actions[$path])();
-            return; 
+            return;
         }
         // Kijken of dat pad bekend is in $routes
         if (array_key_exists($path, $this->routes)) {

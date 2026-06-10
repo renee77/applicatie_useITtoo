@@ -224,7 +224,7 @@ class Routes
         // registerAction in plaats van register: geen view, geen layout.
         // De URL /lang/set?lang=en komt binnen, resolve() knipt de querystring af,
         // zodat $path uitkomt op '/lang/set' — en dat matcht deze registratie.
-        $router->registerAction('/lang/set', function() use ($languageController) {
+        $router->registerAction('/lang/set', function () use ($languageController) {
             // slaat taal op in sessie + redirect naar vorige pagina
             $languageController->set();
         });

@@ -27,7 +27,7 @@ $actieveTaal = $session->getLanguage(); ?>
       <ul>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer" class="navLinks <?= $currentPage === 'home' ? 'selected' : '' ?>">
-            Home</a>
+            <?= __('admin_header.home') ?></a>
         </li>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/product" class="navLinks <?= $currentPage === 'product' ? 'selected' : '' ?>">
@@ -36,17 +36,19 @@ $actieveTaal = $session->getLanguage(); ?>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/zoekterm" 
           class="navLinks <?= $currentPage == 'zoekterm' ? 'selected' : '' ?>" >
-          Zoektermen</a>
+          <?= __('admin_header.search_terms') ?></a>
         </li>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks <?= $currentPage === 'upload' ? 'selected' : '' ?>">
-            Uploaden</a>
+            <?= __('admin_header.upload') ?>
+        </a>
         </li>
         <li class="navList">
-          <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">Rapportages</a>
+          <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">
+            <?= __('admin_header.reports') ?></a>
         </li>
         <li class="navList">
-          <a href="<?= BASE_URL ?>/logout" class="logOut navLinks">Log uit</a>
+          <a href="<?= BASE_URL ?>/logout" class="logOut navLinks"><?= __('admin_header.logout') ?></a>
         </li>
       </ul>
     </nav>

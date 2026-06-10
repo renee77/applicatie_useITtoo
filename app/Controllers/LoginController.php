@@ -32,7 +32,7 @@ class LoginController
 
         // Maximaal 5 mislukte pogingen toestaan
         if ($this->session->getLoginPogingen() >= 5) {
-            $this->session->setFout('Te veel mislukte pogingen. Probeer het later opnieuw.');
+            $this->session->setFout(__('notifs.many_logins'));
             header('Location: ' . $redirect_terug);
             exit;
         }
@@ -40,7 +40,7 @@ class LoginController
         // Lege velden checken
         if ($gebruikersnaam === '' || $wachtwoord === '') {
             $this->session->incrementLoginPogingen();
-            $this->session->setFout('Vul je gebruikersnaam en wachtwoord in.');
+            $this->session->setFout(__('notifs.no_empty'));
             header('Location: ' . $redirect_terug);
             exit;
         }
@@ -51,7 +51,7 @@ class LoginController
         // Account bestaat niet
         if ($account === null) {
             $this->session->incrementLoginPogingen();
-            $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
+            $this->session->setFout(__('notifs.wrong_login'));
             header('Location: ' . $redirect_terug);
             exit;
         }
@@ -59,7 +59,7 @@ class LoginController
         // Controleer of het account niet verwijderd is
         if ($account->getDeletedAt() !== null) {
             $this->session->incrementLoginPogingen();
-            $this->session->setFout('Dit account is niet meer actief.');
+            $this->session->setFout(__('notifs.inactive_account'));
             header('Location: ' . $redirect_terug);
             exit;
         }
@@ -67,7 +67,7 @@ class LoginController
         // Wachtwoord controleren
         if (!$account->verifyPassword($wachtwoord)) {
             $this->session->incrementLoginPogingen();
-            $this->session->setFout('Ongeldige gebruikersnaam of wachtwoord.');
+            $this->session->setFout(__('notifs.invalid'));
             header('Location: ' . $redirect_terug);
             exit;
         }
@@ -103,7 +103,7 @@ class LoginController
                 // Type onbekend of null — veilig uitloggen en foutmelding tonen
                 $this->session->destroy();
                 $this->session->start();
-                $this->session->setFout('Je account heeft geen geldige rol. Neem contact op.');
+                $this->session->setFout(__('notifs.invalid_role'));
                 header('Location: ' . $redirect_terug);
                 exit;
         }

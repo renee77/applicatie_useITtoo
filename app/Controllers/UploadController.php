@@ -107,7 +107,7 @@ class UploadController
      // Stel de melding samen op basis van het resultaat
             if (empty($fouten)) {
                     // Alles gelukt
-                    $this->session->setMelding("$aangemaakt product(en) succesvol geïmporteerd.");
+                    $this->session->setMelding($aangemaakt + __('notifs.products_imported'));
             } else {
                    // Deels gelukt — toon hoeveel gelukt zijn en welke rijen mislukten
                    $foutMelding = "$aangemaakt product(en) geïmporteerd. "
@@ -212,7 +212,7 @@ class UploadController
             $this->mistakeRedirect("Fout bij opslaan van bestand", '/beheer/upload/afbeelding');
         }
 
-        $this->session->setMelding("Afbeelding succesvol geüpload!");
+        $this->session->setMelding(__('notifs.image_imported'));
         header('Location: ' . BASE_URL . '/beheer/upload/afbeelding');
         exit;
     }

@@ -1,8 +1,8 @@
 <?php
 $currentPage = 'zoekterm';
-$pageTitle = 'Zoektermen';
+$pageTitle = __('searches.page_title');
 ?>
-<h1>Zoektermen overzicht</h1>
+<h1><?= __('searches.title') ?></h1>
 
 <?php $melding = $session->getMelding(); ?>
 <?php if (!empty($melding)) : ?>
@@ -10,14 +10,14 @@ $pageTitle = 'Zoektermen';
 <?php endif; ?>
 
 <?php if (empty($zoektermen)) : ?>
-    <p>Er zijn nog geen zoektermen binnengekomen.</p>
+    <p><?= __('searches.empty_searches') ?></p>
 <?php else : ?>
     <table>
         <thead>
             <tr>
-                <th>Zoekterm</th>
-                <th>Aantal zoekopdrachten</th>
-                <th>Zoektermen verwijderen</th>
+                <th><?= __('searches.search') ?></th>
+                <th><?= __('searches.amount') ?></th>
+                <th><?= __('searches.delete') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +30,10 @@ $pageTitle = 'Zoektermen';
                                 <input type="hidden" name="zoekterm" 
                                 value="<?= htmlspecialchars($zoekterm['zoekterm']) ?>">
                                 <button type="submit" class="deleteBtn changesBtn"
-                                        onclick="return confirm('Weet je zeker dat je \'<?=
-                                        htmlspecialchars($zoekterm['zoekterm']) ?>\' wilt verwijderen?')">
-                                    Delete
+                                    onclick="
+                                    return 
+                                    confirm('<?= __('searches.conf') . htmlspecialchars($zoekterm['zoekterm']) ?>')">
+                                    <?= __('searches.delete_btn') ?>
                                 </button>
                             </form>
                         </td>

@@ -35,7 +35,7 @@ class ProductController
                 'product' => $this->productDAO->getProductById($product_id)
             ];
         } catch (\RuntimeException $e) {
-            $this->session->setFout("Product niet gevonden.");
+            $this->session->setFout(__('notifs.product_not_found'));
             header('Location: ' . BASE_URL . '/webshop');
             exit;
         }
