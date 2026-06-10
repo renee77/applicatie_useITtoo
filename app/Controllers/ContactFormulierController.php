@@ -11,7 +11,8 @@ class ContactFormulierController
     public function __construct(
         private ContactFormulierDAO $dao,
         private SessionManager $session
-    ) {}
+    ) {
+    }
 
     public function verwerkContactFormulier(): void
     {
