@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780926838">
-  <project timestamp="1780926838" name="Clover Coverage">
+<coverage generated="1781015232">
+  <project timestamp="1781015232" name="Clover Coverage">
     <package name="App\DAO">
       <file name="/home/eva/htdocs/eindopdracht_jaar1/app/DAO/AccountDAO.php">
         <class name="App\DAO\AccountDAO" namespace="App\DAO">

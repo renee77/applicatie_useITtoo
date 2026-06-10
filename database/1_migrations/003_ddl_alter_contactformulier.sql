@@ -4,7 +4,7 @@
 -- voornaam, achternaam, telefoonnummer en afgehandeld_op.
 -- Foreign key verwijst naar klant in plaats van account.
 -- ============================================================
-
+USE useITtooApplicatieDB;
 DROP TABLE IF EXISTS `contact_formulier`;
 
 CREATE TABLE `contact_formulier` (

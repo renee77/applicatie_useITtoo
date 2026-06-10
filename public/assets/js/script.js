@@ -54,3 +54,47 @@ if (loginOverlay) {
     loginOverlay.style.display = "flex";
   }
 }
+
+const contactOverlay = document.getElementById("contactOverlay");
+
+if (contactOverlay) {
+  // Klik op de "Neem nu contact op" knop in de footer opent de contact popup
+  const contactBtn = document.querySelector("button.contact");
+  if (contactBtn) {
+    contactBtn.addEventListener("click", function () {
+      contactOverlay.style.display = "flex";
+    });
+  }
+
+  // Klik op de sluitknop (×) sluit de contact popup en maakt alle velden leeg,
+  // zodat bij heropenen geen oude data of foutmeldingen meer zichtbaar zijn
+  document.getElementById("contactClose").addEventListener("click", function () {
+    contactOverlay.style.display = "none";
+
+    // Alle tekstvelden leegmaken (hidden velden zoals redirect_to blijven intact)
+    contactOverlay.querySelectorAll("input:not([type='hidden']), textarea").forEach(function (field) {
+      field.value = "";
+    });
+
+    // Foutmeldingen verbergen
+    const foutmelding = contactOverlay.querySelector(".contact-popup__error");
+    if (foutmelding) {
+      foutmelding.style.display = "none";
+    }
+  });
+
+  // Als er een foutmelding in de contactpopup staat, open de popup automatisch
+  // zodat de gebruiker de foutmelding direct ziet na een mislukte verzendpoging
+  if (document.querySelector(".contact-popup__error")) {
+    contactOverlay.style.display = "flex";
+  }
+}
+
+const meldingBanner = document.getElementById("meldingBanner");
+
+if (meldingBanner) {
+  // Klik op de sluitknop verbergt de succesmelding
+  meldingBanner.querySelector(".melding-banner__sluit").addEventListener("click", function () {
+    meldingBanner.style.display = "none";
+  });
+}

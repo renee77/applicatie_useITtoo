@@ -2,15 +2,10 @@
 $title = 'Zoekpagina';
 
 /** @var \App\Models\Product[] $producten */
-
-$melding = $session->getMelding();
 ?>
 
 <section id="zoekresultatenBackground">
     <div id="zoekresultaten" class="container">
-        <?php if (!empty($melding)) : ?>
-            <div class="melding"><?= htmlspecialchars($melding) ?></div>
-        <?php endif; ?>
         <?php if (!empty($producten)) : ?>
             <?php foreach ($producten as $product) : ?>
                 <a href="<?= BASE_URL ?>/webshop/<?= $product->getId() ?>-<?=

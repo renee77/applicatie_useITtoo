@@ -1,4 +1,5 @@
 <?php
+
 /** @var \App\Models\Product $product */
 
 $title = htmlspecialchars($product->getNaam()); ?>
@@ -8,19 +9,16 @@ $title = htmlspecialchars($product->getNaam()); ?>
 
         <div class="product-header">
             <h1><?= htmlspecialchars($product->getNaam()) ?></h1>
-            <p class="product-subtitle">
-                <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
-            </p>
         </div>
 
         <div class="product-afbeelding">
             <img src="<?= htmlspecialchars(
-                $product->getFotoUrl()
-                            ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
-                            : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
-            ) ?>"
-                 alt="<?= htmlspecialchars($product->getNaam()) ?>"
-                 onerror="this.src='<?= BASE_URL ?>/assets/images/products/useITtoo_placeholder.png'">
+                            $product->getFotoUrl()
+                                ? BASE_URL . '/assets/images/products/' . $product->getFotoUrl()
+                                : BASE_URL . '/assets/images/products/useITtoo_placeholder.png'
+                        ) ?>"
+                alt="<?= htmlspecialchars($product->getNaam()) ?>"
+                onerror="this.src='<?= BASE_URL ?>/assets/images/products/useITtoo_placeholder.png'">
             <div class="product-koop">
                 <div class="product-prijs-info">
                     <span class="prijs">€<?= number_format($product->getPrijs(), 2, ',', '.') ?></span>
