@@ -4,9 +4,9 @@ $contactFout = $session->getContactFout();
 $oudContactFormulier = $session->getInvoerFormulier();
 $melding = $session->getMelding();
 ?>
-<?php include __DIR__ . '/header.view.php'; ?>
-<?php include __DIR__ . '/../webshop/klant.login.view.php'; ?>
-<?php include __DIR__ . '/../webshop/contact.view.php'; ?>
+<?php require_once __DIR__ . '/header.view.php'; ?>
+<?php require_once __DIR__ . '/../webshop/klant.login.view.php'; ?>
+<?php require_once __DIR__ . '/../webshop/contact.view.php'; ?>
 <main>
     <?php if (!empty($melding)) : ?>
         <div class="melding-banner" id="meldingBanner">
@@ -20,4 +20,4 @@ $melding = $session->getMelding();
     <?= $content ?? '' ?>
     </div>
 </main>
-<?php include __DIR__ . '/footer.view.php'; ?>
+<?php require_once __DIR__ . '/footer.view.php'; ?>

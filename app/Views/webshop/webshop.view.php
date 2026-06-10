@@ -27,7 +27,7 @@ $title = __('webshop.title'); ?>
             <h2><?= __('webshop.vegetables') ?></h2>
             <div class="product-grid">
                 <?php foreach ($groenten as $product) : ?>
-                    <?php include __DIR__ . '/_product_tile.view.php'; ?>
+                    <?php require __DIR__ . '/_product_tile.view.php'; ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -35,7 +35,7 @@ $title = __('webshop.title'); ?>
             <h2><?= __('webshop.fruit') ?></h2>
             <div class="product-grid">
                 <?php foreach ($fruit as $product) : ?>
-                    <?php include __DIR__ . '/_product_tile.view.php'; ?>
+                    <?php require __DIR__ . '/_product_tile.view.php'; ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -43,7 +43,7 @@ $title = __('webshop.title'); ?>
             <h2><?= __('webshop.longer_shelf_life') ?></h2>
             <div class="product-grid">
                 <?php foreach ($houdbaar as $product) : ?>
-                    <?php include __DIR__ . '/_product_tile.view.php'; ?>
+                    <?php require __DIR__ . '/_product_tile.view.php'; ?>
                 <?php endforeach; ?>
             </div>
         </div>

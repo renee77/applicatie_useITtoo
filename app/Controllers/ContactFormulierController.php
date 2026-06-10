@@ -11,8 +11,7 @@ class ContactFormulierController
     public function __construct(
         private ContactFormulierDAO $dao,
         private SessionManager $session
-    ) {
-    }
+    ) {}
 
     public function verwerkContactFormulier(): void
     {
@@ -24,6 +23,7 @@ class ContactFormulierController
         $telefoonnummer = trim($_POST['telefoonnummer'] ?? '');
         // Telefoonnummer strippen — alle tekens die geen cijfer zijn worden verwijderd.
         // Zo wordt bijvoorbeeld "013-456 44" automatisch "01345644" voordat we valideren.
+        // @phpcs:ignore — [^0-9] bewust gekozen boven \D voor leesbaarheid
         $telefoonnummer = preg_replace('/[^0-9]/', '', $telefoonnummer);
 
 
@@ -46,35 +46,7 @@ class ContactFormulierController
             $redirect_terug = BASE_URL . '/webshop';
         }
 
-        // Valideren
-        // voornaam — verplicht, minimaal 2 tekens
-        if ($voornaam === '' || strlen($voornaam) < 2) {
-            $fouten[] = "Voornaam moet minimaal 2 tekens hebben.";
-        }
-        // achternaam — verplicht, minimaal 2 tekens
-        if ($achternaam === '' || strlen($achternaam) < 2) {
-            $fouten[] = "Achternaam moet minimaal 2 tekens hebben.";
-        }
-        // email — verplicht, geldig formaat
-        // FILTER_VALIDATE_EMAIL controleert op het patroon tekst@tekst.tekst
-        // filter_var met FILTER_VALIDATE_EMAIL geeft het e-mailadres terug als het geldig is,
-        // en false als het ongeldig is. Met ! zeg je dus "als het e-mailadres ongeldig is"
-        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $fouten[] = "Vul een geldig e-mailadres in.";
-        }
-        // telefoonnummer — optioneel, maximaal 10 cijfers
-        if ($telefoonnummer !== '' && strlen($telefoonnummer) !== 10) {
-            $fouten[] = "Ongeldig telefoonnummer, voer een nummer met 10 getallen in.";
-        }
-        // bericht — verplicht, minimaal 4 tekens, maximaal 1000 tekens
-        $berichtLengte = strlen($bericht);
-        if ($berichtLengte < 4) {
-            $fouten[] = "Bericht is te kort, geef minimaal 4 letters in.";
-        }
-        if ($berichtLengte > 1000) {
-            $fouten[] = "Bericht is te lang, uw bericht heeft $berichtLengte tekens. Geef maximaal 1000 tekens in.";
-        }
-
+        $fouten = $this->valideerInvoer($voornaam, $achternaam, $email, $telefoonnummer, $bericht);
 
         // Bij fouten → fout in sessie zetten + redirect terug naar referer
         // Als er fouten zijn, alle foutmeldingen samenvoegen tot één string gescheiden door '|'
@@ -114,5 +86,47 @@ class ContactFormulierController
             header('Location: ' . $redirect_terug);
             exit;
         }
+    }
+
+    // Valideert de invoer van het contactformulier en geeft een array van foutmeldingen terug.
+    // Een lege array betekent dat alle velden geldig zijn.
+    private function valideerInvoer(
+        string $voornaam,
+        string $achternaam,
+        string $email,
+        string $telefoonnummer,
+        string $bericht
+    ): array {
+        $fouten = [];
+
+        // voornaam — verplicht, minimaal 2 tekens
+        if ($voornaam === '' || strlen($voornaam) < 2) {
+            $fouten[] = "Voornaam moet minimaal 2 tekens hebben.";
+        }
+        // achternaam — verplicht, minimaal 2 tekens
+        if ($achternaam === '' || strlen($achternaam) < 2) {
+            $fouten[] = "Achternaam moet minimaal 2 tekens hebben.";
+        }
+        // email — verplicht, geldig formaat
+        // FILTER_VALIDATE_EMAIL controleert op het patroon tekst@tekst.tekst
+        // filter_var met FILTER_VALIDATE_EMAIL geeft het e-mailadres terug als het geldig is,
+        // en false als het ongeldig is. Met ! zeg je dus "als het e-mailadres ongeldig is"
+        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $fouten[] = "Vul een geldig e-mailadres in.";
+        }
+        // telefoonnummer — optioneel, maximaal 10 cijfers
+        if ($telefoonnummer !== '' && strlen($telefoonnummer) !== 10) {
+            $fouten[] = "Ongeldig telefoonnummer, voer een nummer met 10 getallen in.";
+        }
+        // bericht — verplicht, minimaal 4 tekens, maximaal 1000 tekens
+        $berichtLengte = strlen($bericht);
+        if ($berichtLengte < 4) {
+            $fouten[] = "Bericht is te kort, geef minimaal 4 letters in.";
+        }
+        if ($berichtLengte > 1000) {
+            $fouten[] = "Bericht is te lang, uw bericht heeft $berichtLengte tekens. Geef maximaal 1000 tekens in.";
+        }
+
+        return $fouten;
     }
 }
