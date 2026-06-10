@@ -22,6 +22,7 @@
             <!-- Core klassen worden niet unit getest, dit zijn infrastructuur klassen -->
             <directory>app/Views</directory>
             <directory>app/Core</directory>
+            <directory>app/lang</directory>
             <directory>app/Controllers</directory>
             <file>app/Routes/routes.php</file>
         </exclude>
