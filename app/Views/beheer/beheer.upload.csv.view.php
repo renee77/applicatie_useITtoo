@@ -1,11 +1,11 @@
 <?php
 
 $currentPage = 'upload';
-$pageTitle = 'Uploaden';
+$pageTitle = __('upload_csv.header_title');
 ?>
-<h1>Upload hier je CSV-bestand</h1>
-<h3>Belangrijke informatie!</h3>
-<p>Om het CSV-bestand goed te kunnen verwerken, moet de tekst in het bestand als volgt worden ingestuurd:</p>
+<h1><?= __('upload_csv.title') ?></h1>
+<h3><?= __('upload_csv.important') ?></h3>
+<p><?= __('upload_csv.text') ?></p>
 
 <pre>
   naam,prijs,verkoop_gewicht,eenheid,omschrijving,leverancier,foto_url
@@ -13,8 +13,8 @@ $pageTitle = 'Uploaden';
   Appel,1.49,2,kg,Verse appels, Boer Anna uit Breda,appel
 </pre>
 
-<p>Als dit niet op deze manier wordt geupload, <strong>wordt de rij niet verwerkt!</strong></p>
-<p>De volgende eenheden kunnen worden gebruikt:</p>
+<p><?= __('upload_csv.warning_conditions') ?></p>
+<p><?= __('upload_csv.units') ?></p>
 <ul>
   <li class="list_eenheden">kg</li>
   <li class="list_eenheden">gr</li>
@@ -29,12 +29,14 @@ action="<?= BASE_URL ?>/beheer/upload/csv"
 enctype="multipart/form-data"
 class="csv-form">
   <input type="file" name="csv_bestand" accept=".csv" class="csv-input" required>
-  <button type="submit" class="orangeBtn uploadBtn">Uploaden</button>
+  <button type="submit" class="orangeBtn uploadBtn"><?= __('upload_csv.upload') ?></button>
 </form>
 
 <section class="downloadTemplate">
-  <p>Mocht je willen, kun je hieronder een CSV-voorbeeld downloaden, met de juiste kolommen!</p>
+  <p>
+    <?= __('upload_csv.download_text') ?>
+  </p>
   <a href="<?= BASE_URL ?>/beheer/upload/csv/template" id="templateDownloader">
-      Download CSV template
+      <?= __('upload_csv.download_link') ?>
   </a>
 </section>

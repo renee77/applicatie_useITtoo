@@ -26,18 +26,20 @@ $title = htmlspecialchars($product->getNaam()); ?>
                         <?= $product->getVerkoopGewicht() ?> <?= $product->getEenheid()->value ?>
                     </span>
                 </div>
-                <button class="orange-button">Koop nu</button>
+                <button class="orange-button">
+                    <?= __('product.buy_now') ?>
+                </button>
             </div>
         </div>
 
         <div class="product-details">
             <?php if ($product->getOmschrijving()) : ?>
-                <h3>Beschrijving</h3>
+                <h3><?= __('product.description') ?></h3>
                 <p><?= htmlspecialchars($product->getOmschrijving()) ?></p>
             <?php endif; ?>
 
             <?php if ($product->getLeverancier()) : ?>
-                <h3>Herkomst</h3>
+                <h3><?= __('product.origin') ?></h3>
                 <p><?= htmlspecialchars($product->getLeverancier()) ?></p>
             <?php endif; ?>
         </div>

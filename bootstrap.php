@@ -38,6 +38,7 @@ error_reporting(E_ALL);
 //    een ander .env bestand of een extra opstapstap — alleen
 //    dit bestand aan te passen.
 // ============================================================
+require_once __DIR__ . '/app/Core/Helpers.php';
 
 // Activeer de Composer-autoloader.
 // Alle klassen in vendor/ en app/ zijn hierna automatisch

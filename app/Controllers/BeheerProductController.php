@@ -21,14 +21,14 @@ class BeheerProductController
         // Zoekterm is ingevuld maar te kort — minimaal 2 tekens vereisen
         // voorkomt ook dat een spatie als zoekterm wordt geaccepteerd
         if (isset($_GET['zoek']) && $zoekterm === '') {
-            $this->session->setFout("Vul een zoekterm in om te zoeken.");
+            $this->session->setFout(__('notifs.no_search'));
             $products = $this->dao->getAllProducts();
         } elseif ($zoekterm !== '') {
             $products = $this->dao->getProductByName($zoekterm);
 
             // Geef een melding als er geen resultaten zijn
             if (empty($products)) {
-                $this->session->setFout("Geen producten gevonden voor '$zoekterm'.");
+                $this->session->setFout(__('notifs.no_products') + $zoekterm);
             }
         } else {
             // Geen zoekterm — laad alle producten
@@ -65,7 +65,7 @@ class BeheerProductController
         );
 
         $this->dao->addProduct($product);
-        $this->session->setMelding("Het product {$product->getNaam()} is succesvol aangemaakt!");
+        $this->session->setMelding(__('notifs.product_made'));
         header('Location: ' . BASE_URL . '/beheer/product');
         exit;
     }
@@ -97,7 +97,7 @@ class BeheerProductController
         );
 
         $this->dao->updateProduct($product);
-        $this->session->setMelding("Product succesvol bijgewerkt!");
+        $this->session->setMelding(__('notifs.product_updated'));
         header('Location: ' . BASE_URL . '/beheer/product');
         exit;
     }
@@ -106,7 +106,7 @@ class BeheerProductController
     {
         $product_id = (int) ($_POST['id'] ?? 0);
         $this->dao->deleteProduct($product_id);
-        $this->session->setMelding("Product succesvol verwijderd!");
+        $this->session->setMelding(__('notifs.product_deleted'));
         header('Location: ' . BASE_URL . '/beheer/product');
         exit;
     }

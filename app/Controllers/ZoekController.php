@@ -24,7 +24,7 @@ class ZoekController
         $zoekterm = trim(htmlspecialchars($_GET['zoekterm'] ?? '')) ;
         // Valideer — leeg of alleen spaties → flash melding "voer een geldige zoekterm in", niet opslaan, stop
         if ($zoekterm === '') {
-            $this->session->setMelding("Voer een geldige zoekterm in");
+            $this->session->setMelding(__('notifs.valid_search'));
             return [];
         }
         // Producten gevonden: Roep ProductDAO::zoekProducten(string $term) aan
@@ -36,7 +36,7 @@ class ZoekController
         } else {
             // Geen producten gevonden:
             // Zet flash melding via SessionManager
-            $this->session->setMelding("Geen producten gevonden");
+            $this->session->setMelding(__('notifs.no_products_found'));
             // Check via ZoektermDAO::bestaatZoekterm() of term al bestaat
             if ($this->zoektermDao->bestaatZoekterm($zoekterm)) {
                 // Ja → ZoektermDAO::verhoogAantal()
@@ -48,5 +48,14 @@ class ZoekController
                 return [];
             }
         }
+    }
+
+        // Verwijdert een zoekterm
+    public function delete(): void
+    {
+        $this->zoektermDao->verwijderZoekterm($_POST['zoekterm']);
+        $this->session->setMelding(__('notifs.search_deleted'));
+        header('Location: ' . BASE_URL . '/beheer/zoekterm');
+        exit;
     }
 }
