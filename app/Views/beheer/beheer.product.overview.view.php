@@ -2,7 +2,7 @@
 $melding = $session->getMelding();
 $fout = $session->getFout();
 $currentPage = 'product';
-$pageTitle = 'Producten';
+$pageTitle = __('admin_product_overview.page_title');
 ?>
 <?php if (!empty($melding)) : ?>
     <div class="melding">
@@ -14,24 +14,30 @@ $pageTitle = 'Producten';
         <?= htmlspecialchars($fout) ?>
     </div>
 <?php endif; ?>
-  <h1>Alle Producten</h1>
+  <h1><?= __('admin_product_overview.title') ?></h1>
   <a href="<?= BASE_URL ?>/beheer/product/nieuw" class="orangeBtn toNewLink">
-    Nieuw Product aanmaken
+    <?= __('admin_product_overview.new_product') ?>
   </a>
   <form id="search" method="GET" action="<?= BASE_URL ?>/beheer/product">
     <input name="zoekterm" type="text" value="<?= htmlspecialchars($zoekterm ?? '') ?>" 
-    placeholder="Typ de productnaam in." class="searchbar">
+    placeholder="<?= __('admin_product_overview.type_name') ?>" class="searchbar">
     <input type="Submit" value="Zoeken" class="orangeBtn btn" />
   </form>
 
   <table>
     <thead>
-      <th class="tableName">Naam</th>
-      <th class="tablePrice">Prijs</th>
-      <th class="tableSupplier">Leverancier</th>
-      <th class="tableWeight">Gewicht</th>
-      <th class="tableDescription">Omschrijving</th>
-      <th class="tableLink">Wijzigen</th>
+      <th class="tableName">
+        <?= __('admin_product_overview.name') ?>
+      </th>
+      <th class="tablePrice">
+        <?= __('admin_product_overview.price') ?>
+      </th>
+      <th class="tableSupplier">
+        <?= __('admin_product_overview.supplier') ?>
+      </th>
+      <th class="tableWeight"><?= __('admin_product_overview.weight') ?></th>
+      <th class="tableDescription"><?= __('admin_product_overview.description') ?></th>
+      <th class="tableLink"><?= __('admin_product_overview.edit_label') ?></th>
     </thead>
     <tbody>
     <?php foreach ($products as $product) : ?>
@@ -43,14 +49,17 @@ $pageTitle = 'Producten';
         <td><?= htmlspecialchars($product->getOmschrijving() ?? '—') ?></td>
         <td>
           <a class="orangeBtn changesBtn" 
-          href="<?= BASE_URL ?>/beheer/product/edit?id=<?= $product->getId() ?>">Edit</a>
+          href="<?= BASE_URL ?>/beheer/product/edit?id=<?= $product->getId() ?>">
+          <?= __('admin_product_overview.edit') ?>
+        </a>
           <form method="POST" action="<?= BASE_URL ?>/beheer/product/delete"
           class="deleteBtn changesBtn">
             <input type="hidden" name="id" value="<?= $product->getId() ?>">
             <button type="submit" class="deleteBtn changesBtn" 
                     onclick="return confirm(
-                    'Weet je zeker dat je <?= htmlspecialchars($product->getNaam()) ?> wilt verwijderen?')">
-                Delete
+                    '<?= __('admin_product_overview.delete_confirm') ?>
+                    <?= htmlspecialchars($product->getNaam()) ?>')">
+                <?= __('admin_product_overview.delete') ?>
             </button>
         </form>
         </td>

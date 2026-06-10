@@ -1,3 +1,4 @@
+<?php $actieveTaal = $session->getLanguage(); ?>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -18,12 +19,20 @@
             <nav>
                 <a href="<?= BASE_URL ?>/" class="logo-link">
                     <img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" 
-                        class="logo" alt="logo van useITtoo"></a>
+                        class="logo" alt="<?= __('header.alt_logo') ?>">
+                    </a>
+                
+                <div class="lang-switcher">
+                    <a href="<?= BASE_URL ?>/lang/set?lang=nl"
+                    class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>
+                    <a href="<?= BASE_URL ?>/lang/set?lang=en"
+                    class="lang-btn <?= $actieveTaal === 'en' ? 'active' : '' ?>">EN</a>
+                </div>
             </nav>
 
             <form action="<?= BASE_URL ?>/zoeken" method="GET" id="search">
-                <input type="text" name="zoekterm" placeholder="Zoeken...">
-                <button type="submit" class="light-button">Zoeken</button>
+                <input type="text" name="zoekterm" placeholder="<?= __('header.search_value') ?>">
+                <button type="submit" class="light-button"><?= __('header.search') ?></button>
             </form>
             <div id="header-right">
                 <div id="login">
@@ -40,24 +49,28 @@
                                 <!-- Voornaam ophalen uit de sessie en veilig tonen met htmlspecialchars -->
                                 <!-- htmlspecialchars voorkomt XSS: tekens zoals < > "
                                  worden omgezet naar HTML-entiteiten -->
-                                <p>U bent ingelogd als 
+                                <p><?= __('header.logged_in') ?>
                                         <strong><?= htmlspecialchars($session->getVoornaam()) ?></strong></p>
 
                                 <!-- POST-formulier naar de logout route — 
                                  verwijdert de sessie en redirect naar home -->
                                 <form action="<?= BASE_URL ?>/logout" method="POST">
-                                    <button type="submit" class="light-button">Uitloggen</button>
+                                    <button type="submit" class="light-button">
+                                        <?= __('header.logout') ?>
+                                    </button>
                                 </form>
                             </div>
                         <?php else : ?>
                             <!-- Klant is niet ingelogd: toon de gewone loginknop -->
-                            <button class="light-button login" aria-label="Log in bij je account">Login</button>
+                            <button class="light-button login" aria-label="<?= __('header.aria_login') ?>">
+                                Login
+                            </button>
                         <?php endif; ?>
                     </div>
 
                     <!-- Winkelwagen icoon, staat buiten de login-wrapper zodat hij niet mee hoverd -->
                     <img src="<?= BASE_URL ?>/assets/images/clickables/winkelwagen-lichtgroen.png"
-                        id="winkelwagenLogo" alt="winkelwagen logo">
+                        id="winkelwagenLogo" alt="<?= __('alt_shopping_cart') ?>">
                 </div>
 
                 <!-- Hamburger knop: alleen zichtbaar op mobiel, vervangt de login/winkelwagen iconen -->

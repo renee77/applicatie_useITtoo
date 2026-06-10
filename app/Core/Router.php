@@ -38,6 +38,10 @@ class Router
     // Sleutel = URL pad ('/webshop'), waarde = array met 'view' en 'layout'.
     // Private: niemand buiten deze klasse mag er direct in schrijven.
     private array $routes = [];
+    // Aparte array voor actions/language in deze situatie. Het verschil met $routes:
+    // - $routes verwacht altijd een view + layout om te renderen
+    // - $actions voeren alleen iets uit (sessie opslaan, redirect) en stoppen dan
+    private array $actions = [];
     // Het projectmapje dat van de URL afgeknipt moet worden.
     // Bijvoorbeeld: '/eindopdracht_jaar1'
     // Herbruikbaar: door dit mee te geven bij aanmaken (in plaats van
@@ -68,6 +72,13 @@ class Router
             'layout' => $layout,
             'controller' => $controller,
         ];
+    }
+
+    // Aparte registratiemethode voor actions.
+    // Geen $view of $layout nodig: de handler doet t werk en redirect zelf.
+    public function registerAction(string $path, callable $handler): void
+    {
+        $this->actions[$path] = $handler;
     }
 
     //     Dit is een private methode die de URL schoonmaakt.
@@ -104,6 +115,17 @@ class Router
         // Het schoongemaakte pad ophalen via resolve()
         $path = $this->resolve();
 
+        // Actions worden als EERSTE gecheckt, vóór de route-lookup.
+        // Want een action moet nooit per ongeluk door de route-loop gaan.
+        // Als /lang/set niet als action gevonden zou worden, valt hij door
+        // naar de route-check, vindt niets, en geeft een 404.
+        // Daarom handelen we eerst actions af.
+        if (array_key_exists($path, $this->actions)) {
+            // Voer de handler uit (bijv. LanguageController::set())
+            // Die slaat de taal op in de sessie en doet zelf header() + exit.
+            ($this->actions[$path])();
+            return;
+        }
         // Kijken of dat pad bekend is in $routes
         if (array_key_exists($path, $this->routes)) {
             $view = $this->routes[$path]['view'];

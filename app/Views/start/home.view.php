@@ -1,11 +1,11 @@
 <?php
 
-$title = 'Welkom'; ?>
+$title = __('homepage.title'); ?>
 
 <section class="start-keuze">
     <img src="<?= BASE_URL ?>/assets/images/logos/donker-logo.png" 
-                        class="logo" alt="logo van useITtoo">
-    <h1>Welkom bij useITtoo</h1>
-    <h2>Eerste jaars project van Lonneke van Oers en Eva Bouwman</h2>
+        class="logo" alt="<?= __('header.alt_logo') ?>">
+    <h1><?= __('homepage.header') ?></h1>
+    <h2><?= __('homepage.desc') ?></h2>
     
 </section>
