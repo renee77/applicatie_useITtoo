@@ -11,7 +11,8 @@ class ContactFormulierController
     public function __construct(
         private ContactFormulierDAO $dao,
         private SessionManager $session
-    ) {}
+    ) {
+    }
 
     public function verwerkContactFormulier(): void
     {
@@ -56,7 +57,7 @@ class ContactFormulierController
         }
         // email — verplicht, geldig formaat
         // FILTER_VALIDATE_EMAIL controleert op het patroon tekst@tekst.tekst
-        // filter_var met FILTER_VALIDATE_EMAIL geeft het e-mailadres terug als het geldig is, 
+        // filter_var met FILTER_VALIDATE_EMAIL geeft het e-mailadres terug als het geldig is,
         // en false als het ongeldig is. Met ! zeg je dus "als het e-mailadres ongeldig is"
         if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $fouten[] = "Vul een geldig e-mailadres in.";
