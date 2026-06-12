@@ -102,7 +102,7 @@ class Product
     public function setPrijs(float $prijs): void
     {
         if ($prijs <= 0) {
-            // throw new \InvalidArgumentException("Prijs mag niet 0 of negatief zijn xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            throw new \InvalidArgumentException("Prijs mag niet 0 of negatief zijn xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         }
 
         $this->prijs = $prijs;
