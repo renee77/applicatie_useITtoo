@@ -2,7 +2,7 @@
     <div class="contact-popup">
 
         <div class="contact-popup__header">
-            <h2>Contactformulier</h2>
+            <h2><?= __('contact.contact_form') ?></h2>
             <button class="close dark-button" id="contactClose" aria-label="Sluiten">&#x2715;</button>
         </div>
 
@@ -20,23 +20,25 @@
             <input type="hidden" name="redirect_to"
                 value="<?= htmlspecialchars(strtok($_SERVER['REQUEST_URI'], '?')) ?>">
             <div class="contact-popup__group">
-                <label for="voornaam">Voornaam</label>
+                <label for="voornaam">
+                    <?= __('contact.first_name') ?>
+                </label>
                 <input type="text" id="voornaam" name="voornaam"
-                       placeholder="Voornaam"
+                       placeholder="<?= __('contact.first_name') ?>"
                        value="<?= htmlspecialchars($oudContactFormulier['voornaam'] ?? '') ?>"
                        required />
             </div>
 
             <div class="contact-popup__group">
-                <label for="achternaam">Achternaam</label>
+                <label for="achternaam"><?= __('contact.last_name') ?></label>
                 <input type="text" id="achternaam" name="achternaam"
-                       placeholder="Achternaam"
+                       placeholder="<?= __('contact.last_name') ?>"
                        value="<?= htmlspecialchars($oudContactFormulier['achternaam'] ?? '') ?>"
                        required />
             </div>
 
             <div class="contact-popup__group">
-                <label for="email">Email</label>
+                <label for="email"><?= __('contact.email') ?></label>
                 <input type="email" id="email" name="email"
                        placeholder="email@voorbeeld.nl"
                        value="<?= htmlspecialchars($oudContactFormulier['email'] ?? '') ?>"
@@ -44,23 +46,27 @@
             </div>
 
             <div class="contact-popup__group">
-                <label for="telefoonnummer">Telefoonnummer <span>(optioneel)</span></label>
+                <label for="telefoonnummer">
+                    <?= __('contact.phone_num') ?> 
+                    <span><?= __('contact.opt') ?></span></label>
                 <input type="text" id="telefoonnummer" name="telefoonnummer"
                        placeholder="0123456789"
                        value="<?= htmlspecialchars($oudContactFormulier['telefoonnummer'] ?? '') ?>" />
             </div>
 
             <div class="contact-popup__group">
-                <label for="bericht">Bericht</label>
+                <label for="bericht">
+                    <?= __('contact.message') ?>
+                </label>
                 <textarea id="bericht" name="bericht"
-                          placeholder="Laat hier uw bericht achter...."
+                          placeholder="<?= __('contact.message_ph') ?>"
                           rows="5"
                           maxlength="1000"
                           required><?= htmlspecialchars($oudContactFormulier['bericht'] ?? '') ?></textarea>
             </div>
 
             <div class="contact-popup__actions">
-                <button type="submit" class="dark-button">Verzenden</button>
+                <button type="submit" class="dark-button"><?= __('contact.send') ?></button>
             </div>
         </form>
 

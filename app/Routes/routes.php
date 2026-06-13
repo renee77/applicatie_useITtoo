@@ -72,6 +72,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 return [
                     'voornaam' => $session->getVoornaam()
                 ];
@@ -83,6 +84,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
                 $controller = new \App\Controllers\BeheerProductController($dao, $session);
                 return $controller->index();
@@ -94,6 +96,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.nieuw.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
                 $controller = new \App\Controllers\BeheerProductController($dao, $session);
 
@@ -110,6 +113,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.edit.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
                 $controller = new \App\Controllers\BeheerProductController($dao, $session);
 
@@ -126,6 +130,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
                     $controller = new \App\Controllers\BeheerProductController($dao, $session);
@@ -138,7 +143,10 @@ class Routes
         $router->register(
             '/beheer/upload',
             __DIR__ . '/../../app/Views/beheer/beheer.upload.view.php',
-            'main.beheer.php'
+            'main.beheer.php',
+            function () use ($session) {
+                $session->requireLogin();
+            }
         );
 
         $router->register(
@@ -146,6 +154,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.upload.csv.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 // Hier wordt één verbinding aangemaakt. Als er een losse verbinding wordt gemaakt in de DAO,
                 // Zit de transactie en de DAO op twee verschillende verbndingen. Dit zou dus niet werken.
                 $db = \App\Core\Database::getConnection();
@@ -165,6 +174,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.upload.csv.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $controller = new \App\Controllers\UploadController($session);
                 $controller->sendCSVTemplate();
             }
@@ -175,6 +185,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.upload.afb.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 // Check of er met de request method POST is gewerkt.
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $controller = new \App\Controllers\UploadController($session);
@@ -216,6 +227,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.zoekterm.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $dao = new \App\DAO\ZoektermDAO(\App\Core\Database::getConnection());
 
                 return [
@@ -230,6 +242,7 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.zoekterm.view.php',
             'main.beheer.php',
             function () use ($session) {
+                $session->requireLogin();
                 $controller = new \App\Controllers\ZoekController(
                     new \App\DAO\ZoektermDAO(\App\Core\Database::getConnection()),
                     new \App\DAO\ProductDAO(\App\Core\Database::getConnection()),
