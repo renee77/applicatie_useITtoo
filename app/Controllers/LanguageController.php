@@ -31,9 +31,9 @@ class LanguageController
       // Stuur hem anders terug naar homepage.
         $referentie = $_SERVER['HTTP_REFERER'] ?? '/';
 
-        // Kijk na of de string nog steeds begint met onze base_url, en zo niet, passen we hem aan. 
+        // Kijk na of de string nog steeds begint met onze base_url, en zo niet, passen we hem aan.
         if (!str_starts_with($referentie, BASE_URL)) {
-          $referentie = BASE_URL . '/';
+            $referentie = BASE_URL . '/';
         }
 
         header('Location: ' . $referentie);
