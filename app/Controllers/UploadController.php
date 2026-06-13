@@ -38,6 +38,11 @@ class UploadController
             // r betekent read-only. Bestand wordt alleen ingelezen.
             $bestand = fopen($_FILES['csv_bestand']['tmp_name'], 'r');
 
+            // Controleer of het openen gelukt is
+            // fopen() geeft false terug als het bestand niet geopend kan worden
+            if ($bestand === false) {
+                $this->mistakeRedirect("Kon bestand niet openen.", '/beheer/upload/csv');            
+
             // Eerste rij wordt overgeslagen, zijn kolomnamen en geen product.
             fgetcsv($bestand);
 
@@ -80,34 +85,31 @@ class UploadController
                     $this->dao->addProduct($product);
                     $aangemaakt++;
 
-
-                 // Alles gelukt, opslaan
-                    $this->db->commit();
                 } catch (\InvalidArgumentException $e) {
                // Ongeldige productdata — negatieve prijs, naam te kort etc.
                // Komt uit de validatie in het Product model
-                    $this->db->rollBack();
                     $fouten[] = "Rij $rijnummer: ongeldige data — " . $e->getMessage();
                 } catch (\ValueError $e) {
              // Ongeldige eenheid — waarde bestaat niet in de Eenheid enum
              // Komt van Eenheid::from() als de waarde niet bekend is
-                    $this->db->rollBack();
                     $fouten[] = "Rij $rijnummer: ongeldige eenheid '{$rij[3]}'";
                 } catch (\Exception $e) {
          // Onverwachte fout — vang alles op wat hierboven niet is gevangen
-                    $this->db->rollBack();
                     $fouten[] = "Rij $rijnummer: onverwachte fout — " . $e->getMessage();
                 }
 
                 $rijnummer++;
             }
 
+            // Alles gelukt, opslaan
+            $this->db->commit();
+
             fclose($bestand);
 
      // Stel de melding samen op basis van het resultaat
             if (empty($fouten)) {
                     // Alles gelukt
-                    $this->session->setMelding($aangemaakt + __('notifs.products_imported'));
+                    $this->session->setMelding($aangemaakt . ' ' . __('notifs.products_imported'));
             } else {
                    // Deels gelukt — toon hoeveel gelukt zijn en welke rijen mislukten
                    $foutMelding = "$aangemaakt product(en) geïmporteerd. "
@@ -119,6 +121,7 @@ class UploadController
             header('Location: ' . BASE_URL . '/beheer/upload/csv');
             exit;
         }
+    }
     }
 
     public function sendCSVTemplate(): void

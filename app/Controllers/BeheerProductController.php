@@ -20,7 +20,7 @@ class BeheerProductController
         $zoekterm = trim($_GET['zoekterm'] ?? '');
         // Zoekterm is ingevuld maar te kort — minimaal 2 tekens vereisen
         // voorkomt ook dat een spatie als zoekterm wordt geaccepteerd
-        if (isset($_GET['zoek']) && $zoekterm === '') {
+        if (isset($_GET['zoek']) && strlen($zoekterm) < 2) {
             $this->session->setFout(__('notifs.no_search'));
             $products = $this->dao->getAllProducts();
         } elseif ($zoekterm !== '') {
@@ -28,15 +28,12 @@ class BeheerProductController
 
             // Geef een melding als er geen resultaten zijn
             if (empty($products)) {
-                $this->session->setFout(__('notifs.no_products') + $zoekterm);
+                $this->session->setFout(__('notifs.no_products') . $zoekterm);
             }
         } else {
             // Geen zoekterm — laad alle producten
             $products = $this->dao->getAllProducts();
         }
-
-        $products = $zoekterm !== '' ? $this->dao->getProductByName($zoekterm)
-            : $this->dao->getAllProducts();
 
         return [
             'products' => $products,
@@ -54,6 +51,7 @@ class BeheerProductController
 
     public function createProduct(): void
     {
+        try {
         $product = new Product(
             trim($_POST['naam']),
             (float) $_POST['prijs'],
@@ -68,6 +66,19 @@ class BeheerProductController
         $this->session->setMelding(__('notifs.product_made'));
         header('Location: ' . BASE_URL . '/beheer/product');
         exit;
+        
+        } catch (\ValueError $e) {
+        // Ongeldige eenheid meegegeven
+        $this->session->setFout("Ongeldige eenheid opgegeven.");
+        header('Location: ' . BASE_URL . '/beheer/product/nieuw');
+        exit;
+
+    } catch (\InvalidArgumentException $e) {
+        // Ongeldige productdata — negatieve prijs, naam te kort etc.
+        $this->session->setFout($e->getMessage());
+        header('Location: ' . BASE_URL . '/beheer/product/nieuw');
+        exit;
+    }
     }
 
     public function editProductForm(): array
