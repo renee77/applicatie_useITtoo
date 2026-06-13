@@ -55,6 +55,18 @@ return [
     'password' => 'wachtwoord'
   ],
 
+  'contact' => [
+    'contact_form' => 'Contactformulier',
+    'first_name' => 'Voornaam',
+    'last_name' => 'Achternaam',
+    'email' => 'Email',
+    'phone_num' => 'Telefoonnummer',
+    'opt' => '(optioneel)',
+    'message' => 'Bericht',
+    'message_ph' => 'Laat hier uw bericht achter....',
+    'send' => 'Verzenden'
+  ],
+
   // Beheer paginas
   'admin_header' => [
     'home' => 'Home',
@@ -160,6 +172,14 @@ return [
     'image_imported' => 'Afbeelding succesvol geupload',
     'valid_search' => 'Voer een geldige zoekterm in',
     'no_products_found' => 'Geen producten gevonden',
-    'search_deleted' => 'Zoekterm succesvol verwijderd!'
+    'search_deleted' => 'Zoekterm succesvol verwijderd!',
+    'message_sent' => 'Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.',
+    'message_wrong' => 'Er is iets misgegaan bij het verzenden. Probeer het later opnieuw.',
+    'len_fnshort' => 'Voornaam moet minimaal 2 tekens hebben.',
+    'len_lnshort' => 'Achternaam moet minimaal 2 tekens hebben.',
+    'invalid_mail' => "Vul een geldig e-mailadres in.",
+    'invalid_phone' => 'Ongeldig telefoonnummer, voer een nummer met 10 getallen in.',
+    'message_short' => 'Bericht is te kort, geef minimaal 4 letters in.',
+    'message_long' => 'Een bericht mag maximaal 1000 tekens hebben. Uw bericht te lang en heeft zoveel tekens: '
   ]
 ];

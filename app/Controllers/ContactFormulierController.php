@@ -78,11 +78,11 @@ class ContactFormulierController
 
         try {
             $this->dao->contactFormulierOpslaan($contactFormulier);
-            $this->session->setMelding("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.");
+            $this->session->setMelding(__('notifs.message_sent'));
             header('Location: ' . $redirect_terug);
             exit;
         } catch (\Exception $e) {
-            $this->session->setContactFout("Er is iets misgegaan bij het verzenden. Probeer het later opnieuw.");
+            $this->session->setContactFout( __('notifs.message_wrong'));
             $this->session->setInvoerFormulier($invoerFormulier);
             header('Location: ' . $redirect_terug);
             exit;
@@ -102,30 +102,30 @@ class ContactFormulierController
 
         // voornaam — verplicht, minimaal 2 tekens
         if ($voornaam === '' || strlen($voornaam) < 2) {
-            $fouten[] = "Voornaam moet minimaal 2 tekens hebben.";
+            $fouten[] = __('notifs.len_fnshort');
         }
         // achternaam — verplicht, minimaal 2 tekens
         if ($achternaam === '' || strlen($achternaam) < 2) {
-            $fouten[] = "Achternaam moet minimaal 2 tekens hebben.";
+            $fouten[] = __('notifs.len_lnshort');
         }
         // email — verplicht, geldig formaat
         // FILTER_VALIDATE_EMAIL controleert op het patroon tekst@tekst.tekst
         // filter_var met FILTER_VALIDATE_EMAIL geeft het e-mailadres terug als het geldig is,
         // en false als het ongeldig is. Met ! zeg je dus "als het e-mailadres ongeldig is"
         if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $fouten[] = "Vul een geldig e-mailadres in.";
+            $fouten[] = __('notifs.invalid_mail');
         }
         // telefoonnummer — optioneel, maximaal 10 cijfers
         if ($telefoonnummer !== '' && strlen($telefoonnummer) !== 10) {
-            $fouten[] = "Ongeldig telefoonnummer, voer een nummer met 10 getallen in.";
+            $fouten[] = __('notifs.invalid_phone');
         }
         // bericht — verplicht, minimaal 4 tekens, maximaal 1000 tekens
         $berichtLengte = strlen($bericht);
         if ($berichtLengte < 4) {
-            $fouten[] = "Bericht is te kort, geef minimaal 4 letters in.";
+            $fouten[] = __('notifs.message_short');
         }
         if ($berichtLengte > 1000) {
-            $fouten[] = "Bericht is te lang, uw bericht heeft $berichtLengte tekens. Geef maximaal 1000 tekens in.";
+            $fouten[] = __('notifs.message_long') . $berichtLengte;
         }
 
         return $fouten;

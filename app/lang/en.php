@@ -55,6 +55,18 @@ return [
     'password' => 'Password'
   ],
 
+  'contact' => [
+      'contact_form' => 'Contact form',
+      'first_name' => 'First name',
+      'last_name' => 'Last name',
+      'email' => 'Email',
+      'phone_num' => 'Phone number',
+      'opt' => '(optional)',
+      'message' => 'Message',
+      'message_ph' => 'Leave your message here....',
+      'send' => 'Send'
+  ],
+
   // Admin pages
   'admin_header' => [
     'home' => 'Home',
@@ -160,6 +172,14 @@ return [
     'image_imported' => 'Image successfully uploaded',
     'valid_search' => 'Please enter a valid search term',
     'no_products_found' => 'No products found',
-    'search_deleted' => 'Search term successfully deleted!'
+    'search_deleted' => 'Search term successfully deleted!',
+    'message_sent' => 'Your message has been sent. We will contact you as soon as possible.',
+    'message_wrong' => 'Something went wrong while sending. Please try again later.',
+    'len_fnshort' => 'First name must be at least 2 characters long.',
+    'len_lnshort' => 'Last name must be at least 2 characters long.',
+    'invalid_mail' => 'Please enter a valid email address.',
+    'invalid_phone' => 'Invalid phone number, please enter a number with 10 digits.',
+    'message_short' => 'Message is too short, please enter at least 4 characters.',
+    'message_long' => 'A message can have a maximum of 1000 characters. Your message is too long and has this many characters: '
   ]
 ];
