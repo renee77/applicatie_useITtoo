@@ -82,7 +82,7 @@ class ContactFormulierController
             header('Location: ' . $redirect_terug);
             exit;
         } catch (\Exception $e) {
-            $this->session->setContactFout( __('notifs.message_wrong'));
+            $this->session->setContactFout(__('notifs.message_wrong'));
             $this->session->setInvoerFormulier($invoerFormulier);
             header('Location: ' . $redirect_terug);
             exit;

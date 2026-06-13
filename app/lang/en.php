@@ -180,6 +180,6 @@ return [
     'invalid_mail' => 'Please enter a valid email address.',
     'invalid_phone' => 'Invalid phone number, please enter a number with 10 digits.',
     'message_short' => 'Message is too short, please enter at least 4 characters.',
-    'message_long' => 'A message can have a maximum of 1000 characters. Your message is too long and has this many characters: '
+    'message_long' => 'A message no more than 1000 characters. Your message is too long and has this many characters: '
   ]
 ];
