@@ -75,6 +75,26 @@ class LoginController
         // Type ophalen (geeft 'klant' of 'beheer' terug, of null)
         $type = $this->accountDAO->getTypeByAccountId($account->getAccountId());
 
+        // Sessie-ID vernieuwen vóór het opslaan van logingegevens.
+        // Dit beschermt tegen een "session fixation" aanval:
+        //
+        // Zonder deze regel kan een aanvaller als volgt te werk gaan:
+        //   1. De aanvaller bezoekt de site en krijgt een sessie-ID (bijv. "abc123").
+        //   2. De aanvaller stuurt een link met dat sessie-ID naar het slachtoffer,
+        //      bijvoorbeeld via een phishing-mail.
+        //   3. Het slachtoffer klikt de link en logt in — maar gebruikt nog steeds
+        //      hetzelfde sessie-ID "abc123" dat de aanvaller al heeft.
+        //   4. De aanvaller heeft dat sessie-ID nog in zijn browser en is daarmee
+        //      nu ook ingelogd als het slachtoffer.
+        //
+        // Door hier een nieuw sessie-ID aan te maken is het oude sessie-ID
+        // van de aanvaller na het inloggen waardeloos geworden.
+        // De sessie-inhoud (bijv. winkelwagen) blijft volledig bewaard —
+        // alleen het ID verandert, niet de data.
+        // De true parameter zorgt dat het oude sessie-bestand op de server
+        // ook meteen wordt verwijderd.
+        session_regenerate_id(true);
+
         // Account_id in de sessie zetten
         $this->session->setAccountId($account->getAccountId());
 

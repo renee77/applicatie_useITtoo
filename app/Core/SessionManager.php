@@ -66,6 +66,11 @@ class SessionManager
         $_SESSION['account_id'] = $account_id;
     }
 
+    public function getAccountId(): ?int
+    {
+        return $_SESSION['account_id'] ?? null;
+    }
+
     public function getLanguage(): string
     {
         return $_SESSION['lang'] ?? 'nl';
@@ -75,6 +80,20 @@ class SessionManager
     {
         // default bij null wordt nederlands meegegeven
         $_SESSION['lang'] = $language;
+    }
+
+    // bij ongeldige invoer van formulier kunnen geldige waardes worden bewaard
+    public function setInvoerFormulier(array $oud): void
+    {
+        $_SESSION['invoerFormulier'] = $oud;
+    }
+
+    // formlier vullen met eerder ingevulde waardes
+    public function getInvoerFormulier(): array
+    {
+        $invoer = $_SESSION['invoerFormulier'] ?? [];
+        unset($_SESSION['invoerFormulier']);
+        return $invoer;
     }
 
     // Flash messages:
@@ -103,6 +122,18 @@ class SessionManager
     public function setFout(string $fout): void
     {
         $_SESSION['fout'] = $fout;
+    }
+
+    public function getContactFout(): string
+    {
+        $fout = $_SESSION['contact_fout'] ?? '';
+        unset($_SESSION['contact_fout']);
+        return $fout;
+    }
+
+    public function setContactFout(string $fout): void
+    {
+        $_SESSION['contact_fout'] = $fout;
     }
 
     public function setRolBeheer(string $rol): void

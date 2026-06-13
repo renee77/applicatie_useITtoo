@@ -127,6 +127,7 @@ section#shopBackground {
 
 /* ─── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+
     /* Aanbiedingen: marge aan de zijkanten */
     #sales {
         grid-template-columns: 1fr;
@@ -160,6 +161,8 @@ section#productBackground {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    /* Procentuele breedte zodat de foto meeweegt met de schermgrootte */
+    width: 85%;
     max-width: 700px;
 
     .product-header {
@@ -187,7 +190,7 @@ section#productBackground {
 
         img {
             width: 100%;
-            min-height: 0;
+            aspect-ratio: 9/10;
             object-fit: cover;
             display: block;
         }
@@ -388,6 +391,123 @@ div.login-popup {
 
 .popup-overlay {
     display: none;
+}
+
+/* ─── Contactformulier popup ─────────────────────────────────────────────── */
+/* Plaatst het formulier bovenaan de overlay, net onder de adresbalk */
+#contactOverlay {
+    align-items: flex-start;
+    padding-top: 2rem;
+    overflow-y: auto;
+}
+
+div.contact-popup {
+    background-color: var(--light-green);
+    border: 0.05rem solid var(--dark-green);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    /* Procentuele breedte zodat het meeweegt met de schermgrootte */
+    width: 85%;
+    max-width: 700px;
+    /* margin: 0 auto voorkomt dat auto verticaal de popup centreert */
+    margin: 0 auto;
+    padding: 2rem;
+    z-index: 1000;
+    /* Scrollbaar als het formulier hoger is dan het scherm */
+    max-height: 85vh;
+    overflow-y: auto;
+
+    .contact-popup__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--orange);
+        padding-bottom: 0.75rem;
+
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .contact-popup__error {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        color: #c0392b;
+        background-color: #fde8e8;
+        border: 1px solid #c0392b;
+        border-radius: 5px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .contact-popup__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .contact-popup__group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        input,
+        textarea {
+            background-color: var(--white);
+            border: 1px solid var(--dark-green);
+            border-radius: 5px;
+            padding: 0.55rem 0.75rem;
+            font-size: 1rem;
+            color: var(--onyx);
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+
+            &:focus {
+                outline: none;
+                border-color: var(--dark-green);
+                box-shadow: 0 0 0 3px rgba(47, 82, 51, 0.2);
+            }
+
+            &::placeholder {
+                color: #aaa;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 200px;
+        }
+    }
+
+    .contact-popup__actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+
+        button.dark-button {
+            width: 100%;
+            padding: 0.65rem;
+            font-size: 1rem;
+            font-weight: bold;
+            justify-content: center;
+        }
+    }
+
 }
 
 /* ─── Meldingen ─────────────────────────────────────────────────────────── */

@@ -11,6 +11,7 @@ class Routes
     {
         $router->register('/', __DIR__ . '/../../app/Views/start/home.view.php');
 
+        // WEBSHOPOMGEVING
         $router->register(
             '/webshop',
             __DIR__ . '/../../app/Views/webshop/webshop.view.php',
@@ -45,6 +46,26 @@ class Routes
             }
         );
 
+        // De contact popup staat altijd in de layout (main.php).
+        // Deze route verwerkt alleen het POST-verzoek van het formulier.
+        // Bij een GET-verzoek wordt de gebruiker teruggestuurd naar de webshop.
+        $router->register(
+            '/contact',
+            __DIR__ . '/../../app/Views/webshop/webshop.view.php',
+            'main.php',
+            function () use ($session) {
+                $dao = new \App\DAO\ContactFormulierDAO(\App\Core\Database::getConnection());
+                $controller = new \App\Controllers\ContactFormulierController($dao, $session);
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    return $controller->verwerkContactFormulier();
+                }
+
+                header('Location: ' . BASE_URL . '/webshop');
+                exit;
+            }
+        );
+
         // BEHEEROMGEVING
         $router->register(
             '/beheer',
@@ -62,9 +83,9 @@ class Routes
             __DIR__ . '/../../app/Views/beheer/beheer.product.overview.view.php',
             'main.beheer.php',
             function () use ($session) {
-                    $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
-                    $controller = new \App\Controllers\BeheerProductController($dao, $session);
-                    return $controller->index();
+                $dao = new \App\DAO\ProductDAO(\App\Core\Database::getConnection());
+                $controller = new \App\Controllers\BeheerProductController($dao, $session);
+                return $controller->index();
             }
         );
 
