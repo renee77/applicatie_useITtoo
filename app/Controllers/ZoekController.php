@@ -21,7 +21,7 @@ class ZoekController
     public function zoeken(): array
     {
         // Ontvang $_GET['zoekterm'] + XSS sanitatie
-        $zoekterm = trim(htmlspecialchars($_GET['zoekterm'] ?? '')) ;
+        $zoekterm = trim($_GET['zoekterm'] ?? '');
         // Valideer — leeg of alleen spaties → flash melding "voer een geldige zoekterm in", niet opslaan, stop
         if ($zoekterm === '') {
             $this->session->setMelding(__('notifs.valid_search'));

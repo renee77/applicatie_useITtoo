@@ -16,7 +16,7 @@ $actieveTaal = $session->getLanguage(); ?>
 </head>
 <body>
   <header>
-    <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/></a>
+    <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png" alt="<?= __('header.alt_logo') ?>"/></a>
     <div class="lang-switcher">
       <a href="<?= BASE_URL ?>/lang/set?lang=nl"
       class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>

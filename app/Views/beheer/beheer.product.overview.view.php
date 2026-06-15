@@ -26,18 +26,20 @@ $pageTitle = __('admin_product_overview.page_title');
 
   <table>
     <thead>
-      <th class="tableName">
-        <?= __('admin_product_overview.name') ?>
-      </th>
-      <th class="tablePrice">
-        <?= __('admin_product_overview.price') ?>
-      </th>
-      <th class="tableSupplier">
-        <?= __('admin_product_overview.supplier') ?>
-      </th>
-      <th class="tableWeight"><?= __('admin_product_overview.weight') ?></th>
-      <th class="tableDescription"><?= __('admin_product_overview.description') ?></th>
-      <th class="tableLink"><?= __('admin_product_overview.edit_label') ?></th>
+      <tr>
+        <th class="tableName">
+          <?= __('admin_product_overview.name') ?>
+        </th>
+        <th class="tablePrice">
+          <?= __('admin_product_overview.price') ?>
+        </th>
+        <th class="tableSupplier">
+          <?= __('admin_product_overview.supplier') ?>
+        </th>
+        <th class="tableWeight"><?= __('admin_product_overview.weight') ?></th>
+        <th class="tableDescription"><?= __('admin_product_overview.description') ?></th>
+        <th class="tableLink"><?= __('admin_product_overview.edit_label') ?></th>
+      </tr>
     </thead>
     <tbody>
     <?php foreach ($products as $product) : ?>

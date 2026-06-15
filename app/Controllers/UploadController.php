@@ -42,84 +42,84 @@ class UploadController
             // fopen() geeft false terug als het bestand niet geopend kan worden
             if ($bestand === false) {
                 $this->mistakeRedirect("Kon bestand niet openen.", '/beheer/upload/csv');
+            }
 
             // Eerste rij wordt overgeslagen, zijn kolomnamen en geen product.
-                fgetcsv($bestand);
+            fgetcsv($bestand);
 
             // Houdt in de gaten hoeveel producten succesvol zijn aangemaakt.
-                $aangemaakt = 0;
+            $aangemaakt = 0;
             // Houdt in de gaten hoeveel fouten er zijn geweest.
-                $fouten = [];
+            $fouten = [];
             // Signaleert bij welke rij we beginnen
-                $rijnummer = 2;
+            $rijnummer = 2;
 
             // Transactie starten vóór de loop
-                $this->db->beginTransaction();
+            $this->db->beginTransaction();
 
-                while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
-                   // Nu door alle CSV-rijen gaan lopen.
-                   // fgetcsv() leest één rij tegelijk en geeft een array terug.
-                   // Geef aan dat het max 1000 tekens is, en dat het scheidngsteken ',' is.
-                   // Als einde van het bestand is bereikt, krijgen we false.
-                    try {
-                     // Voor elke rij wordt een Product gemaakt.
-                        // Het is belangrijk dat de volgorde van CSV bestand klopt met de nummering.
-                        // Anders wordt informatie bij verkeerde kolom geplaatst.
-                        $product = new \App\Models\Product(
-                          // naam
-                            trim($rij[0]),
-                            // prijs
-                            (float) $rij[1],
-                            // verkoop_gewicht
-                            (float) $rij[2],
-                            // eenheid (moet kloppen met ENUM)
-                            \App\Models\Eenheid::from(trim($rij[3])),
-                            // Omschrijving, kan null zijn.
-                            trim($rij[4]) ?: null,
-                            // Leverancier, kan null zijn.
-                            trim($rij[5]) ?: null,
-                            // foto_url, kan null zijn.
-                            trim($rij[6]) ?: null,
-                        );
-                       // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
-                        $this->dao->addProduct($product);
-                        $aangemaakt++;
-                    } catch (\InvalidArgumentException $e) {
-                   // Ongeldige productdata — negatieve prijs, naam te kort etc.
-                   // Komt uit de validatie in het Product model
-                        $fouten[] = "Rij $rijnummer: ongeldige data — " . $e->getMessage();
-                    } catch (\ValueError $e) {
-                 // Ongeldige eenheid — waarde bestaat niet in de Eenheid enum
-                 // Komt van Eenheid::from() als de waarde niet bekend is
-                        $fouten[] = "Rij $rijnummer: ongeldige eenheid '{$rij[3]}'";
-                    } catch (\Exception $e) {
-             // Onverwachte fout — vang alles op wat hierboven niet is gevangen
-                        $fouten[] = "Rij $rijnummer: onverwachte fout — " . $e->getMessage();
-                    }
-
-                    $rijnummer++;
+            while (($rij = fgetcsv($bestand, 1000, ',')) !== false) {
+                // Nu door alle CSV-rijen gaan lopen.
+                // fgetcsv() leest één rij tegelijk en geeft een array terug.
+                // Geef aan dat het max 1000 tekens is, en dat het scheidingsteken ',' is.
+                // Als einde van het bestand is bereikt, krijgen we false.
+                try {
+                    // Voor elke rij wordt een Product gemaakt.
+                    // Het is belangrijk dat de volgorde van CSV bestand klopt met de nummering.
+                    // Anders wordt informatie bij verkeerde kolom geplaatst.
+                    $product = new \App\Models\Product(
+                        // naam
+                        trim($rij[0]),
+                        // prijs
+                        (float) $rij[1],
+                        // verkoop_gewicht
+                        (float) $rij[2],
+                        // eenheid (moet kloppen met ENUM)
+                        \App\Models\Eenheid::from(trim($rij[3])),
+                        // Omschrijving, kan null zijn.
+                        trim($rij[4]) ?: null,
+                        // Leverancier, kan null zijn.
+                        trim($rij[5]) ?: null,
+                        // foto_url, kan null zijn.
+                        trim($rij[6]) ?: null,
+                    );
+                    // Vervolgens wordt het product aangemaakt, en wordt er dus opgeplust bij aangemaakt variabele.
+                    $this->dao->addProduct($product);
+                    $aangemaakt++;
+                } catch (\InvalidArgumentException $e) {
+                    // Ongeldige productdata — negatieve prijs, naam te kort etc.
+                    // Komt uit de validatie in het Product model
+                    $fouten[] = "Rij $rijnummer: ongeldige data — " . $e->getMessage();
+                } catch (\ValueError $e) {
+                    // Ongeldige eenheid — waarde bestaat niet in de Eenheid enum
+                    // Komt van Eenheid::from() als de waarde niet bekend is
+                    $fouten[] = "Rij $rijnummer: ongeldige eenheid '{$rij[3]}'";
+                } catch (\Exception $e) {
+                    // Onverwachte fout — vang alles op wat hierboven niet is gevangen
+                    $fouten[] = "Rij $rijnummer: onverwachte fout — " . $e->getMessage();
                 }
+
+                $rijnummer++;
+            }
 
             // Alles gelukt, opslaan
-                $this->db->commit();
+            $this->db->commit();
 
-                fclose($bestand);
+            fclose($bestand);
 
-     // Stel de melding samen op basis van het resultaat
-                if (empty($fouten)) {
-                    // Alles gelukt
-                    $this->session->setMelding($aangemaakt . ' ' . __('notifs.products_imported'));
-                } else {
-                       // Deels gelukt — toon hoeveel gelukt zijn en welke rijen mislukten
-                       $foutMelding = "$aangemaakt product(en) geïmporteerd. "
+            // Stel de melding samen op basis van het resultaat
+            if (empty($fouten)) {
+                // Alles gelukt
+                $this->session->setMelding($aangemaakt . ' ' . __('notifs.products_imported'));
+            } else {
+                // Deels gelukt — toon hoeveel gelukt zijn en welke rijen mislukten
+                $foutMelding = "$aangemaakt product(en) geïmporteerd. "
                     . count($fouten) . " rij(en) overgeslagen:\n"
                     . implode("\n", $fouten);
-                       $this->session->setFout($foutMelding);
-                }
-
-                header('Location: ' . BASE_URL . '/beheer/upload/csv');
-                exit;
+                $this->session->setFout($foutMelding);
             }
+
+            header('Location: ' . BASE_URL . '/beheer/upload/csv');
+            exit;
         }
     }
 
@@ -199,10 +199,13 @@ class UploadController
 
       // Nu moet ik alleen de naam ophalen, zonder de extensie erachter.
       // Hiervoor gebruik ik pathinfo, die het pad opsnijdt in verschillende stukken.
-        $bestandsnaam =  pathinfo($bestand['name'], PATHINFO_FILENAME);
+      // basename() voorkomt dat mapnamen in de bestandsnaam zitten (bv. ../../index).
+      // preg_replace() verwijdert daarna alle tekens die geen letter, cijfer, - of _ zijn.
+        $bestandsnaam = pathinfo($bestand['name'], PATHINFO_FILENAME);
+        $bestandsnaam = preg_replace('/[^a-zA-Z0-9_-]/', '_', basename($bestandsnaam));
 
       // Bepaal de doelmap
-        $uploadMap = __DIR__ . '/../public/assets/images/products/';
+        $uploadMap = __DIR__ . '/../../public/assets/images/products/';
       // Daarna beschrijf ik het volledige doelpad, op basis van alles wat nu is opgevraagd.
         $doelpad = $uploadMap . $bestandsnaam . '.' . $extensie;
 

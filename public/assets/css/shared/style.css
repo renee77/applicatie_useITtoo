@@ -179,6 +179,7 @@ button {
 
 /*make current page less visible */
 .popup-overlay {
+  display: none;
   position: fixed;
   /* stay on top of page*/
   top: 0;
@@ -187,7 +188,6 @@ button {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   /* dark transperent background */
-  display: flex;
   /* make sure it always shows above other items but not above popup */
   z-index: 999;
 

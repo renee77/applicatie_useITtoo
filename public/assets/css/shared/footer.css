@@ -107,14 +107,14 @@ footer {
         align-self: center;
     }
 
-    footer .footer #newletter form#newsletterForm {
+    footer .footer #newsletter form#newsletterForm {
         width: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    footer .footer #newletter form#newsletterForm input[type="email"] {
+    footer .footer #newsletter form#newsletterForm input[type="email"] {
         width: 180%;
     }
 }

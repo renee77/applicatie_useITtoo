@@ -41,10 +41,10 @@ $pageTitle = __('admin_product_overview.page_title');
     </div>
 
     <div class="form__group">
-      <label class="form__groupLabel" for="gewicht">
+      <label class="form__groupLabel" for="eenheid">
         <?= __('admin_product.unit') ?>
       </label>
-        <select name="eenheid" class="form__groupInput" required>
+        <select name="eenheid" id="eenheid" class="form__groupInput" required>
           <?php foreach ($eenheden as $eenheid) : ?>
             <option value="<?= $eenheid->value ?>">
                 <?= $eenheid->value ?>
