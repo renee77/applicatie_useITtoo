@@ -31,7 +31,7 @@
             </nav>
 
             <form action="<?= BASE_URL ?>/zoeken" method="GET" id="search">
-                <input type="text" name="zoekterm" placeholder="<?= __('header.search_value') ?>">
+                <input type="text" name="zoekterm" placeholder="<?= __('header.search_value') ?>" aria-label="<?= __('header.search_value') ?>">
                 <button type="submit" class="light-button"><?= __('header.search') ?></button>
             </form>
             <div id="header-right">
@@ -40,8 +40,9 @@
                         hieraan gepositioneerd kan worden -->
                     <div class="login-wrapper">
                         <!-- Login icoon, altijd zichtbaar -->
-                        <img src="<?= BASE_URL ?>/assets/images/clickables/login-logo.png" 
-                            id="loginLogo" alt="login logo">
+                        <button type="button" id="loginLogo" class="icon-btn" aria-label="<?= __('header.aria_login') ?>">
+                            <img src="<?= BASE_URL ?>/assets/images/clickables/login-logo.png" alt="">
+                        </button>
 
                         <?php if ($session->isLoggedIn()) : ?>
                             <!-- Klant is ingelogd: toon de dropdown met naam en uitlogknop -->
@@ -69,8 +70,9 @@
                     </div>
 
                     <!-- Winkelwagen icoon, staat buiten de login-wrapper zodat hij niet mee hoverd -->
-                    <img src="<?= BASE_URL ?>/assets/images/clickables/winkelwagen-lichtgroen.png"
-                        id="winkelwagenLogo" alt="<?= __('alt_shopping_cart') ?>">
+                    <button type="button" id="winkelwagenLogo" class="icon-btn" aria-label="<?= __('alt_shopping_cart') ?>">
+                        <img src="<?= BASE_URL ?>/assets/images/clickables/winkelwagen-lichtgroen.png" alt="">
+                    </button>
                 </div>
 
                 <!-- Hamburger knop: alleen zichtbaar op mobiel, vervangt de login/winkelwagen iconen -->

@@ -135,7 +135,7 @@ button {
 
   &.orange-button {
     background-color: var(--orange);
-    color: var(--dark-green);
+    color: #000;
 
     &:hover {
       color: var(--dark-green);
@@ -158,7 +158,9 @@ button {
     }
 
     &:focus {
-      outline: none;
+      outline: 2px solid var(--dark-green);
+      outline-offset: 3px;
+      border-radius: 3px;
     }
   }
 }
