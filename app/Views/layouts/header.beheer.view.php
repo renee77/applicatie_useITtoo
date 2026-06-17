@@ -3,6 +3,7 @@
 $actieveTaal = $session->getLanguage(); ?>
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +15,16 @@ $actieveTaal = $session->getLanguage(); ?>
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.product.nieuw.view.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/beheer/beheer.upload.css">
 </head>
+
 <body>
   <header>
-    <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"/></a>
+    <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/images/logos/licht-logo.png"
+        alt="<?= __('header.alt_logo') ?>" /></a>
     <div class="lang-switcher">
       <a href="<?= BASE_URL ?>/lang/set?lang=nl"
-      class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>
+        class="lang-btn <?= $actieveTaal === 'nl' ? 'active' : '' ?>">NL</a>
       <a href="<?= BASE_URL ?>/lang/set?lang=en"
-      class="lang-btn <?= $actieveTaal === 'en' ? 'active' : '' ?>">EN</a>
+        class="lang-btn <?= $actieveTaal === 'en' ? 'active' : '' ?>">EN</a>
     </div>
     <nav>
       <ul>
@@ -34,14 +37,14 @@ $actieveTaal = $session->getLanguage(); ?>
             <?= __('admin_header.products') ?></a>
         </li>
         <li class="navList">
-          <a href="<?= BASE_URL ?>/beheer/zoekterm" 
-          class="navLinks <?= $currentPage == 'zoekterm' ? 'selected' : '' ?>" >
-          <?= __('admin_header.search_terms') ?></a>
+          <a href="<?= BASE_URL ?>/beheer/zoekterm"
+            class="navLinks <?= $currentPage == 'zoekterm' ? 'selected' : '' ?>">
+            <?= __('admin_header.search_terms') ?></a>
         </li>
         <li class="navList">
           <a href="<?= BASE_URL ?>/beheer/upload" class="navLinks <?= $currentPage === 'upload' ? 'selected' : '' ?>">
             <?= __('admin_header.upload') ?>
-        </a>
+          </a>
         </li>
         <li class="navList">
           <a href="#" class="navLinks <?= $currentPage === 'home' ? 'rapportage' : '' ?>">

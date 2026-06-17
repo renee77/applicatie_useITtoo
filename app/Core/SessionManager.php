@@ -50,7 +50,7 @@ class SessionManager
             // Een HTTP-header is een instructie die de server meegeeft aan de browser
             // in dit geval Location: /login, wat de browser vertelt "ga naar deze URL".
             // De browser voert dat dan automatisch uit.
-            header('Location: ' . BASE_URL . '/login');
+            header('Location: ' . BASE_URL . '/webshop/login');
             // exit() stopt de uitvoering van het PHP-script op dat punt.
             // Zonder exit() zou PHP na de header() gewoon doorgaan met de rest van de code uitvoeren
             // ook al heeft de browser al de redirect ontvangen.

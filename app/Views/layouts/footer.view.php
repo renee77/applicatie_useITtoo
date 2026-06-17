@@ -37,7 +37,7 @@
                 1234 AA Breda<br>
                 Tel: 012-3456789
             </address>
-            <p>Email: <a href="mailto:info@useitall.nl">info@useittoo.nl</a></p>
+            <p>Email: <a href="mailto:info@useittoo.nl">info@useittoo.nl</a></p>
             <button class="light-button contact"><?= __('footer.contact') ?></button>
         </div>
     </div>
